@@ -3,10 +3,10 @@
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
-| [Nombre 1] | [email1]@alumnos.urjc.es | [User1] |
-| [Nombre 2] | [email2]@alumnos.urjc.es | [User2] |
-| [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
+| Alejandro Rico González | a.rico.2022@alumnos.urjc.es | ALEJANDR0-RIC0 |
+| David Esteban Bernardo | d.estebanb.2022@alumnos.urjc.es | Daviid24x |
+| Gaizka Aranbarri Berasaluze | g.aranbarri.2022@alumnos.urjc.es | [User3] |
+| Mario Aparisi Castro | m.aparisi.2022@alumnos.urjc.es | [User4] |
 
 ---
 
