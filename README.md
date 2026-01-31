@@ -5,7 +5,7 @@
 |:--- |:--- |:--- |
 | Alejandro Rico González | a.rico.2022@alumnos.urjc.es | ALEJANDR0-RIC0 |
 | David Esteban Bernardo | d.estebanb.2022@alumnos.urjc.es | Daviid24x |
-| Gaizka Aranbarri Berasaluze | g.aranbarri.2022@alumnos.urjc.es | [User3] |
+| Gaizka Aranbarri Berasaluze | g.aranbarri.2022@alumnos.urjc.es | GaizkArNF |
 | Mario Aparisi Castro | m.aparisi.2022@alumnos.urjc.es | [User4] |
 
 ---
