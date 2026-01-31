@@ -1,6 +1,7 @@
-# [Nombre de la Aplicación]
+# PizzaFast - Gestión de Pizzería Online
 
 ## 👥 Miembros del Equipo
+
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
 | Alejandro Rico González | a.rico.2022@alumnos.urjc.es | ALEJANDR0-RIC0 |
@@ -10,69 +11,58 @@
 
 ---
 
-## 🎭 **Preparación 1: Definición del Proyecto**
+## 🎭 Preparación 1: Definición del Proyecto
 
-### **Descripción del Tema**
-[Escribe aquí una descripción breve y concisa de qué trata tu aplicación, el sector al que pertenece y qué valor aporta al usuario].
+### Descripción de la web
+**PizzaFast** es una aplicación web de comercio electrónico diseñada para una pizzería. Su objetivo es permitir a los clientes consultar la carta de productos, realizar pedidos online y gestionar su historial de compras. Para los administradores, la herramienta ofrece un control total sobre el catálogo de productos (pizzas, bebidas, postres) y herramientas de análisis de ventas. La aplicación busca simplificar el flujo de venta de comida a domicilio eliminando la gestión telefónica.
 
-### **Entidades**
-Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
+### Entidades
+La aplicación gestionará las siguientes **4 entidades** principales:
 
-1. **[Entidad 1]**: [Ej: Usuario]
-2. **[Entidad 2]**: [Ej: Producto]
-3. **[Entidad 3]**: [Ej: Pedido]
-4. **[Entidad 4]**: [Ej: Categoría]
+1. **Usuario**: Representa a las personas que interactúan con el sistema (clientes sin registrar, clientes registrados y administradores).
+2. **Producto**: Representa los artículos disponibles para la venta (Pizzas, Bebidas, Postres).
+3. **Pedido**: Representa la transacción de compra finalizada.
+4. **Categoría**: Clasificación para organizar los productos del menú.
 
 **Relaciones entre entidades:**
-- [Ej: Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)]
-- [Ej: Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)]
-- [Ej: Producto - Categoría: Un producto pertenece a una categoría (N:1)]
-- [Descripción de otras relaciones relevantes]
+* **Usuario - Pedido (1:N)**: Un usuario puede realizar múltiples pedidos a lo largo del tiempo, pero un pedido pertenece a un único usuario.
+* **Pedido - Producto (N:M)**: Un pedido contiene varios productos, y un mismo producto puede aparecer en muchos pedidos distintos.
+* **Producto - Categoría (N:1)**: Un producto pertenece a una única categoría (ej. "Pizzas Clásicas"), pero una categoría agrupa múltiples productos.
 
-### **Permisos de los Usuarios**
-Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
+### Permisos de los usuarios
+La aplicación distingue tres roles con permisos específicos y propiedad sobre los datos:
 
-* **Usuario Anónimo**: 
-  - Permisos: [Ej: Visualización de catálogo, búsqueda de productos, registro]
-  - No es dueño de ninguna entidad
+* **Usuario Anónimo**:
+    * **Permisos**: Puede visualizar el catálogo de productos, filtrar por categorías, ver detalles de las pizzas y acceder a las pantallas de login y registro.
+    * **Propiedad**: No es dueño de ninguna entidad.
 
-* **Usuario Registrado**: 
-  - Permisos: [Ej: Gestión de perfil, realizar pedidos, crear valoraciones]
-  - Es dueño de: [Ej: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones]
+* **Usuario Registrado**:
+    * **Permisos**: Tiene todos los permisos del usuario anónimo. Además, puede realizar pedidos, editar su perfil y que le lleguen las facturas al correo.
+    * **Propiedad**: Es dueño de sus datos de **Usuario** (perfil) y de los **Pedidos** que ha realizado.
 
-* **Administrador**: 
-  - Permisos: [Ej: Gestión completa de productos (CRUD), visualización de estadísticas, moderación de contenido]
-  - Es dueño de: [Ej: Productos, Categorías, puede gestionar todos los Pedidos y Usuarios]
+* **Administrador**:
+    * **Permisos**: Tiene control total sobre la aplicación. Puede dar de alta/baja productos y categorías, ver todos los pedidos de la tienda y acceder a gráficas de ventas.
+    * **Propiedad**: Gestiona todas las entidades, siendo el responsable de **Productos** y **Categorías**.
 
-### **Imágenes**
-Indicar qué entidades tendrán asociadas una o varias imágenes:
+### Imágenes
+La aplicación permitirá la subida y visualización de imágenes para las siguientes entidades:
+* **Usuario**: Podrá subir una imagen de avatar para su perfil.
+* **Producto**: Cada pizza o producto tendrá una imagen ilustrativa en la carta.
 
-- **[Entidad con imágenes 1]**: [Ej: Usuario - Una imagen de avatar por usuario]
-- **[Entidad con imágenes 2]**: [Ej: Producto - Múltiples imágenes por producto (galería)]
-- **[Entidad con imágenes 3]**: [Ej: Categoría - Una imagen representativa por categoría]
+### Gráficos
+Se implementará un panel de estadísticas para el administrador con los siguientes gráficos:
+* **Top Ventas**: Mostrará los 5 productos más vendidos para que los usuarios los vean en una tabla.
+* **Top ventas (grafico de barras)**: Mostrará en un gráfico de barras las ventas de los productos a los administradores para ver cuales son los mas vendidos.
 
-### **Gráficos**
-Indicar qué información se mostrará usando gráficos y de qué tipo serán:
+### Tecnología complementaria
+Se utilizará un servicio de **envío de correos electrónicos** .
+* **Funcionalidad**: Al finalizar una compra correctamente, el sistema enviará automáticamente un correo electrónico al usuario registrado. Este correo contendrá la confirmación del pedido y un resumen con los productos adquiridos y el importe total.
+* **Tecnología**: Se utilizará la librería `JavaMailSender` (Spring Boot Starter Mail).
 
-- **Gráfico 1**: [Ej: Ventas mensuales - Gráfico de barras]
-- **Gráfico 2**: [Ej: Productos más vendidos - Gráfico de tarta/circular]
-- **Gráfico 3**: [Ej: Evolución de usuarios registrados - Gráfico de líneas]
-- **Gráfico 4**: [Ej: Distribución de pedidos por categoría - Gráfico de barras horizontales]
-
-### **Tecnología Complementaria**
-Indicar qué tecnología complementaria se empleará:
-
-- [Ej: Envío de correos electrónicos automáticos mediante JavaMailSender]
-- [Ej: Generación de PDFs de facturas usando iText o similar]
-- [Ej: Sistema de autenticación OAuth2 o JWT]
-- [Otras tecnologías externas que se integrarán]
-
-### **Algoritmo o Consulta Avanzada**
-Indicar cuál será el algoritmo o consulta avanzada que se implementará:
-
-- **Algoritmo/Consulta**: [Ej: Sistema de recomendaciones basado en el historial de compras del usuario]
-- **Descripción**: [Ej: Analiza los productos comprados previamente y sugiere productos similares o complementarios utilizando filtrado colaborativo]
-- **Alternativa**: [Ej: Consulta compleja que agrupe ventas por categoría, mes y región, con cálculo de tendencias]
+### Algoritmo o consulta avanzada
+La aplicación implementará un **Sistema de Recomendaciones Personalizado** en el listado de productos.
+* **Descripción**: La aplicación alterará el orden en que se muestran las pizzas basándose en el historial de pedidos del usuario registrado.
+* **Funcionamiento**: Al cargar el menú, el algoritmo consultará los últimos pedido del usuario. Si, por ejemplo, pidió una "Pizza Vegetal", el sistema reordenará la lista para mostrar esa pizza en primer lugar, seguida de otras pizzas que compartan ingredientes similares o la misma categoría, facilitando así la repetición de compra o el descubrimiento de productos afines.
 
 ---
 
