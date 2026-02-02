@@ -46,7 +46,7 @@ La aplicación distingue tres roles con permisos específicos y propiedad sobre 
 
 ### Imágenes
 La aplicación permitirá la subida y visualización de imágenes para las siguientes entidades:
-* **Usuario**: Podrá subir una imagen de avatar para su perfil.
+* **Categoría**: Cada categoría tendrá una foto representativa sobre el tipo de producto que represente. Por ejemplo: bebidas, que salga una lata.
 * **Producto**: Cada pizza o producto tendrá una imagen ilustrativa en la carta.
 
 ### Gráficos
