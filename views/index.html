@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Nonna Pizzería | Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html">
+                <img src="https://placehold.co/50x50/ff6347/white?text=P" alt="Logo">
+                <span>La Nonna</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menuNavegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="menuNavegacion">
+                <ul class="navbar-nav align-items-center gap-3">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Ver Carta</a></li>
+
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon position-relative" href="carrito.html">
+                            <i class="bi bi-cart-fill"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="login.html" class="btn btn-primary btn-login">Iniciar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section d-flex align-items-center justify-content-center text-center">
+        <div class="container text-white">
+            <h1 class="display-3 mb-2">La auténtica pizza italiana</h1>
+            <p class="lead mb-4">Ingredientes frescos, horno de leña y mucho amor.</p>
+            <a href="menu.html" class="btn btn-primary btn-cta">Pedir Ahora</a>
+        </div>
+    </header>
+
+    <section class="section-padding container">
+        <h2 class="section-title text-center">Los 5 Más Vendidos ⭐</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 justify-content-center">
+            <div class="col">
+                <div class="card product-card h-100">
+                    <img src="https://placehold.co/300x200/orange/white?text=Pepperoni" class="card-img-top"
+                        alt="Pizza">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Pizza Pepperoni</h3>
+                        <p class="card-text text-muted small">La favorita de todos.</p>
+                        <span class="price">12.50€</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card product-card h-100">
+                    <img src="https://placehold.co/300x200/green/white?text=Margarita" class="card-img-top" alt="Pizza">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Margarita</h3>
+                        <p class="card-text text-muted small">Mozzarella di bufala.</p>
+                        <span class="price">10.00€</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card product-card h-100">
+                    <img src="https://placehold.co/300x200/brown/white?text=Carbonara" class="card-img-top" alt="Pizza">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Carbonara</h3>
+                        <p class="card-text text-muted small">Huevo y bacon.</p>
+                        <span class="price">13.00€</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card product-card h-100">
+                    <img src="https://placehold.co/300x200/red/white?text=Barbacoa" class="card-img-top" alt="Pizza">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Barbacoa</h3>
+                        <p class="card-text text-muted small">Carne y salsa BBQ.</p>
+                        <span class="price">14.50€</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card product-card h-100">
+                    <img src="https://placehold.co/300x200/yellow/black?text=4+Quesos" class="card-img-top" alt="Pizza">
+                    <div class="card-body">
+                        <h3 class="card-title h5">4 Quesos</h3>
+                        <p class="card-text text-muted small">Para amantes del queso.</p>
+                        <span class="price">13.50€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Nuestras Categorías</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <a href="categoria-pizzas.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('https://placehold.co/400x300/333/fff?text=Pizzas');">
+                        <h3>Pizzas</h3>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="categoria-pastas.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('https://placehold.co/400x300/444/fff?text=Pastas');">
+                        <h3>Pastas</h3>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="categoria-bebidas.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('https://placehold.co/400x300/555/fff?text=Bebidas');">
+                        <h3>Bebidas</h3>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="categoria-postres.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('https://placehold.co/400x300/666/fff?text=Postres');">
+                        <h3>Postres</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="full-menu-cta text-center text-white">
+        <div class="container">
+            <h2 class="mb-3">¿No sabes qué elegir?</h2>
+            <p class="lead mb-4">Descubre todos nuestros sabores en la carta completa.</p>
+            <a href="carta.html" class="btn btn-outline-light btn-cta-secondary">Ver Carta Completa</a>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <h3>La Nonna</h3>
+                    <p>La mejor pizza de la ciudad desde 1990.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Contacto</h3>
+                    <p class="mb-1">Calle Falsa 123, Ciudad</p>
+                    <p>Tel: 555-0199</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Redes Sociales</h3>
+                    <p>Instagram | Facebook | Twitter</p>
+                </div>
+            </div>
+            <div class="copyright mt-5 pt-4 border-top border-secondary text-center">
+                <p>&copy; 2026 La Nonna Pizzería. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
