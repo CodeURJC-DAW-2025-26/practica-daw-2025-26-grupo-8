@@ -38,7 +38,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="login.html" class="btn btn-primary btn-login">Iniciar Sesión</a>
+                        <button class="btn btn-primary btn-login" data-bs-toggle="modal" data-bs-target="#authModal">
+                            <i class="bi bi-person-circle me-1"></i> Iniciar Sesión
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -172,6 +174,107 @@
             </div>
         </div>
     </footer>
+
+
+    <!-- Modal de Inicio de sesión -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg overflow-hidden rounded-4">
+
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-5 d-none d-md-block bg-auth-image"></div>
+
+                        <div class="col-md-7 p-5">
+
+                            <div id="loginForm" class="auth-section">
+                                <h2 class="fw-bold mb-4 title-font text-primary-custom">¡Hola de nuevo!</h2>
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Correo Electrónico</label>
+                                        <input type="email" class="form-control" placeholder="nombre@ejemplo.com"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="******" required>
+                                    </div>
+                                    <div class="d-grid mb-4">
+                                        <button type="submit" class="btn btn-primary btn-custom">Entrar</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="small text-muted mb-0">¿No tienes cuenta?</p>
+                                        <a href="#" class="fw-bold text-primary-custom text-decoration-none"
+                                            onclick="toggleAuth('register')">Regístrate aquí</a>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div id="registerForm" class="auth-section d-none">
+                                <h2 class="fw-bold mb-4 title-font text-primary-custom">Crear Cuenta</h2>
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Correo Electrónico</label>
+                                        <input type="email" class="form-control" placeholder="tu@email.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="Mínimo 6 caracteres"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Repetir Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="Confirma tu contraseña"
+                                            required>
+                                    </div>
+                                    <div class="d-grid mb-4">
+                                        <button type="submit" class="btn btn-primary btn-custom">Registrarse</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="small text-muted mb-0">¿Ya tienes cuenta?</p>
+                                        <a href="#" class="fw-bold text-primary-custom text-decoration-none"
+                                            onclick="toggleAuth('login')">Inicia sesión</a>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAuth(action) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+
+            // Efecto de desvanecimiento
+            if (action === 'register') {
+                loginForm.classList.add('fade-out-left'); // Animación salida
+                setTimeout(() => {
+                    loginForm.classList.add('d-none');
+                    loginForm.classList.remove('fade-out-left');
+
+                    registerForm.classList.remove('d-none');
+                    registerForm.classList.add('fade-in-right'); // Animación entrada
+                }, 300); // Espera 300ms a que termine la animación
+            } else {
+                registerForm.classList.add('fade-out-right'); // Animación salida
+                setTimeout(() => {
+                    registerForm.classList.add('d-none');
+                    registerForm.classList.remove('fade-out-right');
+
+                    loginForm.classList.remove('d-none');
+                    loginForm.classList.add('fade-in-left'); // Animación entrada
+                }, 300);
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

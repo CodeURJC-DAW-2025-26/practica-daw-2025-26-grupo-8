@@ -368,3 +368,93 @@ a {
 .btn-load-more:hover i {
     transform: translateY(4px);
 }
+
+/* --- ESTILOS DEL MODAL DE LOGIN --- */
+
+/* Imagen lateral decorativa */
+.bg-auth-image {
+    background: url('https://placehold.co/400x600/ff6347/fff?text=Pizza+Love') no-repeat center center;
+    background-size: cover;
+}
+
+/* Inputs más limpios */
+.modal-content .form-control {
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.modal-content .form-control:focus {
+    background-color: #fff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(255, 99, 71, 0.1);
+}
+
+/* --- ANIMACIONES DE INTERCAMBIO --- */
+
+/* Clases utilitarias para la animación */
+.fade-in-right {
+    animation: fadeInRight 0.4s ease forwards;
+}
+
+.fade-in-left {
+    animation: fadeInLeft 0.4s ease forwards;
+}
+
+.fade-out-left {
+    animation: fadeOutLeft 0.3s ease forwards;
+}
+
+.fade-out-right {
+    animation: fadeOutRight 0.3s ease forwards;
+}
+
+/* Definición de los movimientos */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes fadeOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
