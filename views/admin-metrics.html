@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métricas | Admin La Nonna</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3 text-white">
+                    <a href="index.html"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none px-3">
+                        <span class="fs-4 title-font">La Nonna Admin</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item"><a href="admin-metrics.html" class="nav-link active bg-danger"><i
+                                    class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                        <li><a href="admin-users.html" class="nav-link text-white"><i
+                                    class="bi bi-people-fill me-2"></i> Usuarios</a></li>
+                        <li><a href="admin-orders.html" class="nav-link text-white"><i
+                                    class="bi bi-cart-check me-2"></i> Pedidos</a></li>
+                        <li><a href="admin-categories.html" class="nav-link text-white"><i class="bi bi-tags me-2"></i>
+                                Categorías</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2 title-font text-dark">Métricas de Ventas</h1>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card text-white bg-primary h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Ingresos Mensuales</h5>
+                                <p class="display-6 fw-bold">4,250€</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-success h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Pizzas Vendidas</h5>
+                                <p class="display-6 fw-bold">850 uds</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-dark bg-warning h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Usuarios Nuevos</h5>
+                                <p class="display-6 fw-bold">24</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-bar-chart-fill text-danger"></i> Top 5 Pizzas Más Vendidas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-bold">1. Pizza Pepperoni</span>
+                                <span>320 ventas</span>
+                            </div>
+                            <div class="progress" style="height: 25px;">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 90%">90%</div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-bold">2. Pizza Barbacoa</span>
+                                <span>210 ventas</span>
+                            </div>
+                            <div class="progress" style="height: 25px;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 65%">65%</div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-bold">3. 4 Quesos</span>
+                                <span>150 ventas</span>
+                            </div>
+                            <div class="progress" style="height: 25px;">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 45%">45%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

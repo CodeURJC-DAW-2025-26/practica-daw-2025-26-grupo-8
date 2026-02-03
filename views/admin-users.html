@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios | Admin La Nonna</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3 text-white">
+                    <a href="index.html"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none px-3">
+                        <span class="fs-4 title-font">La Nonna Admin</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item"><a href="admin-metrics.html" class="nav-link text-white"><i
+                                    class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                        <li><a href="admin-users.html" class="nav-link active bg-danger"><i
+                                    class="bi bi-people-fill me-2"></i> Usuarios</a></li>
+                        <li><a href="admin-orders.html" class="nav-link text-white"><i
+                                    class="bi bi-cart-check me-2"></i> Pedidos</a></li>
+                        <li><a href="admin-categories.html" class="nav-link text-white"><i class="bi bi-tags me-2"></i>
+                                Categorías</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2 title-font text-dark">Gestión de Usuarios</h1>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Buscar usuario...">
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button class="btn btn-primary btn-custom"><i class="bi bi-person-plus"></i> Nuevo
+                                    Usuario</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0 align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Usuario</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Rol</th>
+                                        <th scope="col" class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#101</td>
+                                        <td class="fw-bold"><img src="https://placehold.co/30x30/ff6347/white?text=A"
+                                                class="rounded-circle me-2"> Admin Principal</td>
+                                        <td>admin@lanonna.com</td>
+                                        <td><span class="badge bg-danger">Administrador</span></td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i
+                                                    class="bi bi-key"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#205</td>
+                                        <td><img src="https://placehold.co/30x30/gray/white?text=JP"
+                                                class="rounded-circle me-2"> Juan Pérez</td>
+                                        <td>juan.perez@email.com</td>
+                                        <td><span class="badge bg-secondary">Cliente</span></td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-outline-primary me-1"><i
+                                                    class="bi bi-key"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"><i
+                                                    class="bi bi-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

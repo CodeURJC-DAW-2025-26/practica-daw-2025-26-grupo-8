@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías | Admin La Nonna</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3 text-white">
+                    <a href="index.html"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none px-3">
+                        <span class="fs-4 title-font">La Nonna Admin</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item"><a href="admin-metrics.html" class="nav-link text-white"><i
+                                    class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                        <li><a href="admin-users.html" class="nav-link text-white"><i
+                                    class="bi bi-people-fill me-2"></i> Usuarios</a></li>
+                        <li><a href="admin-orders.html" class="nav-link text-white"><i
+                                    class="bi bi-cart-check me-2"></i> Pedidos</a></li>
+                        <li><a href="admin-categories.html" class="nav-link active bg-danger"><i
+                                    class="bi bi-tags me-2"></i> Categorías</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2 title-font text-dark">Gestión de Categorías</h1>
+                    <button class="btn btn-primary btn-custom"><i class="bi bi-plus-circle"></i> Añadir Nueva
+                        Categoría</button>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://placehold.co/400x200/333/fff?text=Pizzas" class="card-img-top"
+                                alt="Pizzas">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Pizzas</h5>
+                                <p class="card-text text-muted">Sección principal de pizzas italianas.</p>
+                            </div>
+                            <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                                <button class="btn btn-sm btn-outline-primary">Editar</button>
+                                <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://placehold.co/400x200/444/fff?text=Pastas" class="card-img-top"
+                                alt="Pastas">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Pastas</h5>
+                                <p class="card-text text-muted">Espaguetis, macarrones y lasañas.</p>
+                            </div>
+                            <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                                <button class="btn btn-sm btn-outline-primary">Editar</button>
+                                <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://placehold.co/400x200/555/fff?text=Bebidas" class="card-img-top"
+                                alt="Bebidas">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Bebidas</h5>
+                                <p class="card-text text-muted">Refrescos, aguas y vinos.</p>
+                            </div>
+                            <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                                <button class="btn btn-sm btn-outline-primary">Editar</button>
+                                <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

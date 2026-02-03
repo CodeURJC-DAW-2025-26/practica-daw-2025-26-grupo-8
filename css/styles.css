@@ -260,3 +260,45 @@ a {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
 }
+
+
+/* --- ESTILOS PANEL ADMIN --- */
+
+/* Sidebar: Altura completa y color */
+.sidebar {
+    min-height: 100vh;
+    background-color: #212529;
+    /* Dark Bootstrap */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .nav-link {
+    font-size: 1rem;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ff6347 !important;
+    /* Naranja al pasar ratón */
+}
+
+/* El enlace activo (Usuarios) se pone rojo tomate */
+.sidebar .nav-link.active {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+}
+
+/* Ajuste de la tabla */
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+/* Badge personalizado */
+.badge {
+    font-weight: 500;
+}
