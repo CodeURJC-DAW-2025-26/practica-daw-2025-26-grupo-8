@@ -305,3 +305,66 @@ a {
 .badge {
     font-weight: 500;
 }
+
+
+/* --- HEADER DE PÁGINA DE CATEGORÍA --- */
+.category-header {
+    height: 40vh;
+    /* Un poco más pequeño que el Hero de inicio (60vh) */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+/* Sombra en el texto para que se lea bien sobre cualquier foto */
+.category-header h1,
+.category-header p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* --- BOTÓN CARGAR MÁS --- */
+
+.btn-load-more {
+    background-color: var(--color-primary);
+    /* Naranja base */
+    border-color: var(--color-primary);
+    color: white;
+    padding: 15px 40px;
+    /* Más grande y "gordito" */
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    /* Sombra naranja suave inicial */
+    box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Transición elástica suave */
+}
+
+/* Efecto al pasar el ratón */
+.btn-load-more:hover {
+    background-color: #ff4500;
+    /* Naranja un poco más intenso (OrangeRed) */
+    border-color: #ff4500;
+    /* El botón se eleva y crece un pelín */
+    transform: translateY(-3px) scale(1.02);
+    /* La sombra se hace más grande e intensa (efecto glow) */
+    box-shadow: 0 10px 25px rgba(255, 69, 0, 0.5);
+}
+
+/* Efecto clic (cuando lo pulsas) */
+.btn-load-more:active {
+    transform: translateY(1px);
+    /* Se hunde un poco */
+    box-shadow: 0 2px 5px rgba(255, 69, 0, 0.4);
+}
+
+/* Animación del icono de la flecha */
+.btn-load-more i {
+    transition: transform 0.3s ease;
+}
+
+/* Al hacer hover en el botón, la flecha baja sola */
+.btn-load-more:hover i {
+    transform: translateY(4px);
+}
