@@ -225,3 +225,38 @@ a {
     color: #777;
     border-color: #444 !important;
 }
+
+/* --- ESTILOS ESPECÍFICOS DE LA CARTA --- */
+
+/* Botones de Filtro */
+.btn-filter {
+    border: 2px solid #eee;
+    border-radius: 50px;
+    padding: 8px 25px;
+    background-color: white;
+    color: #555;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-filter:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-filter.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+/* Botón pequeño "Añadir" en las tarjetas */
+.btn-outline-primary {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
