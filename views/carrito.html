@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Nonna Pizzería | Inicio</title>
+    <title>Finalizar Pedido | La Nonna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
@@ -30,11 +30,12 @@
                 <ul class="navbar-nav align-items-center gap-3">
 
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center active" href="index.html">
+                        <a class="nav-link d-flex align-items-center" href="index.html">
                             <i class="bi bi-house-door-fill me-2"></i>
                             <span>Inicio</span>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" href="menu.html">
                             <i class="bi bi-book-half me-2"></i> <span>Ver Carta</span>
@@ -42,9 +43,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link cart-icon d-flex align-items-center" href="carrito.html">
+                        <a class="nav-link cart-icon d-flex align-items-center active" href="carrito.html">
                             <i class="bi bi-cart-fill me-2"></i>
-                            <span class="fw-bold">Pedido</span>
+                            <span class="fw-bold active">Pedido</span>
                         </a>
                     </li>
 
@@ -60,108 +61,112 @@
         </div>
     </nav>
 
-    <header class="hero-section d-flex align-items-center justify-content-center text-center">
-        <div class="container text-white">
-            <h1 class="display-3 mb-2">La auténtica pizza italiana</h1>
-            <p class="lead mb-4">Ingredientes frescos, horno de leña y mucho amor.</p>
-            <a href="menu.html" class="btn btn-primary btn-cta">Pedir Ahora</a>
-        </div>
-    </header>
-
-    <section class="section-padding container">
-        <h2 class="section-title text-center">¡¡ Los 5 Más Vendidos !!</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 justify-content-center">
-            <div class="col">
-                <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/orange/white?text=Pepperoni" class="card-img-top"
-                        alt="Pizza">
-                    <div class="card-body">
-                        <h3 class="card-title h5">Pizza Pepperoni</h3>
-                        <p class="card-text text-muted small">La favorita de todos.</p>
-                        <span class="price">12.50€</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/green/white?text=Margarita" class="card-img-top" alt="Pizza">
-                    <div class="card-body">
-                        <h3 class="card-title h5">Margarita</h3>
-                        <p class="card-text text-muted small">Mozzarella di bufala.</p>
-                        <span class="price">10.00€</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/brown/white?text=Carbonara" class="card-img-top" alt="Pizza">
-                    <div class="card-body">
-                        <h3 class="card-title h5">Carbonara</h3>
-                        <p class="card-text text-muted small">Huevo y bacon.</p>
-                        <span class="price">13.00€</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/red/white?text=Barbacoa" class="card-img-top" alt="Pizza">
-                    <div class="card-body">
-                        <h3 class="card-title h5">Barbacoa</h3>
-                        <p class="card-text text-muted small">Carne y salsa BBQ.</p>
-                        <span class="price">14.50€</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/yellow/black?text=4+Quesos" class="card-img-top" alt="Pizza">
-                    <div class="card-body">
-                        <h3 class="card-title h5">4 Quesos</h3>
-                        <p class="card-text text-muted small">Para amantes del queso.</p>
-                        <span class="price">13.50€</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding bg-light">
+    <section class="section-padding bg-light min-vh-100">
         <div class="container">
-            <h2 class="section-title text-center">Nuestras Categorías</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/333/fff?text=Pizzas');">
-                        <h3>Pizzas</h3>
-                    </a>
+            <h1 class="title-font text-center mb-5 display-5">Finalizar Pedido</h1>
+
+            <div class="row g-5">
+
+                <div class="col-lg-8">
+                    <div class="card shadow-sm border-0 rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4 fw-bold text-secondary">Tus Productos (3)</h4>
+
+                            <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+                                <img src="https://placehold.co/100x100/orange/white?text=Pizza"
+                                    class="rounded-3 me-3 d-none d-sm-block" alt="Pizza">
+
+                                <div class="flex-grow-1">
+                                    <h5 class="fw-bold mb-1">Pizza Pepperoni</h5>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+
+                                    <span class="fw-bold fs-5 me-3">13.50€</span>
+
+                                    <button class="btn btn-link text-danger p-0"><i
+                                            class="bi bi-trash fs-5"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+                                <img src="https://placehold.co/100x100/brown/white?text=Carbo"
+                                    class="rounded-3 me-3 d-none d-sm-block" alt="Pasta">
+
+                                <div class="flex-grow-1">
+                                    <h5 class="fw-bold mb-1">Carbonara</h5>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <span class="fw-bold fs-5 me-3">26.00€</span>
+                                    <button class="btn btn-link text-danger p-0"><i
+                                            class="bi bi-trash fs-5"></i></button>
+                                </div>
+                            </div>
+
+                            <a href="menu.html" class="text-decoration-none text-primary-custom fw-bold">
+                                <i class="bi bi-arrow-left"></i> Añadir más cosas
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/444/fff?text=Pastas');">
-                        <h3>Pastas</h3>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/555/fff?text=Bebidas');">
-                        <h3>Bebidas</h3>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/666/fff?text=Postres');">
-                        <h3>Postres</h3>
-                    </a>
+
+                <div class="col-lg-4">
+
+                    <div class="card shadow-sm border-0 rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="mb-3 fw-bold title-font text-primary-custom">Dirección de Envío</h4>
+                            <form>
+                                <div class="mb-3">
+                                    <label class="form-label small text-muted">Calle y número</label>
+                                    <input type="text" class="form-control" placeholder="Ej: Calle Mayor 12, 3ºA"
+                                        required>
+                                </div>
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <label class="form-label small text-muted">Ciudad</label>
+                                        <input type="text" class="form-control" value="Madrid" required>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small text-muted">C. Postal</label>
+                                        <input type="text" class="form-control" placeholder="28000" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small text-muted">Teléfono de contacto</label>
+                                    <input type="tel" class="form-control" placeholder="600 000 000" required>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card shadow border-0 rounded-4 bg-white">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4 fw-bold">Resumen</h4>
+                            <div class="d-flex justify-content-between mb-2 text-muted">
+                                <span>Subtotal</span>
+                                <span>39.50€</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3 text-muted">
+                                <span>Envío</span>
+                                <span class="text-success">Gratis</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-4">
+                                <span class="fs-4 fw-bold title-font">Total</span>
+                                <span class="fs-4 fw-bold text-primary-custom">39.50€</span>
+                            </div>
+
+                            <button
+                                class="btn btn-primary btn-custom btn-load-more w-100 py-3 rounded-pill d-flex align-items-center justify-content-center gap-2">
+                                <span>Confirmar Pedido</span>
+                                <i class="bi bi-check-circle-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="full-menu-cta text-center text-white">
-        <div class="container">
-            <h2 class="mb-3">¿No sabes qué elegir?</h2>
-            <p class="lead mb-4">Descubre todos nuestros sabores en la carta completa.</p>
-            <a href="menu.html" class="btn btn-outline-light btn-cta-secondary">Ver Carta Completa</a>
         </div>
     </section>
 
@@ -188,32 +193,25 @@
         </div>
     </footer>
 
-
-    <!-- Modal de Inicio de sesión -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg overflow-hidden rounded-4">
-
                 <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"
                     aria-label="Close"></button>
-
                 <div class="modal-body p-0">
                     <div class="row g-0">
                         <div class="col-md-5 d-none d-md-block bg-auth-image"></div>
-
                         <div class="col-md-7 p-5">
-
                             <div id="loginForm" class="auth-section">
                                 <h2 class="fw-bold mb-4 title-font text-primary-custom">¡Hola de nuevo!</h2>
                                 <form>
                                     <div class="mb-3">
-                                        <label class="form-label small text-muted">Correo Electrónico</label>
-                                        <input type="email" class="form-control" placeholder="nombre@ejemplo.com"
-                                            required>
+                                        <label class="form-label small text-muted">Correo</label>
+                                        <input type="email" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label small text-muted">Contraseña</label>
-                                        <input type="password" class="form-control" placeholder="******" required>
+                                        <input type="password" class="form-control" required>
                                     </div>
                                     <div class="d-grid mb-4">
                                         <button type="submit" class="btn btn-primary btn-custom">Entrar</button>
@@ -225,23 +223,20 @@
                                     </div>
                                 </form>
                             </div>
-
                             <div id="registerForm" class="auth-section d-none">
                                 <h2 class="fw-bold mb-4 title-font text-primary-custom">Crear Cuenta</h2>
                                 <form>
                                     <div class="mb-3">
-                                        <label class="form-label small text-muted">Correo Electrónico</label>
-                                        <input type="email" class="form-control" placeholder="tu@email.com" required>
+                                        <label class="form-label small text-muted">Correo</label>
+                                        <input type="email" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label small text-muted">Contraseña</label>
-                                        <input type="password" class="form-control" placeholder="Mínimo 6 caracteres"
-                                            required>
+                                        <input type="password" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label small text-muted">Repetir Contraseña</label>
-                                        <input type="password" class="form-control" placeholder="Confirma tu contraseña"
-                                            required>
+                                        <input type="password" class="form-control" required>
                                     </div>
                                     <div class="d-grid mb-4">
                                         <button type="submit" class="btn btn-primary btn-custom">Registrarse</button>
@@ -253,7 +248,6 @@
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -265,25 +259,21 @@
         function toggleAuth(action) {
             const loginForm = document.getElementById('loginForm');
             const registerForm = document.getElementById('registerForm');
-
-            // Efecto de desvanecimiento
             if (action === 'register') {
-                loginForm.classList.add('fade-out-left'); // Animación salida
+                loginForm.classList.add('fade-out-left');
                 setTimeout(() => {
                     loginForm.classList.add('d-none');
                     loginForm.classList.remove('fade-out-left');
-
                     registerForm.classList.remove('d-none');
-                    registerForm.classList.add('fade-in-right'); // Animación entrada
-                }, 300); // Espera 300ms a que termine la animación
+                    registerForm.classList.add('fade-in-right');
+                }, 300);
             } else {
-                registerForm.classList.add('fade-out-right'); // Animación salida
+                registerForm.classList.add('fade-out-right');
                 setTimeout(() => {
                     registerForm.classList.add('d-none');
                     registerForm.classList.remove('fade-out-right');
-
                     loginForm.classList.remove('d-none');
-                    loginForm.classList.add('fade-in-left'); // Animación entrada
+                    loginForm.classList.add('fade-in-left');
                 }, 300);
             }
         }

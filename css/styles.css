@@ -60,18 +60,9 @@ a {
 
 /* NUEVO: ESTILO PARA EL ICONO DEL CARRITO */
 .cart-icon {
-    font-size: 1.3rem;
-    /* Un poco más grande que el texto */
+    font-size: 1.1rem;
     color: #333 !important;
     margin-right: 10px;
-    /* Separación extra con el botón */
-}
-
-.cart-icon:hover {
-    color: var(--color-primary) !important;
-    transform: scale(1.1);
-    /* Efecto pop al pasar el ratón */
-    transition: transform 0.2s;
 }
 
 /* Botón Iniciar Sesión */
@@ -457,4 +448,30 @@ a {
         opacity: 0;
         transform: translateX(20px);
     }
+}
+
+/* --- ESTILOS CARRITO --- */
+.input-group-sm .btn {
+    border-color: #ced4da;
+    color: #333;
+}
+
+.input-group-sm .btn:hover {
+    background-color: #eee;
+}
+
+/* Ajuste para que la imagen no se deforme */
+.rounded-3 {
+    object-fit: cover;
+}
+
+/* --- FORZAR COLOR NARANJA EN MENÚ ACTIVO --- */
+
+/* Esto asegura que el enlace, el icono (i) y el texto (span) sean naranjas */
+.nav-link.active,
+.nav-link.active i,
+.nav-link.active span {
+    color: var(--color-primary) !important;
+    font-weight: 700;
+    /* Opcional: pone la sección actual en negrita */
 }
