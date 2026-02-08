@@ -82,7 +82,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Home**
-![Página Principal](images/home-page.png)
+![Página Principal](images/index-page.png)
 
 > [Descripción breve: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
 
@@ -126,6 +126,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 > [Descripción breve: "Panel de métricas con gráficos de ventas, productos más solicitados y comparativas básicas. Ayuda a detectar tendencias y rendimiento del catálogo."]
 
+---
 
 ## 🛠 **Práctica 1: Web con HTML generado en servidor y AJAX**
 
