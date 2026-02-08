@@ -69,7 +69,7 @@ La aplicación implementará un **Sistema de Recomendaciones Personalizado** en 
 ## 🛠 **Preparación 2: Maquetación de páginas con HTML y CSS**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/mbFzGGHQyUs)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Diagrama de Navegación**
@@ -84,11 +84,48 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 #### **1. Página Principal / Home**
 ![Página Principal](images/home-page.png)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> [Descripción breve: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
 
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+#### **2. Menú**
+![Menú](images/menu-page.png)
 
----
+> [Descripción breve: "Listado completo del catálogo con filtros por categoría, precios visibles y tarjetas de producto. Permite entrar al detalle de cada pizza y añadirla rápidamente al carrito."]
+
+#### **3. Categoría**
+![Categoría](images/category-page.png)
+
+> [Descripción breve: "Vista filtrada por una categoría concreta donde se muestran solo los productos relacionados. Incluye nombre, imagen, precio y accesos directos al detalle."]
+
+#### **4. Producto**
+![Producto](images/product-page.png)
+
+> [Descripción breve: "Página de detalle con imagen ampliada, descripción completa, ingredientes destacados y precio final. Ofrece acciones para elegir cantidad y añadir al carrito."]
+
+#### **5. Carrito**
+![Carrito](images/cart-page.png)
+
+> [Descripción breve: "Resumen del pedido con productos añadidos, cantidades editables y subtotal por línea. Muestra el total final y la acción para continuar con el pago o finalizar la compra."]
+
+#### **6. Admin - Usuarios**
+![Admin Usuarios](images/admin-users-page.png)
+
+> [Descripción breve: "Panel de administración para visualizar el listado de usuarios con su rol y estado. Permite gestionar altas, bajas o cambios de permisos desde una tabla central."]
+
+#### **7. Admin - Pedidos**
+![Admin Pedidos](images/admin-orders-page.png)
+
+> [Descripción breve: "Gestión de pedidos mostrando estado, fecha e importe. Ofrece acceso al detalle de cada compra y opciones para actualizar el estado del pedido."]
+
+#### **8. Admin - Categorías**
+![Admin Categorías](images/admin-categories-page.png)
+
+> [Descripción breve: "Administración de categorías con listado actual y acciones de crear, editar o eliminar. Facilita organizar el catálogo por tipos de producto."]
+
+#### **9. Admin - Métricas**
+![Admin Métricas](images/admin-metrics-page.png)
+
+> [Descripción breve: "Panel de métricas con gráficos de ventas, productos más solicitados y comparativas básicas. Ayuda a detectar tendencias y rendimiento del catálogo."]
+
 
 ## 🛠 **Práctica 1: Web con HTML generado en servidor y AJAX**
 
