@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Nonna Pizzería | Inicio</title>
+    <title>Aparizzio Pizzería | Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
@@ -14,11 +14,12 @@
 
 <body>
 
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
         <div class="container">
             <a class="navbar-brand logo" href="index.html">
                 <img src="../assets/images/logo.png" alt="Logo">
-                <span>La Nonna</span>
+                <span>Aparizzio</span>
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -60,6 +61,7 @@
         </div>
     </nav>
 
+    <!-- HEADER / HERO -->
     <header class="hero-section d-flex align-items-center justify-content-center text-center">
         <div class="container text-white">
             <h1 class="display-3 mb-2">La auténtica pizza italiana</h1>
@@ -68,13 +70,16 @@
         </div>
     </header>
 
+    <!-- SECCIÓN LOS 5 MÁS VENDIDOS -->
     <section class="section-padding container">
         <h2 class="section-title text-center">¡¡ Los 5 Más Vendidos !!</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 justify-content-center">
+
             <div class="col">
                 <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/orange/white?text=Pepperoni" class="card-img-top"
-                        alt="Pizza">
+                    <a href="producto.html">
+                        <img src="/assets/images/pizza-peperonni.png" class="card-img-top" alt="Pizza">
+                    </a>
                     <div class="card-body">
                         <h3 class="card-title h5">Pizza Pepperoni</h3>
                         <p class="card-text text-muted small">La favorita de todos.</p>
@@ -82,9 +87,13 @@
                     </div>
                 </div>
             </div>
+
             <div class="col">
                 <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/green/white?text=Margarita" class="card-img-top" alt="Pizza">
+                    <a href="producto.html">
+                        <img src="https://galbani.es/wp-content/uploads/2020/08/Pizza-Margarita.jpg"
+                            class="card-img-top" alt="Pizza">
+                    </a>
                     <div class="card-body">
                         <h3 class="card-title h5">Margarita</h3>
                         <p class="card-text text-muted small">Mozzarella di bufala.</p>
@@ -92,9 +101,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="col">
                 <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/brown/white?text=Carbonara" class="card-img-top" alt="Pizza">
+                    <a href="producto.html">
+                        <img src="/assets/images/pizza-carbonara.png" class="card-img-top" alt="Pizza">
+                    </a>
                     <div class="card-body">
                         <h3 class="card-title h5">Carbonara</h3>
                         <p class="card-text text-muted small">Huevo y bacon.</p>
@@ -102,9 +114,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="col">
                 <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/red/white?text=Barbacoa" class="card-img-top" alt="Pizza">
+                    <a href="producto.html">
+                        <img src="/assets/images/pizza-barbacoa.jpg" class="card-img-top" alt="Pizza">
+                    </a>
                     <div class="card-body">
                         <h3 class="card-title h5">Barbacoa</h3>
                         <p class="card-text text-muted small">Carne y salsa BBQ.</p>
@@ -112,9 +127,13 @@
                     </div>
                 </div>
             </div>
+
             <div class="col">
                 <div class="card product-card h-100">
-                    <img src="https://placehold.co/300x200/yellow/black?text=4+Quesos" class="card-img-top" alt="Pizza">
+                    <a href="producto.html">
+                        <img src="https://www.novachef.es/media/images/pizza-cuatro-quesos.jpg" class="card-img-top"
+                            alt="Pizza">
+                    </a>
                     <div class="card-body">
                         <h3 class="card-title h5">4 Quesos</h3>
                         <p class="card-text text-muted small">Para amantes del queso.</p>
@@ -122,34 +141,36 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
+    <!-- SECCIÓN CATEGORÍAS -->
     <section class="section-padding bg-light">
         <div class="container">
             <h2 class="section-title text-center">Nuestras Categorías</h2>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
                     <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/333/fff?text=Pizzas');">
+                        style="background-image: url('/assets/images/pizzas-banner-categoria-pizza.jpg');">
                         <h3>Pizzas</h3>
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/444/fff?text=Pastas');">
+                        style="background-image: url('/assets/images/pastas-banner.png');">
                         <h3>Pastas</h3>
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/555/fff?text=Bebidas');">
+                        style="background-image: url('/assets/images/bebidas-banner.jpg');">
                         <h3>Bebidas</h3>
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <a href="categoria.html" class="cat-card d-flex align-items-center justify-content-center"
-                        style="background-image: url('https://placehold.co/400x300/666/fff?text=Postres');">
+                        style="background-image: url('/assets/images/posters-banner.png');">
                         <h3>Postres</h3>
                     </a>
                 </div>
@@ -157,6 +178,7 @@
         </div>
     </section>
 
+    <!-- SECCIÓN CARTA COMPLETA -->
     <section class="full-menu-cta text-center text-white">
         <div class="container">
             <h2 class="mb-3">¿No sabes qué elegir?</h2>
@@ -165,11 +187,12 @@
         </div>
     </section>
 
+    <!-- SECCIÓN FOOTER -->
     <footer class="footer-section">
         <div class="container">
             <div class="row g-5">
                 <div class="col-md-4">
-                    <h3>La Nonna</h3>
+                    <h3>Aparizzio</h3>
                     <p>La mejor pizza de la ciudad desde 1990.</p>
                 </div>
                 <div class="col-md-4">
@@ -183,13 +206,13 @@
                 </div>
             </div>
             <div class="copyright mt-5 pt-4 border-top border-secondary text-center">
-                <p>&copy; 2026 La Nonna Pizzería. Todos los derechos reservados.</p>
+                <p>&copy; 2026 Aparizzio Pizzería. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
 
-    <!-- Modal de Inicio de sesión -->
+    <!-- MODAL DE INICIO DE SESIÓN -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg overflow-hidden rounded-4">
@@ -199,7 +222,10 @@
 
                 <div class="modal-body p-0">
                     <div class="row g-0">
-                        <div class="col-md-5 d-none d-md-block bg-auth-image"></div>
+                        <div class="col-md-5 d-none d-md-block position-relative overflow-hidden p-0">
+                            <img src="/assets/images/inicio-sesion_resized.jpg" alt="Pizza Login"
+                                class="auth-modal-img">
+                        </div>
 
                         <div class="col-md-7 p-5">
 
@@ -232,6 +258,10 @@
                                     <div class="mb-3">
                                         <label class="form-label small text-muted">Correo Electrónico</label>
                                         <input type="email" class="form-control" placeholder="tu@email.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Nombre Completo</label>
+                                        <input type="text" class="form-control" placeholder="Ej: Juan Pérez" required>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label small text-muted">Contraseña</label>

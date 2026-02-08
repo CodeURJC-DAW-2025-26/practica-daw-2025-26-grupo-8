@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Pepperoni | Aparizzio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html">
+                <img src="../assets/images/logo.png" alt="Logo">
+                <span>Aparizzio</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menuNavegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="menuNavegacion">
+                <ul class="navbar-nav align-items-center gap-3">
+
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="index.html">
+                            <i class="bi bi-house-door-fill me-2"></i>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="menu.html">
+                            <i class="bi bi-book-half me-2"></i> <span>Ver Carta</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon d-flex align-items-center" href="carrito.html">
+                            <i class="bi bi-cart-fill me-2"></i>
+                            <span class="fw-bold">Pedido</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="btn btn-primary btn-login d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#authModal">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span>Iniciar Sesión</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN DE DETALLE DEL PRODUCTO -->
+    <section class="section-padding container">
+        <div class="row align-items-center g-5">
+
+            <div class="col-md-6">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <img src="/assets/images/pizza-peperonni.png" class="img-fluid w-100" alt="Pizza Pepperoni"
+                        style="object-fit: cover; max-height: 600px;">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="ps-md-4">
+
+                    <span class="badge bg-dark text-white mb-3 px-3 py-2 fs-6 rounded-pill">Categoría: Pizzas</span>
+
+                    <h1 class="display-4 fw-bold title-font text-dark mb-2">Pizza Pepperoni</h1>
+
+                    <p class="display-5 fw-bold text-primary-custom mb-4">12.50€</p>
+
+                    <h5 class="fw-bold mb-3">Descripción</h5>
+                    <p class="lead text-secondary mb-4">
+                        Nuestra pizza más vendida. Elaborada con una base de masa madre fermentada durante 48 horas,
+                        salsa de tomate San Marzano importado de Italia, abundante mozzarella de búfala fundida y
+                        rodajas de pepperoni ligeramente picante que se tuestan a la perfección en nuestro horno de leña
+                        tradicional.
+                    </p>
+
+                    <div class="mb-5">
+                        <span class="fw-bold me-2">Alérgenos:</span>
+                        <span class="badge border border-secondary text-secondary me-1" title="Contiene Gluten"><i
+                                class="bi bi-info-circle"></i> Gluten</span>
+                        <span class="badge border border-secondary text-secondary" title="Contiene Lácteos"><i
+                                class="bi bi-info-circle"></i> Lácteos</span>
+                    </div>
+
+                    <div class="d-grid gap-3 d-md-flex justify-content-md-start">
+                        <button
+                            class="btn btn-primary btn-custom btn-load-more px-5 py-3 rounded-pill d-flex align-items-center justify-content-center gap-2 flex-grow-1 flex-md-grow-0">
+                            <i class="bi bi-cart-plus-fill fs-5"></i>
+                            <span>Añadir al Pedido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <h3>Aparizzio</h3>
+                    <p>La mejor pizza de la ciudad desde 1990.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Contacto</h3>
+                    <p class="mb-1">Calle Falsa 123, Ciudad</p>
+                    <p>Tel: 555-0199</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Redes Sociales</h3>
+                    <p>Instagram | Facebook | Twitter</p>
+                </div>
+            </div>
+            <div class="copyright mt-5 pt-4 border-top border-secondary text-center">
+                <p>&copy; 2026 Aparizzio Pizzería. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
