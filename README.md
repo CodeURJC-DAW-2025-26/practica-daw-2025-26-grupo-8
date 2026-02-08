@@ -77,7 +77,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ![Diagrama de Navegación](assets/images/Images-Readme/navigation-diagram.png)
 
-> [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
+> [Descripción breve: El diagrama resume la navegacion principal desde la pagina de inicio hacia el catalogo y los detalles de producto, con acceso al carrito segun el rol del usuario. Las pantallas de autenticacion estan siempre disponibles y el administrador dispone de vistas de gestion adicionales.]
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
