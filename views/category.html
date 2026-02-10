@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzas | Aparizzio Pizzería</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html">
+                <img src="../assets/images/logo.png" alt="Logo">
+                <span>Aparizzio</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menuNavegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="menuNavegacion">
+                <ul class="navbar-nav align-items-center gap-3">
+
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="index.html">
+                            <i class="bi bi-house-door-fill me-2"></i>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="menu.html">
+                            <i class="bi bi-book-half me-2"></i> <span>Ver Carta</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon d-flex align-items-center" href="cart.html">
+                            <i class="bi bi-cart-fill me-2"></i>
+                            <span class="fw-bold">Pedido</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="btn btn-primary btn-login d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#authModal">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span>Iniciar Sesión</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CABECERA DE CATEGORÍA -->
+    <header class="category-header d-flex align-items-center justify-content-center"
+        style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/assets/images/pizzas-banner-categoria-pizza.jpg');">
+        <div class="text-center text-white">
+            <h1 class="display-2 title-font">Nuestras Pizzas</h1>
+            <p class="lead fs-4">Horneadas al momento en horno de leña</p>
+        </div>
+    </header>
+
+    <!-- SECCIÓN DE PRODUCTOS -->
+    <section class="section-padding container">
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+
+            <div class="col">
+                <div class="card product-card h-100">
+                    <a href="product.html">
+                        <img src="/assets/images/pizza-peperonni.png" class="card-img-top" alt="Pizza">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <div class="mb-auto">
+                            <h3 class="card-title h5">Pizza Pepperoni</h3>
+                            <p class="card-text text-muted small">Clásica con pepperoni crujiente.</p>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <span class="price">12.50€</span>
+                            <button class="btn btn-sm btn-outline-primary rounded-pill"><i class="bi bi-plus-lg"></i>
+                                Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card product-card h-100">
+                    <a href="product.html">
+                        <img src="/assets/images/pizza-barbacoa.jpg" class="card-img-top" alt="Pizza">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <div class="mb-auto">
+                            <h3 class="card-title h5">Pizza Barbacoa</h3>
+                            <p class="card-text text-muted small">Carne picada, bacon y salsa BBQ.</p>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <span class="price">14.50€</span>
+                            <button class="btn btn-sm btn-outline-primary rounded-pill"><i class="bi bi-plus-lg"></i>
+                                Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+
+            <button
+                class="btn btn-primary btn-custom btn-load-more rounded-pill mb-4 d-inline-flex align-items-center gap-2">
+                <span>Cargar más</span>
+                <i class="bi bi-arrow-down-circle-fill"></i>
+            </button>
+
+            <div class="d-block"></div> <a href="menu.html" class="btn btn-link text-secondary text-decoration-none">
+                <i class="bi bi-grid-3x3-gap-fill me-1"></i> Ver la Carta Completa
+            </a>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <h3>Aparizzio</h3>
+                    <p>La mejor pizza de la ciudad desde 1990.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Contacto</h3>
+                    <p class="mb-1">Calle Falsa 123, Ciudad</p>
+                    <p>Tel: 555-0199</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Redes Sociales</h3>
+                    <p>Instagram | Facebook | Twitter</p>
+                </div>
+            </div>
+            <div class="copyright mt-5 pt-4 border-top border-secondary text-center">
+                <p>&copy; 2026 Aparizzio Pizzería. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

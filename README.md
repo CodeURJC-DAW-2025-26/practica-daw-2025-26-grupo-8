@@ -7,7 +7,7 @@
 | Alejandro Rico González | a.rico.2022@alumnos.urjc.es | ALEJANDR0-RIC0 |
 | David Esteban Bernardo | d.estebanb.2022@alumnos.urjc.es | Daviid24x |
 | Gaizka Aranbarri Berasaluze | g.aranbarri.2022@alumnos.urjc.es | GaizkArNF |
-| Mario Aparisi Castro | m.aparisi.2022@alumnos.urjc.es | [User4] |
+| Mario Aparisi Castro | m.aparisi.2022@alumnos.urjc.es | Aparisi02 |
 
 ---
 
@@ -69,24 +69,62 @@ La aplicación implementará un **Sistema de Recomendaciones Personalizado** en 
 ## 🛠 **Preparación 2: Maquetación de páginas con HTML y CSS**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/mbFzGGHQyUs)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Diagrama de Navegación**
 Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-![Diagrama de Navegación](images/navigation-diagram.png)
+![Diagrama de Navegación](assets/images/Images-Readme/navigation-diagram.png)
 
-> [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
+> [Descripción breve: El diagrama resume la navegacion principal desde la pagina de inicio hacia el catalogo y los detalles de producto, con acceso al carrito segun el rol del usuario. Las pantallas de autenticacion estan siempre disponibles y el administrador dispone de vistas de gestion adicionales.]
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Home**
-![Página Principal](images/home-page.png)
+![Página Principal](assets/images/Images-Readme/index-page.png)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> [Descripción breve: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados aun."]
 
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+#### **2. Menú**
+![Menú](assets/images/Images-Readme/menu-page.png)
+
+> [Descripción breve: "Listado completo del catálogo con filtros por categoría, precios visibles y tarjetas de producto. Permite entrar al detalle de cada pizza y añadirla rápidamente al carrito."]
+
+#### **3. Categoría**
+![Categoría](assets/images/Images-Readme/category-page.png)
+
+> [Descripción breve: "Vista filtrada por una categoría concreta donde se muestran solo los productos relacionados. Incluye nombre, imagen, precio y accesos directos al detalle."]
+
+#### **4. Producto**
+![Producto](assets/images/Images-Readme/product-page.png)
+
+> [Descripción breve: "Página de detalle con imagen ampliada, descripción completa, ingredientes destacados y precio final. Ofrece acciones para elegir cantidad y añadir al carrito."]
+
+#### **5. Carrito**
+![Carrito](assets/images/Images-Readme/cart-page.png)
+
+> [Descripción breve: "Resumen del pedido con productos añadidos, cantidades editables y subtotal por línea. Muestra el total final y la acción para continuar con el pago o finalizar la compra."]
+
+#### **6. Admin - Usuarios**
+![Admin Usuarios](assets/images/Images-Readme/admin-users-page.png)
+
+> [Descripción breve: "Panel de administración para visualizar el listado de usuarios con su rol y estado. Permite gestionar altas, bajas o cambios de permisos desde una tabla central."]
+
+#### **7. Admin - Pedidos**
+![Admin Pedidos](assets/images/Images-Readme/admin-orders-page.png)
+
+> [Descripción breve: "Gestión de pedidos mostrando estado, fecha e importe. Ofrece acceso al detalle de cada compra y opciones para actualizar el estado del pedido."]
+
+#### **8. Admin - Categorías**
+![Admin Categorías](assets/images/Images-Readme/admin-categories-page.png)
+
+> [Descripción breve: "Administración de categorías con listado actual y acciones de crear, editar o eliminar. Facilita organizar el catálogo por tipos de producto."]
+
+#### **9. Admin - Métricas**
+![Admin Métricas](assets/images/Images-Readme/admin-metrics-page.png)
+
+> [Descripción breve: "Panel de métricas con gráficos de ventas, productos más solicitados y comparativas básicas. Ayuda a detectar tendencias y rendimiento del catálogo."]
 
 ---
 
@@ -132,7 +170,7 @@ Solo si han cambiado.
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](images/database-diagram.png)
+![Diagrama Entidad-Relación](assets/images/Images-Readme/database-diagram.png)
 
 > [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
 
@@ -140,7 +178,7 @@ Diagrama mostrando las entidades, sus campos y relaciones:
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
 
-![Diagrama de Clases](images/classes-diagram.png)
+![Diagrama de Clases](assets/images/Images-Readme/classes-diagram.png)
 
 > [Descripción opcional del diagrama y relaciones principales]
 
@@ -222,7 +260,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](images/complete-classes-diagram.png)
+![Diagrama de Clases Actualizado](assets/images/Images-Readme/complete-classes-diagram.png)
 
 ### **Instrucciones de Ejecución con Docker**
 
@@ -387,7 +425,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 Diagrama mostrando los componentes React, hooks personalizados, servicios y sus relaciones:
 
-![Diagrama de Componentes React](images/spa-classes-diagram.png)
+![Diagrama de Componentes React](assets/images/Images-Readme/spa-classes-diagram.png)
 
 ### **Participación de Miembros en la Práctica 3**
 
