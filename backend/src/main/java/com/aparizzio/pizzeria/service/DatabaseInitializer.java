@@ -58,13 +58,13 @@ public class DatabaseInitializer {
             Product pepperoni = new Product("Pizza Pepperoni",
                     "Salsa de tomate, mozzarella y pepperoni picante.",
                     List.of("Gluten", "Lácteos"), 12, "La favorita", catPizzas);
-            setProductImage(pepperoni, "assets/images/pizza-peperonni.png");
+            setProductImage(pepperoni, "static/assets/images/pizza-peperonni.png");
             productRepository.save(pepperoni);
 
             Product barbacoa = new Product("Pizza Barbacoa",
                     "Carne picada, pollo, bacon y nuestra salsa secreta.",
                     List.of("Gluten", "Lácteos", "Carne"), 14, "Sabor intenso", catPizzas);
-            setProductImage(barbacoa, "assets/images/pizza-barbacoa.jpg");
+            setProductImage(barbacoa, "static/assets/images/pizza-barbacoa.jpg");
             productRepository.save(barbacoa);
 
             // 3. Carga de Usuarios (1 Admin, 2 Usuarios registrados)
