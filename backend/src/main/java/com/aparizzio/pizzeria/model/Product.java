@@ -3,6 +3,7 @@ package com.aparizzio.pizzeria.model;
 import java.util.List;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +31,7 @@ public class Product {
     @ManyToOne
     private Category category;
 
+    @ElementCollection
     private List<String> allergies;
 
     private int price;
@@ -45,6 +47,7 @@ public class Product {
         this.allergies = allergies;
         this.price = price;
         this.shortDescription = shortDescription;
+        this.category = category;
     }
 
     public String getTitle() {
