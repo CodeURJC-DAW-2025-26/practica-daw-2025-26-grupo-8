@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aparizzio Pizzería | Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html">
+                <img src="../assets/images/logo.png" alt="Logo">
+                <span>Aparizzio</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menuNavegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="menuNavegacion">
+                <ul class="navbar-nav align-items-center gap-3">
+
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center active" href="index.html">
+                            <i class="bi bi-house-door-fill me-2"></i>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="menu.html">
+                            <i class="bi bi-book-half me-2"></i> <span>Ver Carta</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon d-flex align-items-center" href="cart.html">
+                            <i class="bi bi-cart-fill me-2"></i>
+                            <span class="fw-bold">Pedido</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="btn btn-primary btn-login d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#authModal">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span>Iniciar Sesión</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER / HERO -->
+    <header class="hero-section d-flex align-items-center justify-content-center text-center">
+        <div class="container text-white">
+            <h1 class="display-3 mb-2">La auténtica pizza italiana</h1>
+            <p class="lead mb-4">Ingredientes frescos, horno de leña y mucho amor.</p>
+            <a href="menu.html" class="btn btn-primary btn-cta">Pedir Ahora</a>
+        </div>
+    </header>
+
+    <!-- SECCIÓN LOS 5 MÁS VENDIDOS -->
+    <section class="section-padding container">
+        <h2 class="section-title text-center">¡¡ Los 5 Más Vendidos !!</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 justify-content-center">
+
+            <div class="col">
+                <div class="card product-card h-100">
+                    <a href="product.html">
+                        <img src="/assets/images/pizza-peperonni.png" class="card-img-top" alt="Pizza">
+                    </a>
+                    <div class="card-body">
+                        <h3 class="card-title h5">Pizza Pepperoni</h3>
+                        <p class="card-text text-muted small">La favorita de todos.</p>
+                        <span class="price">12.50€</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card product-card h-100">
+                    <a href="product.html">
+                        <img src="https://galbani.es/wp-content/uploads/2020/08/Pizza-Margarita.jpg"
+                            class="card-img-top" alt="Pizza">
+                    </a>
+                    <div class="card-body">
+                        <h3 class="card-title h5">Margarita</h3>
+                        <p class="card-text text-muted small">Mozzarella di bufala.</p>
+                        <span class="price">10.00€</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card product-card h-100">
+                    <a href="product.html">
+                        <img src="/assets/images/pizza-carbonara.png" class="card-img-top" alt="Pizza">
+                    </a>
+                    <div class="card-body">
+                        <h3 class="card-title h5">Carbonara</h3>
+                        <p class="card-text text-muted small">Huevo y bacon.</p>
+                        <span class="price">13.00€</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card product-card h-100">
+                    <a href="product.html">
+                        <img src="/assets/images/pizza-barbacoa.jpg" class="card-img-top" alt="Pizza">
+                    </a>
+                    <div class="card-body">
+                        <h3 class="card-title h5">Barbacoa</h3>
+                        <p class="card-text text-muted small">Carne y salsa BBQ.</p>
+                        <span class="price">14.50€</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card product-card h-100">
+                    <a href="product.html">
+                        <img src="https://www.novachef.es/media/images/pizza-cuatro-quesos.jpg" class="card-img-top"
+                            alt="Pizza">
+                    </a>
+                    <div class="card-body">
+                        <h3 class="card-title h5">4 Quesos</h3>
+                        <p class="card-text text-muted small">Para amantes del queso.</p>
+                        <span class="price">13.50€</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN CATEGORÍAS -->
+    <section class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Nuestras Categorías</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <a href="category.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('/assets/images/pizzas-banner-categoria-pizza.jpg');">
+                        <h3>Pizzas</h3>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="category.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('/assets/images/pastas-banner.png');">
+                        <h3>Pastas</h3>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="category.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('/assets/images/bebidas-banner.jpg');">
+                        <h3>Bebidas</h3>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="category.html" class="cat-card d-flex align-items-center justify-content-center"
+                        style="background-image: url('/assets/images/posters-banner.png');">
+                        <h3>Postres</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CARTA COMPLETA -->
+    <section class="full-menu-cta text-center text-white">
+        <div class="container">
+            <h2 class="mb-3">¿No sabes qué elegir?</h2>
+            <p class="lead mb-4">Descubre todos nuestros sabores en la carta completa.</p>
+            <a href="menu.html" class="btn btn-outline-light btn-cta-secondary">Ver Carta Completa</a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN FOOTER -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <h3>Aparizzio</h3>
+                    <p>La mejor pizza de la ciudad desde 1990.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Contacto</h3>
+                    <p class="mb-1">Calle Falsa 123, Ciudad</p>
+                    <p>Tel: 555-0199</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Redes Sociales</h3>
+                    <p>Instagram | Facebook | Twitter</p>
+                </div>
+            </div>
+            <div class="copyright mt-5 pt-4 border-top border-secondary text-center">
+                <p>&copy; 2026 Aparizzio Pizzería. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODAL DE INICIO DE SESIÓN -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg overflow-hidden rounded-4">
+
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-5 d-none d-md-block position-relative overflow-hidden p-0">
+                            <img src="/assets/images/inicio-sesion_resized.jpg" alt="Pizza Login"
+                                class="auth-modal-img">
+                        </div>
+
+                        <div class="col-md-7 p-5">
+
+                            <div id="loginForm" class="auth-section">
+                                <h2 class="fw-bold mb-4 title-font text-primary-custom">¡Hola de nuevo!</h2>
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Correo Electrónico</label>
+                                        <input type="email" class="form-control" placeholder="nombre@ejemplo.com"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="******" required>
+                                    </div>
+                                    <div class="d-grid mb-4">
+                                        <button type="submit" class="btn btn-primary btn-custom">Entrar</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="small text-muted mb-0">¿No tienes cuenta?</p>
+                                        <a href="#" class="fw-bold text-primary-custom text-decoration-none"
+                                            onclick="toggleAuth('register')">Regístrate aquí</a>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div id="registerForm" class="auth-section d-none">
+                                <h2 class="fw-bold mb-4 title-font text-primary-custom">Crear Cuenta</h2>
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Correo Electrónico</label>
+                                        <input type="email" class="form-control" placeholder="tu@email.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Nombre Completo</label>
+                                        <input type="text" class="form-control" placeholder="Ej: Juan Pérez" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="Mínimo 6 caracteres"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">Repetir Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="Confirma tu contraseña"
+                                            required>
+                                    </div>
+                                    <div class="d-grid mb-4">
+                                        <button type="submit" class="btn btn-primary btn-custom">Registrarse</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="small text-muted mb-0">¿Ya tienes cuenta?</p>
+                                        <a href="#" class="fw-bold text-primary-custom text-decoration-none"
+                                            onclick="toggleAuth('login')">Inicia sesión</a>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAuth(action) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+
+            // Efecto de desvanecimiento
+            if (action === 'register') {
+                loginForm.classList.add('fade-out-left'); // Animación salida
+                setTimeout(() => {
+                    loginForm.classList.add('d-none');
+                    loginForm.classList.remove('fade-out-left');
+
+                    registerForm.classList.remove('d-none');
+                    registerForm.classList.add('fade-in-right'); // Animación entrada
+                }, 300); // Espera 300ms a que termine la animación
+            } else {
+                registerForm.classList.add('fade-out-right'); // Animación salida
+                setTimeout(() => {
+                    registerForm.classList.add('d-none');
+                    registerForm.classList.remove('fade-out-right');
+
+                    loginForm.classList.remove('d-none');
+                    loginForm.classList.add('fade-in-left'); // Animación entrada
+                }, 300);
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
