@@ -1,6 +1,7 @@
 package com.aparizzio.pizzeria.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.annotation.PostConstruct;
 
@@ -17,7 +18,6 @@ import com.aparizzio.pizzeria.model.User;
 import com.aparizzio.pizzeria.repository.CategoryRepository;
 import com.aparizzio.pizzeria.repository.ProductRepository;
 import com.aparizzio.pizzeria.repository.UserRepository;
-import java.util.List;
 
 @Service
 public class DatabaseInitializer {
@@ -43,18 +43,39 @@ public class DatabaseInitializer {
         // Comprobamos si la base de datos ya tiene datos para no duplicar al reiniciar
         if (productRepository.count() == 0) {
 
-            // 1. Carga de Categorías
+            System.out.println("--- INICIANDO CARGA DE DATOS DE PRUEBA ---");
+
+            // 1. CARGA DE USUARIOS
+            // Usuario normal
+            userRepository.save(new User(
+                    "user",
+                    "user@user.com",
+                    passwordEncoder.encode("user"),
+                    "USER"));
+
+            // Usuario administrador
+            userRepository.save(new User(
+                    "admin",
+                    "admin@admin.com",
+                    passwordEncoder.encode("admin"),
+                    "USER", "ADMIN"));
+
+            // 2. CARGA DE CATEGORÍAS
             Category catPizzas = new Category();
             catPizzas.setTitle("Pizzas");
-            catPizzas.setDescription("Nuestras mejores pizzas caseras");
+            catPizzas.setDescription("Nuestras mejores pizzas caseras al horno de leña.");
+            setCategoryImage(catPizzas, "static/assets/images/pizzas-banner-categoria-pizza.jpg");
             categoryRepository.save(catPizzas);
 
-            Category catPastas = new Category();
-            catPastas.setTitle("Pastas");
-            catPastas.setDescription("Pastas frescas y deliciosas");
-            categoryRepository.save(catPastas);
+            Category catBebidas = new Category();
+            catBebidas.setTitle("Bebidas");
+            catBebidas.setDescription("Refrescos fríos para acompañar tu comida.");
+            setCategoryImage(catBebidas, "static/assets/images/bebidas-banner.jpg");
+            categoryRepository.save(catBebidas);
 
-            // 2. Carga de Productos
+            // 3. CARGA DE PRODUCTOS
+
+            // --- PIZZAS (CON imagen) ---
             Product pepperoni = new Product("Pizza Pepperoni",
                     "Salsa de tomate, mozzarella y pepperoni picante.",
                     List.of("Gluten", "Lácteos"), 12, "La favorita", catPizzas);
@@ -67,28 +88,22 @@ public class DatabaseInitializer {
             setProductImage(barbacoa, "static/assets/images/pizza-barbacoa.jpg");
             productRepository.save(barbacoa);
 
-            // 3. Carga de Usuarios (1 Admin, 2 Usuarios registrados)
-            userRepository.save(new User(
-                    "Administrador",
-                    "admin@aparizzio.com",
-                    passwordEncoder.encode("adminpass"),
-                    "USER", "ADMIN"));
+            // --- BEBIDAS (SIN imagen, como solicitaste) ---
+            Product cocacola = new Product("Coca-Cola",
+                    "Refresco de cola muy frío en formato 33cl.",
+                    List.of(), 2, "Refrescante", catBebidas);
+            productRepository.save(cocacola);
 
-            userRepository.save(new User(
-                    "Juan Pérez",
-                    "juan@ejemplo.com",
-                    passwordEncoder.encode("pass1234"),
-                    "USER"));
+            Product fanta = new Product("Fanta Naranja",
+                    "Refresco de naranja con gas en formato 33cl.",
+                    List.of(), 2, "Sabor cítrico", catBebidas);
+            productRepository.save(fanta);
 
-            userRepository.save(new User(
-                    "Laura García",
-                    "laura@ejemplo.com",
-                    passwordEncoder.encode("pass1234"),
-                    "USER"));
+            System.out.println("--- DATOS DE PRUEBA CARGADOS CON ÉXITO ---");
         }
     }
 
-    // Método auxiliar adaptado para los productos de la pizzería
+    // Método auxiliar para cargar imágenes a los PRODUCTOS
     private void setProductImage(Product product, String classpathResource) throws IOException {
         Resource imageResource = new ClassPathResource(classpathResource);
         if (imageResource.exists()) {
@@ -96,6 +111,17 @@ public class DatabaseInitializer {
             product.setImage(createdImage);
         } else {
             System.err.println("Atención: No se encontró la imagen en " + classpathResource);
+        }
+    }
+
+    // Método auxiliar para cargar imágenes a las CATEGORÍAS
+    private void setCategoryImage(Category category, String classpathResource) throws IOException {
+        Resource imageResource = new ClassPathResource(classpathResource);
+        if (imageResource.exists()) {
+            Image createdImage = imageService.createImage(imageResource.getInputStream());
+            category.setImage(createdImage);
+        } else {
+            System.err.println("Atención: No se encontró la imagen de categoría en " + classpathResource);
         }
     }
 }
