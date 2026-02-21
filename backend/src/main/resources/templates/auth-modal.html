@@ -1,0 +1,70 @@
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg overflow-hidden rounded-4">
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+
+            <div class="modal-body p-0">
+                <div class="row g-0">
+
+                    <div class="col-md-5 d-none d-md-block">
+                        <img src="/assets/images/inicio-sesion_resized.jpg" alt="Login" class="img-fluid w-100 h-100"
+                            style="object-fit: cover; min-height: 450px;">
+                    </div>
+
+                    <div class="col-12 col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
+
+                        <div id="loginForm">
+                            <h2 class="fw-bold mb-4 title-font text-primary-custom">¡Hola de nuevo!</h2>
+                            <form action="/login" method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label small text-muted">Correo o Usuario</label>
+                                    <input type="text" name="username" class="form-control" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small text-muted">Contraseña</label>
+                                    <input type="password" name="password" class="form-control" required>
+                                </div>
+                                <div class="d-grid mb-3">
+                                    <button type="submit" class="btn btn-primary btn-custom py-2">Entrar</button>
+                                </div>
+                                <div class="text-center">
+                                    <p class="small text-muted mb-0">¿No tienes cuenta?</p>
+                                    <a href="#" class="fw-bold text-primary-custom text-decoration-none"
+                                        onclick="toggleAuth('register')">Regístrate aquí</a>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="registerForm" class="d-none">
+                            <h2 class="fw-bold mb-4 title-font text-primary-custom">Crear Cuenta</h2>
+                            <form action="/register" method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label small text-muted">Correo</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small text-muted">Contraseña</label>
+                                    <input type="password" name="password" class="form-control" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small text-muted">Repetir Contraseña</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <div class="d-grid mb-3">
+                                    <button type="submit" class="btn btn-primary btn-custom py-2">Registrarse</button>
+                                </div>
+                                <div class="text-center">
+                                    <p class="small text-muted mb-0">¿Ya tienes cuenta?</p>
+                                    <a href="#" class="fw-bold text-primary-custom text-decoration-none"
+                                        onclick="toggleAuth('login')">Inicia sesión</a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
