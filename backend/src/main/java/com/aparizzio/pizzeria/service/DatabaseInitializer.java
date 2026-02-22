@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.aparizzio.pizzeria.model.Category;
 import com.aparizzio.pizzeria.model.Image;
+import com.aparizzio.pizzeria.model.Order;
 import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.model.User;
 import com.aparizzio.pizzeria.repository.CategoryRepository;
+import com.aparizzio.pizzeria.repository.OrderRepository;
 import com.aparizzio.pizzeria.repository.ProductRepository;
 import com.aparizzio.pizzeria.repository.UserRepository;
 
@@ -35,6 +37,9 @@ public class DatabaseInitializer {
     private UserRepository userRepository;
 
     @Autowired
+    private OrderRepository orderRepository; // Añadimos el repositorio de pedidos
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostConstruct
@@ -46,7 +51,8 @@ public class DatabaseInitializer {
             System.out.println("--- INICIANDO CARGA DE DATOS DE PRUEBA ---");
 
             // 1. CARGA DE USUARIOS
-            // Usuario normal
+
+            // Usuario normal principal
             userRepository.save(new User(
                     "user",
                     "user@user.com",
@@ -59,6 +65,21 @@ public class DatabaseInitializer {
                     "admin@admin.com",
                     passwordEncoder.encode("admin"),
                     "USER", "ADMIN"));
+
+            // Usuarios adicionales para los pedidos de prueba
+            User juan = new User(
+                    "Juan Pérez",
+                    "juan@ejemplo.com",
+                    passwordEncoder.encode("pass1234"),
+                    "USER");
+            userRepository.save(juan);
+
+            User laura = new User(
+                    "Laura García",
+                    "laura@ejemplo.com",
+                    passwordEncoder.encode("pass1234"),
+                    "USER");
+            userRepository.save(laura);
 
             // 2. CARGA DE CATEGORÍAS
             Category catPizzas = new Category();
@@ -98,6 +119,25 @@ public class DatabaseInitializer {
                     "Refresco de naranja con gas en formato 33cl.",
                     List.of(), 2, "Sabor cítrico", catBebidas);
             productRepository.save(fanta);
+
+            // 4. CARGA DE PEDIDOS DE PRUEBA
+            Order pedidoJuan = new Order();
+            pedidoJuan.setUser(juan); // El pedido es de Juan
+            pedidoJuan.setAddress("Calle Mayor 10, 4B");
+            pedidoJuan.setCity("Madrid");
+            pedidoJuan.setPostalCode("28001");
+            pedidoJuan.setPhoneNumber("655112233");
+            pedidoJuan.setProducts(List.of(pepperoni)); // Juan pide una Pepperoni
+            orderRepository.save(pedidoJuan);
+
+            Order pedidoLaura = new Order();
+            pedidoLaura.setUser(laura); // El pedido es de Laura
+            pedidoLaura.setAddress("Av. de la Ilustración 45");
+            pedidoLaura.setCity("Barcelona");
+            pedidoLaura.setPostalCode("08015");
+            pedidoLaura.setPhoneNumber("600998877");
+            pedidoLaura.setProducts(List.of(barbacoa, pepperoni)); // Laura pide dos pizzas
+            orderRepository.save(pedidoLaura);
 
             System.out.println("--- DATOS DE PRUEBA CARGADOS CON ÉXITO ---");
         }

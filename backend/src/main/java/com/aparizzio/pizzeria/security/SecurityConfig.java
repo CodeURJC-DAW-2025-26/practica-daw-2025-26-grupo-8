@@ -21,20 +21,26 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(authorize -> authorize
-
-                // 1. PERMITIR RECURSOS ESTÁTICOS (Imágenes, CSS, JS)
                 .requestMatchers("/css/**", "/assets/**", "/images/**", "/js/**").permitAll()
-
-                // 2. PERMITIR PÁGINAS PÚBLICAS (Añadimos /category/** explícitamente)
                 .requestMatchers("/", "/menu", "/cart", "/product/**", "/category/**", "/error").permitAll()
 
-                // 3. BLOQUEAR EL RESTO (Panel de admin, etc.)
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+
                 .anyRequest().authenticated());
 
-        // Habilitamos el formulario de login temporal de Spring
-        http.formLogin(formLogin -> formLogin.permitAll());
+        http.formLogin(formLogin -> formLogin
+                // Lógica para decidir a dónde redirigir tras el login
+                .successHandler((request, response, authentication) -> {
+                    boolean isAdmin = authentication.getAuthorities().stream()
+                            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+                    if (isAdmin) {
+                        response.sendRedirect("/admin/categories");
+                    } else {
+                        response.sendRedirect("/");
+                    }
+                })
+                .permitAll());
 
-        // Desactivamos CSRF temporalmente
         http.csrf(csrf -> csrf.disable());
 
         return http.build();

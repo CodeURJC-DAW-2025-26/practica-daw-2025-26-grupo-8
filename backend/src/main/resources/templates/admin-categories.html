@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/backend/src/main/resources/static/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
@@ -19,23 +19,32 @@
             <!-- SIDEBAR DE NAVEGACIÓN -->
             <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky pt-3 text-white">
-                    <a href="index.html"
+                    <a href="/"
                         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none px-3">
                         <span class="fs-4 title-font">Aparizzio Admin</span>
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
-                        <li class="nav-item"><a href="admin-metrics.html" class="nav-link text-white"><i
-                                    class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
-                        <li><a href="admin-users.html" class="nav-link text-white"><i
-                                    class="bi bi-people-fill me-2"></i> Usuarios</a></li>
-                        <li><a href="admin-orders.html" class="nav-link text-white"><i
-                                    class="bi bi-cart-check me-2"></i> Pedidos</a></li>
+                        <li class="nav-item">
+                            <a href="/" class="nav-link text-white"><i class="bi bi-speedometer2 me-2"></i>
+                                Dashboard</a>
+                        </li>
 
                         <li>
-                            <a href="admin-categories.html" class="nav-link active bg-danger">
-                                <i class="bi bi-tags-fill me-2"></i> Categorías y Productos
-                            </a>
+                            <a href="/admin/users" class="nav-link text-white"><i class="bi bi-people-fill me-2"></i>
+                                Usuarios</a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/orders" class="nav-link text-white"><i class="bi bi-cart-check me-2"></i>
+                                Pedidos</a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/categories" class="nav-link text-white active"><i
+                                    class="bi bi-tags me-2"></i>
+                                Categorías y
+                                Productos</a>
                         </li>
                     </ul>
                 </div>
@@ -229,54 +238,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#categories}}
                                     <tr>
                                         <td class="ps-4">
-                                            <img src="/assets/images/pizzas-banner-categoria-pizza.jpg"
-                                                class="rounded-3 shadow-sm admin-table-img" alt="Cat">
+                                            {{#image}}
+                                            <img src="/images/{{id}}" class="rounded-3 shadow-sm admin-table-img"
+                                                style="width: 45px; height: 45px; object-fit: cover;">
+                                            {{/image}}
                                         </td>
-                                        <td class="fw-bold">Pizzas</td>
-                                        <td><span class="badge bg-secondary rounded-pill">12 productos</span></td>
+                                        <td class="fw-bold">{{title}}</td>
+                                        <td><span class="badge bg-secondary rounded-pill">ID: {{id}}</span></td>
                                         <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-info me-1" title="Ver"><i
-                                                    class="bi bi-eye"></i></button>
-                                            <button class="btn btn-sm btn-outline-primary me-1" title="Editar"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger" title="Borrar"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ps-4">
-                                            <img src="/assets/images/pastas-banner.png"
-                                                class="rounded-3 shadow-sm admin-table-img" alt="Cat">
-                                        </td>
-                                        <td class="fw-bold">Pastas</td>
-                                        <td><span class="badge bg-secondary rounded-pill">8 productos</span></td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-info me-1"><i
-                                                    class="bi bi-eye"></i></button>
                                             <button class="btn btn-sm btn-outline-primary me-1"><i
                                                     class="bi bi-pencil"></i></button>
                                             <button class="btn btn-sm btn-outline-danger"><i
                                                     class="bi bi-trash"></i></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="ps-4">
-                                            <img src="/assets/images/bebidas-banner.jpg"
-                                                class="rounded-3 shadow-sm admin-table-img" alt="Cat">
-                                        </td>
-                                        <td class="fw-bold">Bebidas</td>
-                                        <td><span class="badge bg-secondary rounded-pill">10 productos</span></td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-info me-1"><i
-                                                    class="bi bi-eye"></i></button>
-                                            <button class="btn btn-sm btn-outline-primary me-1"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    {{/categories}}
                                 </tbody>
                             </table>
                         </div>
@@ -302,103 +281,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#products}}
                                     <tr>
                                         <td class="ps-4">
-                                            <img src="/assets/images/pizza-peperonni.png"
-                                                class="rounded-circle admin-table-img" alt="Prod">
+                                            {{#image}}
+                                            <img src="/images/{{id}}" class="rounded-circle admin-table-img"
+                                                style="width: 45px; height: 45px; object-fit: cover;">
+                                            {{/image}}
+                                            {{^image}}
+                                            <img src="/assets/images/logo.png"
+                                                class="rounded-circle admin-table-img bg-light p-1"
+                                                style="width: 45px; height: 45px; object-fit: contain;">
+                                            {{/image}}
                                         </td>
-                                        <td class="fw-bold">Pizza Pepperoni</td>
-                                        <td><span class="badge bg-dark">Pizzas</span></td>
-                                        <td class="text-primary-custom fw-bold">12.50€</td>
+                                        <td class="fw-bold">{{title}}</td>
+                                        <td><span class="badge bg-dark">{{category.title}}</span></td>
+                                        <td class="text-primary-custom fw-bold">{{price}}€</td>
                                         <td>
-                                            <span
-                                                class="badge border border-secondary text-secondary rounded-circle p-1"
-                                                title="Gluten"><i class="bi bi-slash-circle"></i></span>
-                                            <span
-                                                class="badge border border-secondary text-secondary rounded-circle p-1"
-                                                title="Lácteos"><i class="bi bi-droplet"></i></span>
-                                        </td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-info me-1"><i
-                                                    class="bi bi-eye"></i></button>
-                                            <button class="btn btn-sm btn-outline-primary me-1"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                            {{#allergies}}
+                                            <span class="badge bg-secondary fw-normal me-1">{{.}}</span>
+                                            {{/allergies}}
 
-                                    <tr>
-                                        <td class="ps-4">
-                                            <img src="/assets/images/pizza-barbacoa.jpg"
-                                                class="rounded-circle admin-table-img" alt="Prod">
-                                        </td>
-                                        <td class="fw-bold">Pizza Barbacoa</td>
-                                        <td><span class="badge bg-dark">Pizzas</span></td>
-                                        <td class="text-primary-custom fw-bold">14.50€</td>
-                                        <td>
-                                            <span
-                                                class="badge border border-secondary text-secondary rounded-circle p-1"
-                                                title="Gluten"><i class="bi bi-slash-circle"></i></span>
-                                            <span class="badge border border-danger text-danger rounded-circle p-1"
-                                                title="Picante"><i class="bi bi-fire"></i></span>
-                                        </td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-info me-1"><i
-                                                    class="bi bi-eye"></i></button>
-                                            <button class="btn btn-sm btn-outline-primary me-1"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="ps-4">
-                                            <img src="https://img.taste.com.au/5qlr1PkR/taste/2016/11/spaghetti-bolognese-106560-1.jpeg"
-                                                class="rounded-circle admin-table-img" alt="Prod">
-                                        </td>
-                                        <td class="fw-bold">Spaghetti Bolognese</td>
-                                        <td><span class="badge bg-secondary">Pastas</span></td>
-                                        <td class="text-primary-custom fw-bold">9.50€</td>
-                                        <td>
-                                            <span
-                                                class="badge border border-secondary text-secondary rounded-circle p-1"
-                                                title="Gluten"><i class="bi bi-slash-circle"></i></span>
-                                            <span
-                                                class="badge border border-secondary text-secondary rounded-circle p-1"
-                                                title="Huevo"><i class="bi bi-egg-fried"></i></span>
-                                        </td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-info me-1"><i
-                                                    class="bi bi-eye"></i></button>
-                                            <button class="btn btn-sm btn-outline-primary me-1"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="ps-4">
-                                            <img src="https://m.media-amazon.com/images/I/81W5NATHCcL._AC_UF350,350_QL80_.jpg"
-                                                class="rounded-circle admin-table-img" alt="Prod">
-                                        </td>
-                                        <td class="fw-bold">Coca-Cola</td>
-                                        <td><span class="badge bg-secondary">Bebidas</span></td>
-                                        <td class="text-primary-custom fw-bold">2.50€</td>
-                                        <td>
+                                            {{^allergies}}
                                             <small class="text-muted">-</small>
+                                            {{/allergies}}
                                         </td>
                                         <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-info me-1"><i
-                                                    class="bi bi-eye"></i></button>
                                             <button class="btn btn-sm btn-outline-primary me-1"><i
                                                     class="bi bi-pencil"></i></button>
                                             <button class="btn btn-sm btn-outline-danger"><i
                                                     class="bi bi-trash"></i></button>
                                         </td>
                                     </tr>
+                                    {{/products}}
                                 </tbody>
                             </table>
                         </div>

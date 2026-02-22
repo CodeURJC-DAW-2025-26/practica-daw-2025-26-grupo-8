@@ -12,6 +12,8 @@ import com.aparizzio.pizzeria.repository.CategoryRepository;
 import com.aparizzio.pizzeria.repository.ProductRepository;
 import com.aparizzio.pizzeria.model.Category;
 import com.aparizzio.pizzeria.model.Product;
+import com.aparizzio.pizzeria.repository.UserRepository;
+import com.aparizzio.pizzeria.repository.OrderRepository;
 
 import java.util.Optional;
 
@@ -23,6 +25,12 @@ public class WebController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping("/")
     public String showIndex(Model model) {
@@ -82,5 +90,24 @@ public class WebController {
         } else {
             return "redirect:/menu"; // Si no existe la categoría, lo mandamos a la carta
         }
+    }
+
+    @GetMapping("/admin/categories")
+    public String showAdminCategories(Model model) {
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("products", productRepository.findAll());
+        return "admin-categories";
+    }
+
+    @GetMapping("/admin/users")
+    public String showAdminUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "admin-users";
+    }
+
+    @GetMapping("/admin/orders")
+    public String showAdminOrders(Model model) {
+        model.addAttribute("orders", orderRepository.findAll());
+        return "admin-orders";
     }
 }
