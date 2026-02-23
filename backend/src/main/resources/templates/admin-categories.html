@@ -222,7 +222,7 @@
                     </div>
                 </div>
 
-                <!-- TABLA CATEGORÍAS Y PRODUCTOS -->
+                <!-- CATEGORY TABLE -->
                 <div class="card shadow-sm mb-5 border-0">
                     <div class="card-header bg-white py-3">
                         <h5 class="mb-0 fw-bold text-dark"><i class="bi bi-tags me-2"></i> Categorías Activas</h5>
@@ -250,10 +250,18 @@
                                         <td class="fw-bold">{{title}}</td>
                                         <td><span class="badge bg-secondary rounded-pill">ID: {{id}}</span></td>
                                         <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-primary me-1"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i
-                                                    class="bi bi-trash"></i></button>
+                                            <a href="/admin/categories/{{id}}/edit"
+                                                class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form action="/admin/categories/{{id}}/delete" method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Delete this category permanently? Make sure it has no products assigned.');">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    title="Borrar">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     {{/categories}}
@@ -263,6 +271,8 @@
                     </div>
                 </div>
 
+
+                <!-- PRODUCTS TABLE -->
                 <div class="card shadow-sm mb-5 border-0">
                     <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
                         <h5 class="mb-0 fw-bold text-dark"><i class="bi bi-list-ul me-2"></i> Productos Activos</h5>
@@ -308,10 +318,18 @@
                                             {{/allergies}}
                                         </td>
                                         <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-primary me-1"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i
-                                                    class="bi bi-trash"></i></button>
+                                            <a href="/admin/products/{{id}}/edit"
+                                                class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+
+                                            <form action="/admin/products/{{id}}/delete" method="POST" class="d-inline"
+                                                onsubmit="return confirm('¿Seguro que quieres borrar este producto de forma permanente?');">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    title="Borrar">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     {{/products}}

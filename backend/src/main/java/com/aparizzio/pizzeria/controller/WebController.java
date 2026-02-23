@@ -101,6 +101,10 @@ public class WebController {
         }
     }
 
+    // -----------------
+    // ---ADMIN PAGES---
+    // -----------------
+
     @GetMapping("/admin/categories")
     public String showAdminCategories(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
@@ -179,6 +183,110 @@ public class WebController {
         categoryRepository.save(newCategory);
 
         // 4. Recharge the page
+        return "redirect:/admin/categories";
+    }
+
+    // --- 1. DELETE PRODUCT ---
+    @PostMapping("/admin/products/{id}/delete")
+    public String deleteProduct(@PathVariable Long id) {
+        productRepository.deleteById(id);
+        return "redirect:/admin/categories";
+    }
+
+    // --- 2. SHOW EDIT FORM ---
+    @GetMapping("/admin/products/{id}/edit")
+    public String showEditProductForm(@PathVariable Long id, Model model) {
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isPresent()) {
+            model.addAttribute("product", product.get());
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("isProductEdit", true); // Flag for Mustache
+            return "admin-edit"; // Updated template name
+        }
+        return "redirect:/admin/categories";
+    }
+
+    // --- 3. SAVE CHANGES ---
+    @PostMapping("/admin/products/{id}/edit")
+    public String updateProduct(
+            @PathVariable Long id,
+            @RequestParam String title,
+            @RequestParam Long categoryId,
+            @RequestParam double price,
+            @RequestParam(required = false) List<String> allergies,
+            @RequestParam("imageFile") MultipartFile imageFile,
+            @RequestParam String shortDescription,
+            @RequestParam String description) throws IOException {
+
+        Product product = productRepository.findById(id).orElseThrow();
+
+        product.setTitle(title);
+        product.setPrice((int) price);
+        product.setShortDescription(shortDescription);
+        product.setDescription(description);
+
+        if (allergies != null) {
+            product.setAllergies(allergies);
+        } else {
+            product.setAllergies(List.of());
+        }
+
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        category.ifPresent(product::setCategory);
+
+        if (!imageFile.isEmpty()) {
+            Image image = imageService.createImage(imageFile.getInputStream());
+            product.setImage(image);
+        }
+
+        productRepository.save(product);
+        return "redirect:/admin/categories";
+    }
+
+    // --- DELETE CATEGORY ---
+    @PostMapping("/admin/categories/{id}/delete")
+    public String deleteCategory(@PathVariable Long id) {
+        // Warning: Deleting a category that has linked products will cause a DB error
+        // unless Cascade rules are set. For now, we allow deletion of empty categories.
+        categoryRepository.deleteById(id);
+        return "redirect:/admin/categories";
+    }
+
+    // --- SHOW CATEGORY EDIT FORM ---
+    @GetMapping("/admin/categories/{id}/edit")
+    public String showEditCategoryForm(@PathVariable Long id, Model model) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()) {
+            model.addAttribute("category", category.get());
+            model.addAttribute("isCategoryEdit", true); // Flag for Mustache
+            return "admin-edit"; // Reusing the same template
+        }
+        return "redirect:/admin/categories";
+    }
+
+    // --- SAVE CATEGORY CHANGES ---
+    @PostMapping("/admin/categories/{id}/edit")
+    public String updateCategory(
+            @PathVariable Long id,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+
+        // Find the original category
+        Category category = categoryRepository.findById(id).orElseThrow();
+
+        // Update text fields
+        category.setTitle(title);
+        category.setDescription(description);
+
+        // Update image if a new one is provided
+        if (!imageFile.isEmpty()) {
+            Image image = imageService.createImage(imageFile.getInputStream());
+            category.setImage(image);
+        }
+
+        // Save changes
+        categoryRepository.save(category);
         return "redirect:/admin/categories";
     }
 }
