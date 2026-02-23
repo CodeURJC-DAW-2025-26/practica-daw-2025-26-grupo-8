@@ -16,7 +16,12 @@ public class CartService {
     }
 
     public void removeProduct(Long productId) {
-        products.removeIf(p -> p.getId().equals(productId));
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId().equals(productId)) {
+                products.remove(i);
+                break; // Salimos del bucle tras eliminar solo uno
+            }
+        }
     }
 
     public List<Product> getProducts() {
