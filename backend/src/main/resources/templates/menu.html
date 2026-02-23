@@ -25,18 +25,40 @@
 
     <section class="section-padding container">
 
-        <div class="d-flex justify-content-center flex-wrap gap-2 mb-5">
-            <a href="/menu" class="btn btn-filter active">Todos</a>
-
-            {{#categories}}
-            <a href="/category/{{id}}" class="btn btn-filter">{{title}}</a>
-            {{/categories}}
+        <div class="d-flex justify-content-center flex-wrap gap-2 mb-4" id="allergenFilters">
+            <button type="button" class="btn btn-allergen-filter" data-allergen="gluten">
+                <i class="bi bi-slash-circle"></i>
+                <span>Gluten</span>
+            </button>
+            <button type="button" class="btn btn-allergen-filter" data-allergen="lacteos">
+                <i class="bi bi-droplet"></i>
+                <span>Lácteos</span>
+            </button>
+            <button type="button" class="btn btn-allergen-filter" data-allergen="huevo">
+                <i class="bi bi-egg-fried"></i>
+                <span>Huevo</span>
+            </button>
+            <button type="button" class="btn btn-allergen-filter" data-allergen="pescado">
+                <i class="bi bi-water"></i>
+                <span>Pescado</span>
+            </button>
+            <button type="button" class="btn btn-allergen-filter" data-allergen="frutos secos">
+                <i class="bi bi-nut"></i>
+                <span>Frutos Secos</span>
+            </button>
+            <button type="button" class="btn btn-allergen-filter" data-allergen="picante">
+                <i class="bi bi-fire"></i>
+                <span>Picante</span>
+            </button>
         </div>
+
+        <p class="text-center text-muted small mb-4 d-none" id="allergenNoResults">No hay productos para este alérgeno.
+        </p>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
 
             {{#products}}
-            <div class="col">
+            <div class="col product-item" data-allergies="{{#allergies}}{{.}}|{{/allergies}}">
                 <div class="card product-card h-100">
                     <a href="/product/{{id}}">
                         {{#image}}
@@ -81,6 +103,8 @@
     {{> footer}}
 
     <script src="/js/alert.js"></script>
+
+    <script src="/js/alergensfilter.js"></script>
 
 </body>
 
