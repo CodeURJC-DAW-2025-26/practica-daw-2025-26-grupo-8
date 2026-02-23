@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
         noResults.classList.add('d-none');
     };
 
+    const activateAllButton = () => {
+        filterButtons.forEach((btn) => btn.classList.remove('active'));
+        const allButton = filterContainer.querySelector('[data-allergen="all"]');
+        if (allButton) {
+            allButton.classList.add('active');
+        }
+    };
+
     const applyAllergenFilter = (allergen) => {
         let visibleCount = 0;
 
@@ -47,15 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const isAlreadyActive = button.classList.contains('active');
+        const selectedAllergen = normalize(button.dataset.allergen || '');
 
         filterButtons.forEach((btn) => btn.classList.remove('active'));
 
-        if (isAlreadyActive) {
+        if (isAlreadyActive || selectedAllergen === 'all') {
+            activateAllButton();
             showAllProducts();
             return;
         }
 
         button.classList.add('active');
-        applyAllergenFilter(normalize(button.dataset.allergen || ''));
+        applyAllergenFilter(selectedAllergen);
     });
 });
