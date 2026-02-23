@@ -66,18 +66,20 @@
                                 <h5 class="mb-0 fw-bold"><i class="bi bi-folder-plus me-2"></i> Nueva Categoría</h5>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="/admin/categories/new" method="POST" enctype="multipart/form-data">
                                     <div class="mb-3">
                                         <label class="form-label small text-muted">Nombre de la Categoría</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Entrantes" required>
+                                        <input type="text" name="title" class="form-control" placeholder="Ej: Entrantes"
+                                            required>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label small text-muted">URL Imagen de Fondo</label>
-                                        <input type="text" class="form-control" placeholder="https://..." required>
+                                        <label class="form-label small text-muted">Imagen de Fondo</label>
+                                        <input type="file" name="imageFile" class="form-control" accept="image/*"
+                                            required>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label small text-muted">Descripción Breve</label>
-                                        <textarea class="form-control" rows="2"
+                                        <textarea name="description" class="form-control" rows="2"
                                             placeholder="Breve descripción de la categoría..." required></textarea>
                                     </div>
 
@@ -97,36 +99,35 @@
                                 <h5 class="mb-0 fw-bold"><i class="bi bi-pizza me-2"></i> Nuevo Producto</h5>
                             </div>
                             <div class="card-body">
-                                <form class="row g-3">
+                                <form action="/admin/products/new" method="POST" enctype="multipart/form-data"
+                                    class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label small text-muted">Nombre del Producto</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Pizza Hawaiana"
-                                            required>
+                                        <input type="text" name="title" class="form-control"
+                                            placeholder="Ej: Pizza Hawaiana" required>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label small text-muted">Categoría</label>
-                                        <select class="form-select" required>
-                                            <option selected disabled>Selecciona...</option>
-                                            <option value="1">Pizzas</option>
-                                            <option value="2">Pastas</option>
-                                            <option value="3">Bebidas</option>
-                                            <option value="4">Postres</option>
+                                        <select name="categoryId" class="form-select" required>
+                                            <option selected disabled value="">Selecciona...</option>
+                                            {{#categories}}
+                                            <option value="{{id}}">{{title}}</option>
+                                            {{/categories}}
                                         </select>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class="form-label small text-muted">Precio (€)</label>
-                                        <input type="number" step="0.01" class="form-control" placeholder="0.00"
-                                            required>
+                                        <input type="number" name="price" step="0.01" class="form-control"
+                                            placeholder="0.00" required>
                                     </div>
 
                                     <div class="col-md-8">
                                         <label class="form-label small text-muted">Alérgenos</label>
                                         <button
                                             class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center bg-white"
-                                            type="button" data-bs-toggle="collapse" data-bs-target="#listaAlergenos"
-                                            aria-expanded="false">
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#listaAlergenos">
                                             <span class="text-muted">Seleccionar alérgenos...</span>
                                             <i class="bi bi-chevron-down"></i>
                                         </button>
@@ -137,56 +138,55 @@
                                                     <div class="col-6 col-sm-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="alg-gluten">
-                                                            <label class="form-check-label" for="alg-gluten">
-                                                                <i class="bi bi-slash-circle me-1"></i> Gluten
-                                                            </label>
+                                                                name="allergies" value="Gluten" id="alg-gluten">
+                                                            <label class="form-check-label" for="alg-gluten"><i
+                                                                    class="bi bi-slash-circle me-1"></i>
+                                                                Gluten</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="alg-lacteos">
-                                                            <label class="form-check-label" for="alg-lacteos">
-                                                                <i class="bi bi-droplet me-1"></i> Lácteos
-                                                            </label>
+                                                                name="allergies" value="Lácteos" id="alg-lacteos">
+                                                            <label class="form-check-label" for="alg-lacteos"><i
+                                                                    class="bi bi-droplet me-1"></i>
+                                                                Lácteos</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="alg-huevo">
-                                                            <label class="form-check-label" for="alg-huevo">
-                                                                <i class="bi bi-egg-fried me-1"></i> Huevo
-                                                            </label>
+                                                                name="allergies" value="Huevo" id="alg-huevo">
+                                                            <label class="form-check-label" for="alg-huevo"><i
+                                                                    class="bi bi-egg-fried me-1"></i>
+                                                                Huevo</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="alg-pescado">
-                                                            <label class="form-check-label" for="alg-pescado">
-                                                                <i class="bi bi-water me-1"></i> Pescado
-                                                            </label>
+                                                                name="allergies" value="Pescado" id="alg-pescado">
+                                                            <label class="form-check-label" for="alg-pescado"><i
+                                                                    class="bi bi-water me-1"></i>
+                                                                Pescado</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="alg-frutos">
-                                                            <label class="form-check-label" for="alg-frutos">
-                                                                <i class="bi bi-nut me-1"></i> F. Secos
-                                                            </label>
+                                                                name="allergies" value="Frutos Secos" id="alg-frutos">
+                                                            <label class="form-check-label" for="alg-frutos"><i
+                                                                    class="bi bi-nut me-1"></i> F.
+                                                                Secos</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                id="alg-picante">
+                                                                name="allergies" value="Picante" id="alg-picante">
                                                             <label class="form-check-label text-danger"
-                                                                for="alg-picante">
-                                                                <i class="bi bi-fire me-1"></i> Picante
-                                                            </label>
+                                                                for="alg-picante"><i class="bi bi-fire me-1"></i>
+                                                                Picante</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -195,19 +195,20 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="form-label small text-muted">URL Imagen</label>
-                                        <input type="text" class="form-control" placeholder="https://..." required>
+                                        <label class="form-label small text-muted">Imagen</label>
+                                        <input type="file" name="imageFile" class="form-control" accept="image/*"
+                                            required>
                                     </div>
 
                                     <div class="col-12">
                                         <label class="form-label small text-muted">Descripción Breve</label>
-                                        <input type="text" class="form-control"
+                                        <input type="text" name="shortDescription" class="form-control"
                                             placeholder="Ej: Pizza clásica con pepperoni" required>
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="form-label small text-muted">Descripción</label>
-                                        <textarea class="form-control" rows="2"
+                                        <label class="form-label small text-muted">Descripción Detallada</label>
+                                        <textarea name="description" class="form-control" rows="2"
                                             placeholder="Ingredientes, elaboración..."></textarea>
                                     </div>
 
