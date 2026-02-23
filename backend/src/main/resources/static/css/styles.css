@@ -244,6 +244,47 @@ a {
     color: white;
 }
 
+/* Botones de alérgenos */
+.btn-allergen-filter {
+    border: 2px solid #eee;
+    border-radius: 50px;
+    padding: 8px 16px;
+    background-color: white;
+    color: #555;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.btn-allergen-filter i {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    font-size: 0.95rem;
+}
+
+.btn-allergen-filter:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-allergen-filter.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.btn-allergen-filter.active i {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
 /* Botón pequeño "Añadir" en las tarjetas */
 .btn-outline-primary {
     color: var(--color-primary);

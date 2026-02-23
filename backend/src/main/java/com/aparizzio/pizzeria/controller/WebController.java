@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.aparizzio.pizzeria.model.Product;
@@ -19,6 +21,8 @@ import com.aparizzio.pizzeria.model.Category;
 import com.aparizzio.pizzeria.repository.UserRepository;
 import com.aparizzio.pizzeria.repository.OrderRepository;
 import com.aparizzio.pizzeria.model.Image;
+import com.aparizzio.pizzeria.model.Order;
+import com.aparizzio.pizzeria.service.CartService;
 import com.aparizzio.pizzeria.service.ImageService;
 
 import java.util.Optional;
@@ -40,6 +44,9 @@ public class WebController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/")
     public String showIndex(Model model) {
@@ -71,13 +78,6 @@ public class WebController {
         } else {
             return "redirect:/";
         }
-    }
-
-    @GetMapping("/cart")
-    public String showCart(Model model) {
-        // Variable para marcar el botón "Pedido" como activo
-        model.addAttribute("isCart", true);
-        return "cart";
     }
 
     @GetMapping("/category/{id}")
@@ -184,6 +184,49 @@ public class WebController {
 
         // 4. Recharge the page
         return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/cart")
+    public String showCart(Model model) {
+        model.addAttribute("cartProducts", cartService.getProducts());
+        model.addAttribute("total", cartService.getTotal());
+        model.addAttribute("isCart", true);
+        return "cart";
+    }
+
+    @PostMapping("/cart/add/{id}")
+    @ResponseBody // Esto permite devolver solo un mensaje o estado, no una vista
+    public String addToCart(@PathVariable Long id) {
+        productRepository.findById(id).ifPresent(cartService::addProduct);
+        return "Producto añadido correctamente"; // Este mensaje no se verá si no quieres
+    }
+
+    @PostMapping("/cart/remove/{id}")
+    public String removeFromCart(@PathVariable Long id) {
+        cartService.removeProduct(id);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/order/checkout")
+    public String processOrder(@RequestParam String address, @RequestParam String city,
+            @RequestParam String postalCode, @RequestParam String phoneNumber) {
+
+        if (cartService.getProducts().isEmpty())
+            return "redirect:/menu";
+
+        Order order = new Order();
+        order.setProducts(new ArrayList<>(cartService.getProducts()));
+        order.setAddress(address);
+        order.setCity(city);
+        order.setPostalCode(postalCode);
+        order.setPhoneNumber(phoneNumber);
+        // Aquí deberías obtener el usuario autenticado y setearlo:
+        // order.setUser(currentUser);
+
+        orderRepository.save(order);
+        cartService.clear(); // Vaciar carrito tras la compra
+
+        return "redirect:/"; // O una página de éxito
     }
 
     // --- 1. DELETE PRODUCT ---

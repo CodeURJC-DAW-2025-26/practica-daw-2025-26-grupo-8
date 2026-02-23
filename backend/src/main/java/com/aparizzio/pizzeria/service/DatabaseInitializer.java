@@ -99,26 +99,34 @@ public class DatabaseInitializer {
             // --- PIZZAS (CON imagen) ---
             Product pepperoni = new Product("Pizza Pepperoni",
                     "Salsa de tomate, mozzarella y pepperoni picante.",
-                    List.of("Gluten", "Lácteos"), 12, "La favorita", catPizzas);
+                    List.of("Gluten", "Lácteos", "Huevo"), 12, "La favorita", catPizzas);
             setProductImage(pepperoni, "static/assets/images/pizza-peperonni.png");
             productRepository.save(pepperoni);
 
             Product barbacoa = new Product("Pizza Barbacoa",
                     "Carne picada, pollo, bacon y nuestra salsa secreta.",
-                    List.of("Gluten", "Lácteos", "Carne"), 14, "Sabor intenso", catPizzas);
+                    List.of("Gluten", "Pescado", "Frutos Secos", "Picante"), 14, "Sabor intenso", catPizzas);
             setProductImage(barbacoa, "static/assets/images/pizza-barbacoa.jpg");
             productRepository.save(barbacoa);
 
-            // --- BEBIDAS (SIN imagen, como solicitaste) ---
+            // --- BEBIDAS (mismo formato que pizzas, con hueco para imagen) ---
             Product cocacola = new Product("Coca-Cola",
                     "Refresco de cola muy frío en formato 33cl.",
                     List.of(), 2, "Refrescante", catBebidas);
+            setProductImage(cocacola, "static/assets/images/cocacola.jpg");
             productRepository.save(cocacola);
 
             Product fanta = new Product("Fanta Naranja",
                     "Refresco de naranja con gas en formato 33cl.",
                     List.of(), 2, "Sabor cítrico", catBebidas);
+            setProductImage(fanta, "static/assets/images/fanta.jpg");
             productRepository.save(fanta);
+
+            Product cerveza = new Product("Cerveza",
+                    "Refresco de cebada histórico 50cl.",
+                    List.of("Gluten"), 3, "La clásica", catBebidas);
+            setProductImage(cerveza, "static/assets/images/cerveza.webp");
+            productRepository.save(cerveza);
 
             // 4. CARGA DE PEDIDOS DE PRUEBA
             Order pedidoJuan = new Order();
