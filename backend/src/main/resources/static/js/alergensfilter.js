@@ -31,7 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const allergies = getItemAllergies(item);
-        return allergies.includes(currentAllergen);
+        if (currentAllergen === 'picante') {
+            return allergies.includes(currentAllergen);
+        }
+
+        return !allergies.includes(currentAllergen);
     };
 
     const activateAllButton = () => {
