@@ -105,6 +105,35 @@ public class WebController {
         }
     }
 
+    // ------------------------
+    // --- LOGIN & REGISTER ---
+    // ------------------------
+
+    // --- PUBLIC REGISTRATION ---
+    @PostMapping("/register")
+    public String registerNewUser(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String confirmPassword) {
+
+        // Check if passwords match
+        if (!password.equals(confirmPassword)) {
+            return "redirect:/?error=password_mismatch";
+        }
+
+        // Check if a user with this email already exists to prevent duplicates
+        if (userRepository.findByEmail(email).isPresent()) {
+            return "redirect:/?error=email_exists";
+        }
+
+        User newUser = new User(name, email, passwordEncoder.encode(password), "USER");
+
+        userRepository.save(newUser);
+
+        return "redirect:/";
+    }
+
     // -----------------
     // ---ADMIN PAGES---
     // -----------------
@@ -356,6 +385,19 @@ public class WebController {
         return "redirect:/admin/orders";
     }
 
+    // --- DELETE ORDER ---
+    @PostMapping("/admin/orders/{id}/delete")
+    public String deleteOrder(@PathVariable Long id) {
+
+        Optional<Order> orderOpt = orderRepository.findById(id);
+
+        if (orderOpt.isPresent()) {
+            orderRepository.deleteById(id);
+        }
+
+        return "redirect:/admin/orders";
+    }
+
     // --- CREATE NEW USER ---
     @PostMapping("/admin/users/new")
     public String createUser(
@@ -386,6 +428,24 @@ public class WebController {
         if (userOpt.isPresent() && !userOpt.get().getEmail().equals("admin@admin.com")) {
 
             userRepository.deleteById(id);
+        }
+
+        return "redirect:/admin/users";
+    }
+
+    // --- CHANGE USER PASSWORD ---
+    @PostMapping("/admin/users/{id}/password")
+    public String changeUserPassword(@PathVariable Long id, @RequestParam String newPassword) {
+
+        Optional<User> userOpt = userRepository.findById(id);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+
+            // Encode the new password before saving
+            user.setEncodedPassword(passwordEncoder.encode(newPassword));
+
+            userRepository.save(user);
         }
 
         return "redirect:/admin/users";
