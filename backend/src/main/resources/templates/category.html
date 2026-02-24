@@ -31,7 +31,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
 
             {{#products}}
-            <div class="col">
+            <div class="col product-item">
                 <div class="card product-card h-100">
                     <a href="/product/{{id}}">
                         {{#image}}
@@ -86,6 +86,7 @@
     {{> footer}}
 
     <script src="/js/alert.js"></script>
+    <script src="/js/category-menu-load-more.js"></script>
 
 </body>
 

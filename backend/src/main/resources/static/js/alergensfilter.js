@@ -3,11 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.btn-allergen-filter');
     const productItems = document.querySelectorAll('.product-item');
     const noResults = document.getElementById('allergenNoResults');
-    const loadMoreButton = document.querySelector('.btn-load-more');
-    const ITEMS_PER_BATCH = 4;
 
     let currentAllergen = 'all';
-    let visibleLimit = ITEMS_PER_BATCH;
 
     if (!filterContainer || !filterButtons.length || !productItems.length || !noResults) {
         return;
@@ -45,34 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const updateVisibleProducts = () => {
+    const updateFilteredProducts = () => {
         let matchingProducts = 0;
-        let shownProducts = 0;
 
         productItems.forEach((item) => {
-            if (!matchesCurrentFilter(item)) {
-                item.classList.add('d-none');
-                return;
-            }
+            const isMatch = matchesCurrentFilter(item);
+            item.classList.toggle('allergen-hidden', !isMatch);
 
-            matchingProducts += 1;
-            const shouldShow = shownProducts < visibleLimit;
-            item.classList.toggle('d-none', !shouldShow);
-
-            if (shouldShow) {
-                shownProducts += 1;
+            if (isMatch) {
+                matchingProducts += 1;
             }
         });
 
         noResults.classList.toggle('d-none', matchingProducts !== 0);
-
-        if (!loadMoreButton) {
-            return;
-        }
-
-        const hasMoreProducts = matchingProducts > shownProducts;
-        loadMoreButton.classList.toggle('d-none', !hasMoreProducts);
-        loadMoreButton.disabled = !hasMoreProducts;
+        document.dispatchEvent(new CustomEvent('menu:filter-changed'));
     };
 
     filterContainer.addEventListener('click', (event) => {
@@ -89,23 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isAlreadyActive || selectedAllergen === 'all') {
             activateAllButton();
             currentAllergen = 'all';
-            visibleLimit = ITEMS_PER_BATCH;
-            updateVisibleProducts();
+            updateFilteredProducts();
             return;
         }
 
         button.classList.add('active');
         currentAllergen = selectedAllergen;
-        visibleLimit = ITEMS_PER_BATCH;
-        updateVisibleProducts();
+        updateFilteredProducts();
     });
-
-    if (loadMoreButton) {
-        loadMoreButton.addEventListener('click', () => {
-            visibleLimit += ITEMS_PER_BATCH;
-            updateVisibleProducts();
-        });
-    }
-
-    updateVisibleProducts();
+    updateFilteredProducts();
 });
