@@ -63,7 +63,8 @@
                                         <td class="ps-4 fw-bold text-secondary">#ORD-{{id}}</td>
 
                                         <td class="fw-bold">
-                                            <i class="bi bi-person-circle text-muted me-1"></i> {{user.name}}
+                                            <i class="bi bi-person-circle text-muted me-1"></i>
+                                            {{#user}}{{name}}{{/user}}{{^user}}Invitado{{/user}}
                                         </td>
 
                                         <td>{{address}}</td>
