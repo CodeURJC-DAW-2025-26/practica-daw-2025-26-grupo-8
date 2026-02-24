@@ -506,6 +506,16 @@ public class WebController {
 
         // Prevent the master admin account from deleting itself
         if (userOpt.isPresent() && !userOpt.get().getEmail().equals("admin@admin.com")) {
+            User userToDelete = userOpt.get();
+
+            List<Order> allOrders = orderRepository.findAll();
+
+            // Loop through all orders and delete the ones belonging to this user
+            for (Order order : allOrders) {
+                if (order.getUser() != null && order.getUser().getId().equals(userToDelete.getId())) {
+                    orderRepository.delete(order);
+                }
+            }
 
             userRepository.deleteById(id);
         }
