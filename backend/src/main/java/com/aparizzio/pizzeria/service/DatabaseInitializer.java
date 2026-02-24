@@ -94,6 +94,12 @@ public class DatabaseInitializer {
             setCategoryImage(catBebidas, "static/assets/images/bebidas-banner.jpg");
             categoryRepository.save(catBebidas);
 
+            Category catAperitivos = new Category();
+            catAperitivos.setTitle("Aperitivos");
+            catAperitivos.setDescription("Entrantes ligeros para abrir el apetito.");
+            setCategoryImage(catAperitivos, "static/assets/images/aperitivos-banner.jpg");
+            categoryRepository.save(catAperitivos);
+
             // 3. CARGA DE PRODUCTOS
 
             // --- PIZZAS (CON imagen) ---
@@ -127,6 +133,49 @@ public class DatabaseInitializer {
                     List.of("Gluten"), 3, "La clásica", catBebidas);
             setProductImage(cerveza, "static/assets/images/cerveza.webp");
             productRepository.save(cerveza);
+
+            Product aquarius = new Product("Aquarius Naranja",
+                    "Bebida isotónica sabor naranja en formato 33cl.",
+                    List.of(), 2, "Hidratación diaria", catBebidas);
+            setProductImage(aquarius, "static/assets/images/acuarius-naranja.jpg");
+            productRepository.save(aquarius);
+
+            Product agua = new Product("Agua Lanjarón",
+                    "Agua mineral natural en formato 50cl.",
+                    List.of(), 2, "Ligera y fresca", catBebidas);
+            setProductImage(agua, "static/assets/images/agua.jpeg");
+            productRepository.save(agua);
+
+            // --- APERITIVOS (mismo formato que pizzas, con hueco para imagen) ---
+            Product bruschettas = new Product("Bruschettas",
+                    "Pan tostado con queso crema, rúcula y jamón curado.",
+                    List.of("Gluten", "Lácteos"), 7, "Crujientes", catAperitivos);
+            setProductImage(bruschettas, "static/assets/images/bruschettas.jpg");
+            productRepository.save(bruschettas);
+
+            Product caprese = new Product("Ensalada Caprese",
+                    "Tomate fresco, mozzarella y albahaca con aceite de oliva.",
+                    List.of("Lácteos"), 8, "Muy fresca", catAperitivos);
+            setProductImage(caprese, "static/assets/images/ensalada-aparizzio.jpg");
+            productRepository.save(caprese);
+
+            Product focaccia = new Product("Focaccia",
+                    "Pan artesanal con tomate cherry y hierbas aromáticas.",
+                    List.of("Gluten"), 6, "Recién horneada", catAperitivos);
+            setProductImage(focaccia, "static/assets/images/focacha.jpg");
+            productRepository.save(focaccia);
+
+            Product provolone = new Product("Provolone al Horno",
+                    "Queso provolone fundido al horno con orégano.",
+                    List.of("Lácteos"), 9, "Muy meloso", catAperitivos);
+            setProductImage(provolone, "static/assets/images/provolone.jpg");
+            productRepository.save(provolone);
+
+            Product pan = new Product("Pan de Ajo",
+                    "Pan horneado con mantequilla de ajo y perejil.",
+                    List.of("Gluten", "Lácteos"), 5, "Aromático y crujiente", catAperitivos);
+            setProductImage(pan, "static/assets/images/pan-de-ajo.jpg");
+            productRepository.save(pan);
 
             // 4. CARGA DE PEDIDOS DE PRUEBA
             Order pedidoJuan = new Order();
