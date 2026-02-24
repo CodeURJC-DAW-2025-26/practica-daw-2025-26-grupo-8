@@ -1,14 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const filterContainer = document.getElementById('allergenFilters');
     const filterButtons = document.querySelectorAll('.btn-allergen-filter');
-    const productItems = document.querySelectorAll('.product-item');
     const noResults = document.getElementById('allergenNoResults');
 
     const selectedAllergens = new Set();
 
-    if (!filterContainer || !filterButtons.length || !productItems.length || !noResults) {
+    if (!filterContainer || !filterButtons.length || !noResults) {
         return;
     }
+
+    const getProductItems = () => Array.from(document.querySelectorAll('.product-item'));
 
     const normalize = (value) => value
         .toLowerCase()
@@ -51,11 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateFilteredProducts = () => {
+        const productItems = getProductItems();
         let matchingProducts = 0;
 
         productItems.forEach((item) => {
             const isMatch = matchesCurrentFilter(item);
             item.classList.toggle('allergen-hidden', !isMatch);
+            item.classList.toggle('d-none', !isMatch);
 
             if (isMatch) {
                 matchingProducts += 1;
@@ -63,7 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         noResults.classList.toggle('d-none', matchingProducts !== 0);
-        document.dispatchEvent(new CustomEvent('menu:filter-changed'));
+    };
+
+    const notifyAllergenUpdate = () => {
+        document.dispatchEvent(new CustomEvent('menu:allergen-updated', {
+            detail: {
+                allergens: Array.from(selectedAllergens)
+            }
+        }));
     };
 
     filterContainer.addEventListener('click', (event) => {
@@ -78,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedAllergens.clear();
             activateAllButton();
             updateFilteredProducts();
+            notifyAllergenUpdate();
             return;
         }
 
@@ -98,6 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
             activateAllButton();
         }
         updateFilteredProducts();
+        notifyAllergenUpdate();
     });
+
+    document.addEventListener('menu:items-appended', updateFilteredProducts);
+
     updateFilteredProducts();
 });

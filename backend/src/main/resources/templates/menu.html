@@ -59,7 +59,7 @@
         <p class="text-center text-muted small mb-4 d-none" id="allergenNoResults">No hay productos sin este alérgeno.
         </p>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div id="productsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
 
             {{#products}}
             <div class="col product-item" data-allergies="{{#allergies}}{{.}}|{{/allergies}}">
@@ -96,8 +96,9 @@
 
         <div class="text-center mt-5">
             <button
-                class="btn btn-primary btn-custom btn-load-more rounded-pill mb-4 d-inline-flex align-items-center gap-2">
-                <span>Cargar más</span>
+                class="btn btn-primary btn-custom btn-load-more rounded-pill mb-4 d-inline-flex align-items-center gap-2 {{^hasMoreProducts}}d-none{{/hasMoreProducts}}"
+                data-more-url="/menu" data-next-page="1" data-page-size="4">
+                <span>Más resultados</span>
                 <i class="bi bi-arrow-down-circle-fill"></i>
             </button>
         </div>
@@ -107,6 +108,7 @@
     {{> footer}}
 
     <script src="/js/alert.js"></script>
+    <script src="/js/spinner.js"></script>
 
     <script src="/js/alergensfilter.js"></script>
     <script src="/js/category-menu-load-more.js"></script>

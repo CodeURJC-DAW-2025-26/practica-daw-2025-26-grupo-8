@@ -28,7 +28,7 @@
 
     <section class="section-padding container">
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+        <div id="productsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
 
             {{#products}}
             <div class="col product-item">
@@ -61,18 +61,19 @@
             </div>
             {{/products}}
 
-            {{^products}}
+            {{^hasProducts}}
             <div class="col-12 text-center py-5">
                 <h3 class="text-muted">Aún no hay productos en esta categoría.</h3>
             </div>
-            {{/products}}
+            {{/hasProducts}}
 
         </div>
 
         <div class="text-center mt-5">
             <button
-                class="btn btn-primary btn-custom btn-load-more rounded-pill mb-4 d-inline-flex align-items-center gap-2">
-                <span>Cargar más</span>
+                class="btn btn-primary btn-custom btn-load-more rounded-pill mb-4 d-inline-flex align-items-center gap-2 {{^hasMoreProducts}}d-none{{/hasMoreProducts}}"
+                data-more-url="/category/{{categoryId}}" data-next-page="1" data-page-size="4">
+                <span>Más resultados</span>
                 <i class="bi bi-arrow-down-circle-fill"></i>
             </button>
             <div class="d-block"></div>
@@ -86,6 +87,7 @@
     {{> footer}}
 
     <script src="/js/alert.js"></script>
+    <script src="/js/spinner.js"></script>
     <script src="/js/category-menu-load-more.js"></script>
 
 </body>

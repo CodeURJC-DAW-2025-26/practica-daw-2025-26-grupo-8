@@ -7,9 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +27,14 @@ import com.aparizzio.pizzeria.model.Order;
 import com.aparizzio.pizzeria.model.User;
 import com.aparizzio.pizzeria.service.CartService;
 import com.aparizzio.pizzeria.service.ImageService;
+import com.aparizzio.pizzeria.service.MenuService;
 
 import java.util.Optional;
 
 @Controller
 public class WebController {
+
+    private static final int PAGE_SIZE = 4;
 
     @Autowired
     private ProductRepository productRepository;
@@ -50,6 +55,9 @@ public class WebController {
     private CartService cartService;
 
     @Autowired
+    private MenuService menuService;
+
+    @Autowired
     private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
@@ -63,18 +71,32 @@ public class WebController {
     }
 
     @GetMapping("/menu")
-    public String showMenu(Model model) {
-        model.addAttribute("products", productRepository.findAll());
-        model.addAttribute("categories", categoryRepository.findAll());
+    public String showMenu(
+            Model model,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(name = "allergen", required = false) List<String> excludedAllergens,
+            @RequestParam(defaultValue = "false") boolean fragment,
+            @RequestHeader(value = "X-Requested-With", required = false) String requestedWith,
+            HttpServletResponse response) {
 
-        // Variable para marcar el botón "Ver Carta" como activo
+        MenuService.ProductPageData menuPageData = menuService.getMenuProducts(
+                validatePage(page), PAGE_SIZE, excludedAllergens);
+
+        model.addAttribute("products", menuPageData.getProducts());
+
+        if (isAjaxRequest(fragment, requestedWith)) {
+            return prepareFragmentResponse(response, menuPageData, page);
+        }
+
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("hasMoreProducts", menuPageData.getTotalProducts() > PAGE_SIZE);
         model.addAttribute("isMenu", true);
         return "menu";
     }
 
     @GetMapping("/product/{id}")
     public String showProductDetails(Model model, @PathVariable Long id) {
-        Optional<Product> product = productRepository.findById(id);
+        Optional<Product> product = menuService.getProductById(id);
         if (product.isPresent()) {
             model.addAttribute("product", product.get());
             // No activamos ningún botón específico del navbar principal
@@ -85,24 +107,37 @@ public class WebController {
     }
 
     @GetMapping("/category/{id}")
-    public String showCategory(Model model, @PathVariable Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
+    public String showCategory(
+            Model model,
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "false") boolean fragment,
+            @RequestHeader(value = "X-Requested-With", required = false) String requestedWith,
+            HttpServletResponse response) {
 
-        if (category.isPresent()) {
-            // Mandamos la categoría entera a la vista (incluye su lista de productos)
-            model.addAttribute("category", category.get());
+        Optional<Category> category = menuService.getCategoryById(id);
 
-            // Reutilizamos la lista de productos de esta categoría específica para
-            // pintarlos
-            model.addAttribute("products", category.get().getProducts());
-
-            // Mantenemos activo el botón del Navbar de la carta
-            model.addAttribute("isMenu", true);
-
-            return "category"; // Carga el archivo category.html
-        } else {
-            return "redirect:/menu"; // Si no existe la categoría, lo mandamos a la carta
+        if (category.isEmpty()) {
+            model.addAttribute("products", List.of());
+            return isAjaxRequest(fragment, requestedWith) ? "fragments/product-cards" : "redirect:/menu";
         }
+
+        MenuService.ProductPageData categoryPageData = menuService.getCategoryProducts(
+                id, validatePage(page), PAGE_SIZE);
+
+        model.addAttribute("products", categoryPageData.getProducts());
+
+        if (isAjaxRequest(fragment, requestedWith)) {
+            return prepareFragmentResponse(response, categoryPageData, page);
+        }
+
+        model.addAttribute("category", category.get());
+        model.addAttribute("hasProducts", categoryPageData.getTotalProducts() > 0);
+        model.addAttribute("hasMoreProducts", categoryPageData.getTotalProducts() > PAGE_SIZE);
+        model.addAttribute("categoryId", id);
+        model.addAttribute("isMenu", true);
+
+        return "category";
     }
 
     // -----------------
@@ -435,6 +470,28 @@ public class WebController {
         cartService.clear(); // Vaciar carrito tras la compra
 
         return "redirect:/"; // O una página de éxito
+    }
+
+    // -----------------------
+    // --- HELPER METHODS ---
+    // -----------------------
+
+    private boolean isAjaxRequest(boolean fragment, String requestedWith) {
+        return fragment || "XMLHttpRequest".equalsIgnoreCase(requestedWith);
+    }
+
+    private String prepareFragmentResponse(
+            HttpServletResponse response,
+            MenuService.ProductPageData pageData,
+            int page) {
+
+        boolean hasMore = pageData.hasMoreAfterPage(validatePage(page), PAGE_SIZE);
+        response.setHeader("X-Has-More", String.valueOf(hasMore));
+        return "fragments/product-cards";
+    }
+
+    private int validatePage(int page) {
+        return Math.max(page, 0);
     }
 
 }
