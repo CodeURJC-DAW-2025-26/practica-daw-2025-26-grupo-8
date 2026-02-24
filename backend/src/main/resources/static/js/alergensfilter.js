@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productItems = document.querySelectorAll('.product-item');
     const noResults = document.getElementById('allergenNoResults');
 
-    let currentAllergen = 'all';
+    const selectedAllergens = new Set();
 
     if (!filterContainer || !filterButtons.length || !productItems.length || !noResults) {
         return;
@@ -26,16 +26,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const matchesCurrentFilter = (item) => {
-        if (currentAllergen === 'all') {
+        if (selectedAllergens.size === 0) {
             return true;
         }
 
         const allergies = getItemAllergies(item);
-        if (currentAllergen === 'picante') {
-            return allergies.includes(currentAllergen);
-        }
+        let hasAllNegatives = true;
 
-        return !allergies.includes(currentAllergen);
+        selectedAllergens.forEach((allergen) => {
+            if (allergies.includes(allergen)) {
+                hasAllNegatives = false;
+            }
+        });
+
+        return hasAllNegatives;
     };
 
     const activateAllButton = () => {
@@ -68,20 +72,31 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const isAlreadyActive = button.classList.contains('active');
         const selectedAllergen = normalize(button.dataset.allergen || '');
 
-        filterButtons.forEach((btn) => btn.classList.remove('active'));
-
-        if (isAlreadyActive || selectedAllergen === 'all') {
+        if (selectedAllergen === 'all') {
+            selectedAllergens.clear();
             activateAllButton();
-            currentAllergen = 'all';
             updateFilteredProducts();
             return;
         }
 
-        button.classList.add('active');
-        currentAllergen = selectedAllergen;
+        const allButton = filterContainer.querySelector('[data-allergen="all"]');
+        if (allButton) {
+            allButton.classList.remove('active');
+        }
+
+        if (selectedAllergens.has(selectedAllergen)) {
+            selectedAllergens.delete(selectedAllergen);
+            button.classList.remove('active');
+        } else {
+            selectedAllergens.add(selectedAllergen);
+            button.classList.add('active');
+        }
+
+        if (selectedAllergens.size === 0) {
+            activateAllButton();
+        }
         updateFilteredProducts();
     });
     updateFilteredProducts();
