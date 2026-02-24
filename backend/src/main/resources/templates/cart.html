@@ -52,57 +52,70 @@
 
                 <div class="col-lg-4">
 
-                    <div class="card shadow-sm border-0 rounded-4 mb-4">
-                        <div class="card-body p-4">
-                            <h4 class="mb-3 fw-bold title-font text-primary-custom">Dirección de Envío</h4>
-                            <form>
+                    <form action="/order/checkout" method="post">
+                        <div class="card shadow-sm border-0 rounded-4 mb-4">
+                            <div class="card-body p-4">
+                                <h4 class="mb-3 fw-bold title-font text-primary-custom">Dirección de Envío</h4>
                                 <div class="mb-3">
                                     <label class="form-label small text-muted">Calle y número</label>
                                     <input type="text" class="form-control" placeholder="Ej: Calle Mayor 12, 3ºA"
-                                        required>
+                                        required name="address">
                                 </div>
                                 <div class="row g-2 mb-3">
                                     <div class="col-6">
                                         <label class="form-label small text-muted">Ciudad</label>
-                                        <input type="text" class="form-control" value="Madrid" required>
+                                        <input type="text" class="form-control" value="Madrid" required name="city">
                                     </div>
                                     <div class="col-6">
                                         <label class="form-label small text-muted">C. Postal</label>
-                                        <input type="text" class="form-control" placeholder="28000" required>
+                                        <input type="text" class="form-control" placeholder="28000" required
+                                            name="postalCode">
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label small text-muted">Teléfono de contacto</label>
-                                    <input type="tel" class="form-control" placeholder="600 000 000" required>
+                                    <input type="tel" class="form-control" placeholder="600 000 000" required
+                                        name="phoneNumber">
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="card shadow border-0 rounded-4 bg-white">
-                        <div class="card-body p-4">
-                            <h4 class="mb-4 fw-bold">Resumen</h4>
-                            <div class="d-flex justify-content-between mb-2 text-muted">
-                                <span>Subtotal</span>
-                                <span>{{total}}€</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3 text-muted">
-                                <span>Envío</span>
-                                <span class="text-success">Gratis</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between mb-4">
-                                <span class="fs-4 fw-bold title-font">Total</span>
-                                <span class="fs-4 fw-bold text-primary-custom">{{total}}€</span>
-                            </div>
+                        <div class="card shadow border-0 rounded-4 bg-white">
+                            <div class="card-body p-4">
+                                <h4 class="mb-4 fw-bold">Resumen</h4>
+                                <div class="d-flex justify-content-between mb-2 text-muted">
+                                    <span>Subtotal</span>
+                                    <span>{{total}}€</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 text-muted">
+                                    <span>Envío</span>
+                                    <span class="text-success">Gratis</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <span class="fs-4 fw-bold title-font">Total</span>
+                                    <span class="fs-4 fw-bold text-primary-custom">{{total}}€</span>
+                                </div>
 
-                            <a href="/checkout"
-                                class="btn btn-primary btn-custom btn-load-more w-100 py-3 rounded-pill d-flex align-items-center justify-content-center gap-2">
-                                <span>Confirmar Pedido</span>
-                                <i class="bi bi-check-circle-fill"></i>
-                            </a>
+                                {{#hasCartProducts}}
+                                <button type="submit"
+                                    class="btn btn-primary btn-custom btn-load-more w-100 py-3 rounded-pill d-flex align-items-center justify-content-center gap-2 border-0">
+                                    <span>Confirmar Pedido</span>
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </button>
+                                {{/hasCartProducts}}
+
+                                {{^hasCartProducts}}
+                                <button type="button"
+                                    class="btn btn-secondary w-100 py-3 rounded-pill d-flex align-items-center justify-content-center gap-2 border-0"
+                                    disabled>
+                                    <span>Carrito vacío</span>
+                                    <i class="bi bi-basket"></i>
+                                </button>
+                                {{/hasCartProducts}}
+                            </div>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
             </div>

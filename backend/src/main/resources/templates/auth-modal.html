@@ -38,19 +38,35 @@
 
                         <div id="registerForm" class="d-none">
                             <h2 class="fw-bold mb-4 title-font text-primary-custom">Crear Cuenta</h2>
-                            <form action="/register" method="POST">
+
+                            <div id="registerError" class="alert alert-danger d-none small py-2"></div>
+
+                            <form action="/register" method="POST" id="registerFormElement">
                                 <div class="mb-3">
-                                    <label class="form-label small text-muted">Correo</label>
-                                    <input type="email" name="email" class="form-control" required>
+                                    <label class="form-label small text-muted">Nombre Completo</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Ej: Juan Pérez"
+                                        required>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small text-muted">Correo Electrónico</label>
+                                    <input type="email" name="email" class="form-control" placeholder="juan@ejemplo.com"
+                                        required>
+                                </div>
+
                                 <div class="mb-3">
                                     <label class="form-label small text-muted">Contraseña</label>
-                                    <input type="password" name="password" class="form-control" required>
+                                    <input type="password" name="password" id="regPassword" class="form-control"
+                                        required minlength="4">
                                 </div>
+
                                 <div class="mb-4">
                                     <label class="form-label small text-muted">Repetir Contraseña</label>
-                                    <input type="password" class="form-control" required>
+                                    <input type="password" name="confirmPassword" id="regConfirmPassword"
+                                        class="form-control" required minlength="4">
+                                    <div class="invalid-feedback">Las contraseñas no coinciden.</div>
                                 </div>
+
                                 <div class="d-grid mb-3">
                                     <button type="submit" class="btn btn-primary btn-custom py-2">Registrarse</button>
                                 </div>
@@ -68,3 +84,63 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // --- 1. CLIENT-SIDE VALIDATION: Check if passwords match ---
+        const pass1 = document.getElementById('regPassword');
+        const pass2 = document.getElementById('regConfirmPassword');
+
+        if (pass1 && pass2) {
+            pass2.addEventListener('input', function () {
+                if (pass1.value !== pass2.value) {
+                    // This triggers HTML5 built-in validation styling
+                    pass2.setCustomValidity("Las contraseñas no coinciden");
+                    pass2.classList.add("is-invalid");
+                } else {
+                    pass2.setCustomValidity("");
+                    pass2.classList.remove("is-invalid");
+                }
+            });
+
+            pass1.addEventListener('input', function () {
+                if (pass2.value && pass1.value !== pass2.value) {
+                    pass2.setCustomValidity("Las contraseñas no coinciden");
+                    pass2.classList.add("is-invalid");
+                } else {
+                    pass2.setCustomValidity("");
+                    pass2.classList.remove("is-invalid");
+                }
+            });
+        }
+
+        // --- 2. SERVER-SIDE VALIDATION: Read URL errors ---
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            const errorType = urlParams.get('error');
+
+            // Auto-open the modal if there's an error
+            const authModalElement = document.getElementById('authModal');
+            if (authModalElement) {
+                const authModal = new bootstrap.Modal(authModalElement);
+                authModal.show();
+            }
+
+            const errorDiv = document.getElementById('registerError');
+
+            if (errorType === 'email_exists') {
+                // Switch to register view (assuming your toggleAuth function does this)
+                if (typeof toggleAuth === "function") toggleAuth('register');
+
+                // Show the error message
+                errorDiv.textContent = "Ya existe un usuario con este correo electrónico.";
+                errorDiv.classList.remove('d-none');
+            } else if (errorType === 'password_mismatch') {
+                if (typeof toggleAuth === "function") toggleAuth('register');
+                errorDiv.textContent = "Las contraseñas enviadas no coinciden.";
+                errorDiv.classList.remove('d-none');
+            }
+        }
+    });
+</script>
