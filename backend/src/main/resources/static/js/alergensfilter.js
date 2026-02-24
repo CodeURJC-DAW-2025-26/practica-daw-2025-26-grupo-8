@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.btn-allergen-filter');
     const productItems = document.querySelectorAll('.product-item');
     const noResults = document.getElementById('allergenNoResults');
+    const loadMoreButton = document.querySelector('.btn-load-more');
+    const ITEMS_PER_BATCH = 4;
+
+    let currentAllergen = 'all';
+    let visibleLimit = ITEMS_PER_BATCH;
 
     if (!filterContainer || !filterButtons.length || !productItems.length || !noResults) {
         return;
@@ -14,9 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
         .replace(/[\u0300-\u036f]/g, '')
         .trim();
 
-    const showAllProducts = () => {
-        productItems.forEach((item) => item.classList.remove('d-none'));
-        noResults.classList.add('d-none');
+    const getItemAllergies = (item) => {
+        const rawAllergies = item.dataset.allergies || '';
+
+        return rawAllergies
+            .split('|')
+            .map((entry) => normalize(entry))
+            .filter(Boolean);
+    };
+
+    const matchesCurrentFilter = (item) => {
+        if (currentAllergen === 'all') {
+            return true;
+        }
+
+        const allergies = getItemAllergies(item);
+        return allergies.includes(currentAllergen);
     };
 
     const activateAllButton = () => {
@@ -27,25 +45,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const applyAllergenFilter = (allergen) => {
-        let visibleCount = 0;
+    const updateVisibleProducts = () => {
+        let matchingProducts = 0;
+        let shownProducts = 0;
 
         productItems.forEach((item) => {
-            const rawAllergies = item.dataset.allergies || '';
-            const allergies = rawAllergies
-                .split('|')
-                .map((entry) => normalize(entry))
-                .filter(Boolean);
+            if (!matchesCurrentFilter(item)) {
+                item.classList.add('d-none');
+                return;
+            }
 
-            const visible = allergies.includes(allergen);
-            item.classList.toggle('d-none', !visible);
+            matchingProducts += 1;
+            const shouldShow = shownProducts < visibleLimit;
+            item.classList.toggle('d-none', !shouldShow);
 
-            if (visible) {
-                visibleCount += 1;
+            if (shouldShow) {
+                shownProducts += 1;
             }
         });
 
-        noResults.classList.toggle('d-none', visibleCount !== 0);
+        noResults.classList.toggle('d-none', matchingProducts !== 0);
+
+        if (!loadMoreButton) {
+            return;
+        }
+
+        const hasMoreProducts = matchingProducts > shownProducts;
+        loadMoreButton.classList.toggle('d-none', !hasMoreProducts);
+        loadMoreButton.disabled = !hasMoreProducts;
     };
 
     filterContainer.addEventListener('click', (event) => {
@@ -61,11 +88,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isAlreadyActive || selectedAllergen === 'all') {
             activateAllButton();
-            showAllProducts();
+            currentAllergen = 'all';
+            visibleLimit = ITEMS_PER_BATCH;
+            updateVisibleProducts();
             return;
         }
 
         button.classList.add('active');
-        applyAllergenFilter(selectedAllergen);
+        currentAllergen = selectedAllergen;
+        visibleLimit = ITEMS_PER_BATCH;
+        updateVisibleProducts();
     });
+
+    if (loadMoreButton) {
+        loadMoreButton.addEventListener('click', () => {
+            visibleLimit += ITEMS_PER_BATCH;
+            updateVisibleProducts();
+        });
+    }
+
+    updateVisibleProducts();
 });
