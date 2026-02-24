@@ -232,7 +232,27 @@ public class WebController {
     // --- 1. DELETE PRODUCT ---
     @PostMapping("/admin/products/{id}/delete")
     public String deleteProduct(@PathVariable Long id) {
-        productRepository.deleteById(id);
+        Optional<Product> productOpt = productRepository.findById(id);
+
+        if (productOpt.isPresent()) {
+            Product productToDelete = productOpt.get();
+
+            // Fetch all orders from the database
+            List<Order> allOrders = orderRepository.findAll();
+
+            // Loop through all orders and remove the product if it exists in their list
+            for (Order order : allOrders) {
+                if (order.getProducts().contains(productToDelete)) {
+
+                    order.getProducts().remove(productToDelete);
+
+                    orderRepository.save(order);
+                }
+            }
+
+            productRepository.deleteById(id);
+        }
+
         return "redirect:/admin/categories";
     }
 
@@ -289,9 +309,26 @@ public class WebController {
     // --- DELETE CATEGORY ---
     @PostMapping("/admin/categories/{id}/delete")
     public String deleteCategory(@PathVariable Long id) {
-        // Warning: Deleting a category that has linked products will cause a DB error
-        // unless Cascade rules are set. For now, we allow deletion of empty categories.
-        categoryRepository.deleteById(id);
+        Optional<Category> categoryOpt = categoryRepository.findById(id);
+
+        if (categoryOpt.isPresent()) {
+            Category categoryToDelete = categoryOpt.get();
+
+            // Unlink all products from the product side
+            for (Product product : categoryToDelete.getProducts()) {
+                product.setCategory(null);
+                productRepository.save(product);
+            }
+
+            // Clear the list on the category side so Hibernate knows they are fully
+            // detached
+            if (categoryToDelete.getProducts() != null) {
+                categoryToDelete.getProducts().clear();
+            }
+
+            categoryRepository.deleteById(id);
+        }
+
         return "redirect:/admin/categories";
     }
 
@@ -331,5 +368,30 @@ public class WebController {
         // Save changes
         categoryRepository.save(category);
         return "redirect:/admin/categories";
+    }
+
+    // --- SHOW ORDER DETAILS (ADMIN PANEL) ---
+    @GetMapping("/admin/orders/{id}")
+    public String showOrderDetails(@PathVariable Long id, Model model) {
+
+        Optional<Order> orderOpt = orderRepository.findById(id);
+
+        if (orderOpt.isPresent()) {
+            Order order = orderOpt.get();
+            model.addAttribute("order", order);
+
+            // Calculate the total price of all products in the order
+            double total = 0;
+            for (Product p : order.getProducts()) {
+                total += p.getPrice();
+            }
+
+            // Add the total price to the model for Mustache to display
+            model.addAttribute("totalPrice", total);
+
+            return "admin-order-details";
+        }
+
+        return "redirect:/admin/orders";
     }
 }

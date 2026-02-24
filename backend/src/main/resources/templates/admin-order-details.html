@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Pedido | Admin Aparizzio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3 text-white">
+                    <a href="/"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none px-3">
+                        <span class="fs-4 title-font">Aparizzio Admin</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item"><a href="/" class="nav-link text-white"><i
+                                    class="bi bi-speedometer2 me-2"></i> Dashboard (Tienda)</a></li>
+                        <li><a href="/admin/users" class="nav-link text-white"><i class="bi bi-people-fill me-2"></i>
+                                Usuarios</a></li>
+                        <li><a href="/admin/orders" class="nav-link active bg-danger"><i
+                                    class="bi bi-cart-check me-2"></i> Pedidos</a></li>
+                        <li><a href="/admin/categories" class="nav-link text-white"><i class="bi bi-tags me-2"></i>
+                                Categorías y Productos</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
+
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+                    <h1 class="h2 title-font text-dark">Detalle del Pedido #ORD-{{order.id}}</h1>
+                    <a href="/admin/orders" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Volver a
+                        Pedidos</a>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-header bg-dark text-white">
+                                <h5 class="mb-0 fw-bold"><i class="bi bi-person-lines-fill me-2"></i> Datos del Cliente
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>Nombre:</strong> {{order.user.name}}</p>
+                                <p class="mb-2"><strong>Email:</strong> {{order.user.email}}</p>
+                                <p class="mb-2"><strong>Teléfono:</strong> {{order.phoneNumber}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-header bg-dark text-white">
+                                <h5 class="mb-0 fw-bold"><i class="bi bi-geo-alt-fill me-2"></i> Dirección de Entrega
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>Dirección:</strong> {{order.address}}</p>
+                                <p class="mb-2"><strong>Ciudad:</strong> {{order.city}}</p>
+                                <p class="mb-2"><strong>Código Postal:</strong> {{order.postalCode}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-header bg-white py-3">
+                                <h5 class="mb-0 fw-bold text-dark"><i
+                                        class="bi bi-bag-check-fill me-2 text-primary-custom"></i> Productos del Pedido
+                                </h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    {{#order.products}}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <div class="d-flex align-items-center">
+                                            {{#image}}
+                                            <img src="/images/{{id}}" class="rounded-3 me-3"
+                                                style="width: 50px; height: 50px; object-fit: cover;">
+                                            {{/image}}
+                                            {{^image}}
+                                            <img src="/assets/images/logo.png" class="rounded-3 me-3 bg-light p-1"
+                                                style="width: 50px; height: 50px; object-fit: contain;">
+                                            {{/image}}
+                                            <div>
+                                                <h6 class="mb-0 fw-bold">{{title}}</h6>
+                                                <small class="text-muted">{{category.title}}</small>
+                                            </div>
+                                        </div>
+                                        <span class="fw-bold text-primary-custom">{{price}}€</span>
+                                    </li>
+                                    {{/order.products}}
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-light p-3 text-end">
+                                <h4 class="mb-0">Total: <span class="fw-bold text-primary-custom">{{totalPrice}}€</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

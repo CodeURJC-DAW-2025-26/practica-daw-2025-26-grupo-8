@@ -50,9 +50,9 @@
                                     <tr>
                                         <th class="ps-4">ID Pedido</th>
                                         <th>Cliente</th>
-                                        <th>Dirección de Entrega</th>
+                                        <th>Dirección</th>
+                                        <th>Ciudad</th>
                                         <th>Teléfono</th>
-                                        <th>Estado</th>
                                         <th class="text-end pe-4">Acciones</th>
                                     </tr>
                                 </thead>
@@ -61,15 +61,21 @@
                                     {{#orders}}
                                     <tr>
                                         <td class="ps-4 fw-bold text-secondary">#ORD-{{id}}</td>
+
                                         <td class="fw-bold">
                                             <i class="bi bi-person-circle text-muted me-1"></i> {{user.name}}
                                         </td>
-                                        <td>{{address}}, {{city}}</td>
+
+                                        <td>{{address}}</td>
+
+                                        <td>{{city}}</td>
+
                                         <td>{{phoneNumber}}</td>
-                                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+
                                         <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> Ver
-                                                Detalle</button>
+                                            <a href="/admin/orders/{{id}}" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i> Ver Detalle
+                                            </a>
                                         </td>
                                     </tr>
                                     {{/orders}}
