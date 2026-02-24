@@ -306,7 +306,15 @@
                                             {{/image}}
                                         </td>
                                         <td class="fw-bold">{{title}}</td>
-                                        <td><span class="badge bg-dark">{{category.title}}</span></td>
+                                        <td>
+                                            {{#category}}
+                                            <span class="badge bg-dark">{{title}}</span>
+                                            {{/category}}
+
+                                            {{^category}}
+                                            <span class="badge border border-danger text-danger">Unassigned</span>
+                                            {{/category}}
+                                        </td>
                                         <td class="text-primary-custom fw-bold">{{price}}€</td>
                                         <td>
                                             {{#allergies}}
