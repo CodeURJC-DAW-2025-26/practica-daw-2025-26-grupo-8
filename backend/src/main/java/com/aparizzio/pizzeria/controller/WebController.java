@@ -2,6 +2,9 @@ package com.aparizzio.pizzeria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.repository.CategoryRepository;
@@ -155,6 +160,46 @@ public class WebController {
     public String showAdminOrders(Model model) {
         model.addAttribute("orders", orderRepository.findAll());
         return "admin-orders";
+    }
+
+    @GetMapping("/admin/metrics")
+    public String showAdminMetrics(Model model) {
+        List<Order> orders = orderRepository.findAll();
+        Map<String, Integer> soldProductsCount = new HashMap<>();
+        int totalProductsSold = 0;
+
+        for (Order order : orders) {
+            if (order.getProducts() == null) {
+                continue;
+            }
+
+            for (Product product : order.getProducts()) {
+                if (product == null || product.getTitle() == null) {
+                    continue;
+                }
+
+                soldProductsCount.merge(product.getTitle(), 1, Integer::sum);
+                totalProductsSold++;
+            }
+        }
+
+        List<Map<String, Object>> topSoldProducts = soldProductsCount.entrySet().stream()
+                .sorted((first, second) -> second.getValue().compareTo(first.getValue()))
+                .limit(10)
+                .map(entry -> {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("name", entry.getKey());
+                    data.put("count", entry.getValue());
+                    return data;
+                })
+                .toList();
+
+        model.addAttribute("totalOrders", orders.size());
+        model.addAttribute("totalProductsSold", totalProductsSold);
+        model.addAttribute("differentProductsSold", soldProductsCount.size());
+        model.addAttribute("topSoldProducts", topSoldProducts);
+
+        return "admin-metrics";
     }
 
     @PostMapping("/admin/products/new")
@@ -458,6 +503,7 @@ public class WebController {
     public String showCart(Model model) {
         model.addAttribute("cartProducts", cartService.getProducts());
         model.addAttribute("total", cartService.getTotal());
+        model.addAttribute("hasCartProducts", !cartService.getProducts().isEmpty());
         model.addAttribute("isCart", true);
         return "cart";
     }
@@ -488,8 +534,12 @@ public class WebController {
         order.setCity(city);
         order.setPostalCode(postalCode);
         order.setPhoneNumber(phoneNumber);
-        // Aquí deberías obtener el usuario autenticado y setearlo:
-        // order.setUser(currentUser);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken)) {
+            userRepository.findByEmail(authentication.getName()).ifPresent(order::setUser);
+        }
 
         orderRepository.save(order);
         cartService.clear(); // Vaciar carrito tras la compra
