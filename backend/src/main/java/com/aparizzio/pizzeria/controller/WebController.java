@@ -22,6 +22,7 @@ import com.aparizzio.pizzeria.repository.UserRepository;
 import com.aparizzio.pizzeria.repository.OrderRepository;
 import com.aparizzio.pizzeria.model.Image;
 import com.aparizzio.pizzeria.model.Order;
+import com.aparizzio.pizzeria.model.User;
 import com.aparizzio.pizzeria.service.CartService;
 import com.aparizzio.pizzeria.service.ImageService;
 
@@ -47,6 +48,9 @@ public class WebController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String showIndex(Model model) {
@@ -184,49 +188,6 @@ public class WebController {
 
         // 4. Recharge the page
         return "redirect:/admin/categories";
-    }
-
-    @GetMapping("/cart")
-    public String showCart(Model model) {
-        model.addAttribute("cartProducts", cartService.getProducts());
-        model.addAttribute("total", cartService.getTotal());
-        model.addAttribute("isCart", true);
-        return "cart";
-    }
-
-    @PostMapping("/cart/add/{id}")
-    @ResponseBody // Esto permite devolver solo un mensaje o estado, no una vista
-    public String addToCart(@PathVariable Long id) {
-        productRepository.findById(id).ifPresent(cartService::addProduct);
-        return "Producto añadido correctamente"; // Este mensaje no se verá si no quieres
-    }
-
-    @PostMapping("/cart/remove/{id}")
-    public String removeFromCart(@PathVariable Long id) {
-        cartService.removeProduct(id);
-        return "redirect:/cart";
-    }
-
-    @PostMapping("/order/checkout")
-    public String processOrder(@RequestParam String address, @RequestParam String city,
-            @RequestParam String postalCode, @RequestParam String phoneNumber) {
-
-        if (cartService.getProducts().isEmpty())
-            return "redirect:/menu";
-
-        Order order = new Order();
-        order.setProducts(new ArrayList<>(cartService.getProducts()));
-        order.setAddress(address);
-        order.setCity(city);
-        order.setPostalCode(postalCode);
-        order.setPhoneNumber(phoneNumber);
-        // Aquí deberías obtener el usuario autenticado y setearlo:
-        // order.setUser(currentUser);
-
-        orderRepository.save(order);
-        cartService.clear(); // Vaciar carrito tras la compra
-
-        return "redirect:/"; // O una página de éxito
     }
 
     // --- 1. DELETE PRODUCT ---
@@ -394,4 +355,86 @@ public class WebController {
 
         return "redirect:/admin/orders";
     }
+
+    // --- CREATE NEW USER ---
+    @PostMapping("/admin/users/new")
+    public String createUser(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String role,
+            @RequestParam String password) {
+
+        User newUser = new User(name, email, passwordEncoder.encode(password), "USER");
+
+        // If the admin selected "ADMIN" from the dropdown, add both roles
+        if ("ADMIN".equals(role)) {
+            newUser.setRoles(List.of("USER", "ADMIN"));
+        }
+
+        userRepository.save(newUser);
+
+        return "redirect:/admin/users";
+    }
+
+    // --- DELETE USER ---
+    @PostMapping("/admin/users/{id}/delete")
+    public String deleteUser(@PathVariable Long id) {
+
+        Optional<User> userOpt = userRepository.findById(id);
+
+        // Prevent the master admin account from deleting itself
+        if (userOpt.isPresent() && !userOpt.get().getEmail().equals("admin@admin.com")) {
+
+            userRepository.deleteById(id);
+        }
+
+        return "redirect:/admin/users";
+    }
+
+    // ----------------
+    // ----- CART -----
+    // ----------------
+    @GetMapping("/cart")
+    public String showCart(Model model) {
+        model.addAttribute("cartProducts", cartService.getProducts());
+        model.addAttribute("total", cartService.getTotal());
+        model.addAttribute("isCart", true);
+        return "cart";
+    }
+
+    @PostMapping("/cart/add/{id}")
+    @ResponseBody // Esto permite devolver solo un mensaje o estado, no una vista
+    public String addToCart(@PathVariable Long id) {
+        productRepository.findById(id).ifPresent(cartService::addProduct);
+        return "Producto añadido correctamente"; // Este mensaje no se verá si no quieres
+    }
+
+    @PostMapping("/cart/remove/{id}")
+    public String removeFromCart(@PathVariable Long id) {
+        cartService.removeProduct(id);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/order/checkout")
+    public String processOrder(@RequestParam String address, @RequestParam String city,
+            @RequestParam String postalCode, @RequestParam String phoneNumber) {
+
+        if (cartService.getProducts().isEmpty())
+            return "redirect:/menu";
+
+        Order order = new Order();
+        order.setProducts(new ArrayList<>(cartService.getProducts()));
+        order.setAddress(address);
+        order.setCity(city);
+        order.setPostalCode(postalCode);
+        order.setPhoneNumber(phoneNumber);
+        // Aquí deberías obtener el usuario autenticado y setearlo:
+        // order.setUser(currentUser);
+
+        orderRepository.save(order);
+        cartService.clear(); // Vaciar carrito tras la compra
+
+        return "redirect:/"; // O una página de éxito
+    }
+
 }
