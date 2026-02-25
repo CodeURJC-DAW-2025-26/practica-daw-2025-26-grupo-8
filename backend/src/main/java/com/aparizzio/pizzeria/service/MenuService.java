@@ -1,6 +1,5 @@
 package com.aparizzio.pizzeria.service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -39,22 +38,16 @@ public class MenuService {
                 .filter(value -> !value.isBlank())
                 .collect(Collectors.toSet());
 
-        List<Product> filteredProducts = productRepository.findAll().stream()
-                .filter(product -> {
-                    if (product.getAllergies() == null || product.getAllergies().isEmpty()) {
-                        return true;
-                    }
+        if (normalizedExcludedAllergens.isEmpty()) {
+            Page<Product> productPage = productRepository.findAll(PageRequest.of(page, size));
+            return new ProductPageData(productPage.getContent(), productPage.getTotalElements());
+        }
 
-                    Set<String> productAllergies = product.getAllergies().stream()
-                            .map(this::normalizeAllergen)
-                            .collect(Collectors.toSet());
+        Page<Product> filteredPage = productRepository.findByExcludedAllergens(
+                normalizedExcludedAllergens,
+                PageRequest.of(page, size));
 
-                    return productAllergies.stream().noneMatch(normalizedExcludedAllergens::contains);
-                })
-                .sorted(Comparator.comparing(Product::getId))
-                .toList();
-
-        return buildPageData(filteredProducts, page, size);
+        return new ProductPageData(filteredPage.getContent(), filteredPage.getTotalElements());
     }
 
     public ProductPageData getCategoryProducts(Long categoryId, int page, int size) {
@@ -68,18 +61,6 @@ public class MenuService {
 
     public Optional<Category> getCategoryById(Long id) {
         return categoryRepository.findById(id);
-    }
-
-    private ProductPageData buildPageData(List<Product> products, int page, int size) {
-        int start = page * size;
-        int total = products.size();
-
-        if (start >= total) {
-            return new ProductPageData(List.of(), total);
-        }
-
-        int end = Math.min(start + size, total);
-        return new ProductPageData(products.subList(start, end), total);
     }
 
     private String normalizeAllergen(String allergen) {
