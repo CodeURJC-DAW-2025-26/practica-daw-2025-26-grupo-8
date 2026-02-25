@@ -1,21 +1,26 @@
-document.querySelectorAll('.add-to-cart-form').forEach(form => {
-    form.addEventListener('submit', function (e) {
-        e.preventDefault(); // Evita que la página se recargue o redirija
+document.addEventListener('DOMContentLoaded', function () {
+    document.body.addEventListener('submit', function (e) {
 
-        const url = this.action;
+        const form = e.target;
 
-        fetch(url, {
-            method: 'POST'
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert("¡Producto añadido con éxito!");
-                } else {
-                    alert("Error al añadir el producto.");
-                }
+        const actionUrl = form.getAttribute("action") || "";
+
+        if (form.classList.contains('add-to-cart-form') || actionUrl.includes("/cart/add/")) {
+            e.preventDefault();
+
+            fetch(actionUrl, {
+                method: 'POST'
             })
-            .catch(error => {
-                console.error('Error en la petición:', error);
-            });
+                .then(response => {
+                    if (response.ok) {
+                        alert("¡Producto añadido con éxito al carrito!");
+                    } else {
+                        alert("Error al añadir el producto.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la petición:', error);
+                });
+        }
     });
 });

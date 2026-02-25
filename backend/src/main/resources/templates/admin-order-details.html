@@ -107,7 +107,12 @@
                                             {{/image}}
                                             <div>
                                                 <h6 class="mb-0 fw-bold">{{title}}</h6>
-                                                <small class="text-muted">{{category.title}}</small>
+                                                {{#category}}
+                                                <small class="text-muted">{{title}}</small>
+                                                {{/category}}
+                                                {{^category}}
+                                                <small class="text-danger">Sin categoría</small>
+                                                {{/category}}
                                             </div>
                                         </div>
                                         <span class="fw-bold text-primary-custom">{{price}}€</span>
