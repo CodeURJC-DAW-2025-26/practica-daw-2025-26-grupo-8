@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadMoreButton = document.querySelector('.btn-load-more[data-more-url]');
     const productsContainer = document.getElementById('productsContainer');
     const filterContainer = document.getElementById('allergenFilters');
+    const noResultsMessage = document.getElementById('allergenNoResults');
     const isMenuPage = Boolean(filterContainer);
 
     if (!loadMoreButton || !productsContainer) {
@@ -77,7 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const html = (await response.text()).trim();
             const hasMoreHeader = (response.headers.get('X-Has-More') || '').toLowerCase();
+            const appendedProducts = (html.match(/class="col product-item"/g) || []).length;
             if (!html) {
+                if (shouldReset) {
+                    productsContainer.innerHTML = '';
+                    if (isMenuPage && noResultsMessage) {
+                        noResultsMessage.classList.remove('d-none');
+                    }
+                }
                 hideButton();
                 return;
             }
@@ -97,7 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
             productsContainer.insertAdjacentHTML('beforeend', html);
             loadMoreButton.dataset.nextPage = String(nextPage + 1);
 
-            const appendedProducts = (html.match(/class="col product-item"/g) || []).length;
+            if (isMenuPage && noResultsMessage && shouldReset) {
+                noResultsMessage.classList.toggle('d-none', appendedProducts !== 0);
+            }
+
             if (hasMoreHeader === 'false') {
                 hideButton();
             } else if (hasMoreHeader === 'true') {
