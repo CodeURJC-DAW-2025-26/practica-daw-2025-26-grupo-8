@@ -57,14 +57,11 @@ public class UserService {
         Optional<User> userOpt = userRepository.findById(id);
 
         if (userOpt.isPresent() && !userOpt.get().getEmail().equals("admin@admin.com")) {
-            User userToDelete = userOpt.get();
-            List<Order> allOrders = orderRepository.findAll();
 
-            for (Order order : allOrders) {
-                if (order.getUser() != null && order.getUser().getId().equals(userToDelete.getId())) {
-                    orderRepository.delete(order);
-                }
-            }
+            List<Order> userOrders = orderRepository.findByUserId(id);
+
+            orderRepository.deleteAll(userOrders);
+
             userRepository.deleteById(id);
         }
     }

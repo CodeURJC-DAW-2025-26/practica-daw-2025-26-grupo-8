@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aparizzio.pizzeria.model.Order;
 import com.aparizzio.pizzeria.service.OrderService;
@@ -42,11 +43,15 @@ public class AdminOrderController {
 
     // --- Delete an order ---
     @PostMapping("/admin/orders/{id}/delete")
-    public String deleteOrder(@PathVariable Long id) {
+    public String deleteOrder(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Optional<Order> orderOpt = orderService.getOrderById(id);
 
         if (orderOpt.isPresent()) {
             orderService.deleteOrder(id);
+            redirectAttributes.addFlashAttribute("warningMessage",
+                    "El pedido #ORD-" + id + " ha sido eliminado del sistema de forma permanente.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "No se ha podido encontrar el pedido solicitado.");
         }
 
         return "redirect:/admin/orders";

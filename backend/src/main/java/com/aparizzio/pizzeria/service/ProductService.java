@@ -98,15 +98,11 @@ public class ProductService {
 
         if (productOpt.isPresent()) {
 
-            List<Order> allOrders = orderRepository.findAll();
+            List<Order> ordersWithProduct = orderRepository.findByProductsId(id);
 
-            // Loop through orders and remove the product matching the exact ID
-            for (Order order : allOrders) {
-                boolean removed = order.getProducts().removeIf(p -> p.getId().equals(id));
-
-                if (removed) {
-                    orderRepository.save(order);
-                }
+            for (Order order : ordersWithProduct) {
+                order.getProducts().removeIf(p -> p.getId().equals(id));
+                orderRepository.save(order);
             }
 
             productRepository.deleteById(id);

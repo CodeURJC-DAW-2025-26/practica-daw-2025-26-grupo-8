@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aparizzio.pizzeria.model.Category;
 import com.aparizzio.pizzeria.model.Product;
@@ -47,15 +48,21 @@ public class AdminInventoryController {
             @RequestParam(required = false) List<String> allergies,
             @RequestParam("imageFile") MultipartFile imageFile,
             @RequestParam String shortDescription,
-            @RequestParam String description) throws IOException {
+            @RequestParam String description,
+            RedirectAttributes redirectAttributes) throws IOException {
 
         productService.createProduct(title, categoryId, price, allergies, imageFile, shortDescription, description);
+
+        redirectAttributes.addFlashAttribute("successMessage",
+                "¡El producto '" + title + "' se ha añadido al menú correctamente!");
         return "redirect:/admin/categories";
     }
 
     @PostMapping("/admin/products/{id}/delete")
-    public String deleteProduct(@PathVariable Long id) {
+    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         productService.deleteProductSafely(id);
+
+        redirectAttributes.addFlashAttribute("warningMessage", "Producto eliminado permanentemente del catálogo.");
         return "redirect:/admin/categories";
     }
 
@@ -80,9 +87,13 @@ public class AdminInventoryController {
             @RequestParam(required = false) List<String> allergies,
             @RequestParam("imageFile") MultipartFile imageFile,
             @RequestParam String shortDescription,
-            @RequestParam String description) throws IOException {
+            @RequestParam String description,
+            RedirectAttributes redirectAttributes) throws IOException {
 
         productService.updateProduct(id, title, categoryId, price, allergies, imageFile, shortDescription, description);
+
+        redirectAttributes.addFlashAttribute("successMessage",
+                "Los cambios en el producto '" + title + "' se han guardado con éxito.");
         return "redirect:/admin/categories";
     }
 
@@ -94,15 +105,22 @@ public class AdminInventoryController {
     public String createCategory(
             @RequestParam String title,
             @RequestParam String description,
-            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+            @RequestParam("imageFile") MultipartFile imageFile,
+            RedirectAttributes redirectAttributes) throws IOException {
 
         categoryService.createCategory(title, description, imageFile);
+
+        redirectAttributes.addFlashAttribute("successMessage",
+                "La categoría '" + title + "' se ha creado correctamente.");
         return "redirect:/admin/categories";
     }
 
     @PostMapping("/admin/categories/{id}/delete")
-    public String deleteCategory(@PathVariable Long id) {
+    public String deleteCategory(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         categoryService.deleteCategorySafely(id);
+
+        redirectAttributes.addFlashAttribute("warningMessage",
+                "Categoría eliminada. Los productos asociados ahora figuran como 'Sin asignar'.");
         return "redirect:/admin/categories";
     }
 
@@ -122,9 +140,12 @@ public class AdminInventoryController {
             @PathVariable Long id,
             @RequestParam String title,
             @RequestParam String description,
-            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+            @RequestParam("imageFile") MultipartFile imageFile,
+            RedirectAttributes redirectAttributes) throws IOException {
 
         categoryService.updateCategory(id, title, description, imageFile);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Categoría '" + title + "' actualizada correctamente.");
         return "redirect:/admin/categories";
     }
 }

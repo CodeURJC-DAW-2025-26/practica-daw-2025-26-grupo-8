@@ -1,6 +1,10 @@
 package com.aparizzio.pizzeria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +35,18 @@ public class CartController {
 
     @PostMapping("/cart/add/{id}")
     @ResponseBody
-    public String addToCart(@PathVariable Long id) {
+    public ResponseEntity<String> addToCart(@PathVariable Long id) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()
+                || authentication instanceof AnonymousAuthenticationToken) {
+            return ResponseEntity.status(401).body("No autorizado");
+        }
+
         productService.getProductById(id).ifPresent(cartService::addProduct);
-        return "Producto añadido correctamente";
+
+        return ResponseEntity.ok("Producto añadido correctamente");
     }
 
     @PostMapping("/cart/remove/{id}")
