@@ -44,7 +44,7 @@ public class OrderService {
     }
 
     // --- Create and save a new order from the checkout process ---
-    public void createOrder(List<Product> products, String address, String city, String postalCode, String phoneNumber,
+    public Order createOrder(List<Product> products, String address, String city, String postalCode, String phoneNumber,
             User user) {
         Order order = new Order();
         order.setProducts(products);
@@ -58,6 +58,6 @@ public class OrderService {
             order.setUser(user);
         }
 
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
 }
