@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.repository.CategoryRepository;
 import com.aparizzio.pizzeria.repository.ProductRepository;
 import com.aparizzio.pizzeria.model.Category;
 import com.aparizzio.pizzeria.service.MenuService;
+import com.aparizzio.pizzeria.service.MetricsService;
 
 @Controller
 public class PublicWebController {
@@ -33,11 +36,29 @@ public class PublicWebController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private MetricsService metricsService;
+
     // --- HOME PAGE ---
     @GetMapping("/")
     public String showIndex(Model model) {
+        List<Long> topSoldProductIds = metricsService.getTopSoldProductIds();
+        List<Product> topProducts;
+
+        if (topSoldProductIds.isEmpty()) {
+            topProducts = productRepository.findAll(PageRequest.of(0, 5)).getContent();
+        } else {
+            Map<Long, Product> productsById = productRepository.findAllById(topSoldProductIds).stream()
+                    .collect(Collectors.toMap(Product::getId, product -> product));
+
+            topProducts = topSoldProductIds.stream()
+                    .map(productsById::get)
+                    .filter(product -> product != null)
+                    .toList();
+        }
+
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("topProducts", productRepository.findAll(PageRequest.of(0, 5)).getContent());
+        model.addAttribute("topProducts", topProducts);
         model.addAttribute("isHome", true);
         return "index";
     }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.aparizzio.pizzeria.repository.OrderRepository;
+import com.aparizzio.pizzeria.repository.ProductSalesProjection;
 
 @Service
 public class MetricsService {
@@ -22,14 +23,7 @@ public class MetricsService {
         long totalProductsSold = orderRepository.countAllSoldProducts();
         long differentProductsSold = orderRepository.countDistinctSoldProducts();
 
-        List<Map<String, Object>> topSoldProducts = orderRepository.findTopSoldProducts(PageRequest.of(0, 5)).stream()
-                .map(productSale -> {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("name", productSale.getName());
-                    data.put("count", productSale.getCount());
-                    return data;
-                })
-                .toList();
+        List<Map<String, Object>> topSoldProducts = getTopSoldProducts();
 
         // Package all the metrics into a map to send back
         Map<String, Object> metrics = new HashMap<>();
@@ -39,5 +33,23 @@ public class MetricsService {
         metrics.put("topSoldProducts", topSoldProducts);
 
         return metrics;
+    }
+
+    public List<Map<String, Object>> getTopSoldProducts() {
+        return orderRepository.findTopSoldProducts(PageRequest.of(0, 5)).stream()
+                .map(productSale -> {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("productId", productSale.getProductId());
+                    data.put("name", productSale.getName());
+                    data.put("count", productSale.getCount());
+                    return data;
+                })
+                .toList();
+    }
+
+    public List<Long> getTopSoldProductIds() {
+        return orderRepository.findTopSoldProducts(PageRequest.of(0, 5)).stream()
+                .map(ProductSalesProjection::getProductId)
+                .toList();
     }
 }

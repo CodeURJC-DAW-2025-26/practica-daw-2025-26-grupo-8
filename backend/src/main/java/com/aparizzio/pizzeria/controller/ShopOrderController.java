@@ -74,6 +74,9 @@ public class ShopOrderController {
             } catch (MailException mailException) {
                 LOGGER.warn("No se pudo enviar el correo de confirmación del pedido {} al usuario {}. Motivo: {}",
                         savedOrder.getId(), orderUser.getEmail(), mailException.getMessage(), mailException);
+            } catch (RuntimeException runtimeException) {
+                LOGGER.warn("Error inesperado al enviar el correo del pedido {} al usuario {}. Motivo: {}",
+                        savedOrder.getId(), orderUser.getEmail(), runtimeException.getMessage(), runtimeException);
             }
         }
 

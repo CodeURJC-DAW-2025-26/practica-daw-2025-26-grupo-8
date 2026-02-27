@@ -1,5 +1,6 @@
 package com.aparizzio.pizzeria.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,12 +11,16 @@ import com.aparizzio.pizzeria.model.Order;
 import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.model.User;
 import com.aparizzio.pizzeria.repository.OrderRepository;
+import com.aparizzio.pizzeria.repository.ProductRepository;
 
 @Service
 public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     // --- Retrieve all orders for the admin panel ---
     public List<Order> getAllOrders() {
@@ -46,8 +51,18 @@ public class OrderService {
     // --- Create and save a new order from the checkout process ---
     public Order createOrder(List<Product> products, String address, String city, String postalCode, String phoneNumber,
             User user) {
+        List<Product> managedProducts = new ArrayList<>();
+        if (products != null) {
+            for (Product product : products) {
+                if (product == null || product.getId() == null) {
+                    continue;
+                }
+                productRepository.findById(product.getId()).ifPresent(managedProducts::add);
+            }
+        }
+
         Order order = new Order();
-        order.setProducts(products);
+        order.setProducts(managedProducts);
         order.setAddress(address);
         order.setCity(city);
         order.setPostalCode(postalCode);
@@ -58,6 +73,6 @@ public class OrderService {
             order.setUser(user);
         }
 
-        return orderRepository.save(order);
+        return orderRepository.saveAndFlush(order);
     }
 }
