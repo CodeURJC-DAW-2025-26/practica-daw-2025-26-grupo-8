@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.aparizzio.pizzeria.model.Product;
 
 import java.util.Set;
+import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -32,6 +33,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findByExcludedAllergens(@Param("excludedAllergens") Set<String> excludedAllergens, Pageable pageable);
 
     Page<Product> findByCategoryId(Long categoryId, Pageable pageable);
+
+    List<Product> findByCategoryIdAndIdNot(Long categoryId, Long productId);
 
     long countByCategoryId(Long categoryId);
 }

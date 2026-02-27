@@ -10,6 +10,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByUserId(Long userId);
 
+    Order findTopByUserIdOrderByIdDesc(Long userId);
+
     List<Order> findByProductsId(Long productId);
 
     @Query("SELECT COUNT(o) FROM OrderTable o")

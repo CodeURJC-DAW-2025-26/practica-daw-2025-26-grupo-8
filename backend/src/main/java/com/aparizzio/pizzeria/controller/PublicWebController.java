@@ -1,7 +1,9 @@
 package com.aparizzio.pizzeria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,24 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.aparizzio.pizzeria.model.Product;
+import com.aparizzio.pizzeria.model.User;
 import com.aparizzio.pizzeria.repository.CategoryRepository;
-import com.aparizzio.pizzeria.repository.ProductRepository;
 import com.aparizzio.pizzeria.model.Category;
+import com.aparizzio.pizzeria.service.HomeRecommendationService;
 import com.aparizzio.pizzeria.service.MenuService;
-import com.aparizzio.pizzeria.service.MetricsService;
+import com.aparizzio.pizzeria.service.UserService;
 
 @Controller
 public class PublicWebController {
 
     private static final int PAGE_SIZE = 4;
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -37,28 +35,34 @@ public class PublicWebController {
     private MenuService menuService;
 
     @Autowired
-    private MetricsService metricsService;
+    private HomeRecommendationService homeRecommendationService;
+
+    @Autowired
+    private UserService userService;
 
     // --- HOME PAGE ---
     @GetMapping("/")
     public String showIndex(Model model) {
-        List<Long> topSoldProductIds = metricsService.getTopSoldProductIds();
-        List<Product> topProducts;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAuthenticated = authentication != null
+                && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken);
 
-        if (topSoldProductIds.isEmpty()) {
-            topProducts = productRepository.findAll(PageRequest.of(0, 5)).getContent();
-        } else {
-            Map<Long, Product> productsById = productRepository.findAllById(topSoldProductIds).stream()
-                    .collect(Collectors.toMap(Product::getId, product -> product));
+        boolean isAdmin = isAuthenticated && authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
 
-            topProducts = topSoldProductIds.stream()
-                    .map(productsById::get)
-                    .filter(product -> product != null)
-                    .toList();
-        }
+        User currentUser = isAuthenticated
+                ? userService.getUserByEmail(authentication.getName()).orElse(null)
+                : null;
+
+        List<Product> topProducts = homeRecommendationService.getTopSoldProductsForHome();
+        List<Product> personalizedProducts = homeRecommendationService.getPersonalizedRecommendations(currentUser,
+                isAdmin);
 
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("topProducts", topProducts);
+        model.addAttribute("personalizedProducts", personalizedProducts);
+        model.addAttribute("showPersonalizedRecommendations", !personalizedProducts.isEmpty());
         model.addAttribute("isHome", true);
         return "index";
     }

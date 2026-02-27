@@ -61,8 +61,8 @@ Se utilizará un servicio de **envío de correos electrónicos** .
 
 ### Algoritmo o consulta avanzada
 La aplicación implementará un **Sistema de Recomendaciones Personalizado** en el listado de productos.
-* **Descripción**: La aplicación alterará el orden en que se muestran las pizzas basándose en el historial de pedidos del usuario registrado.
-* **Funcionamiento**: Al cargar el menú, el algoritmo consultará los últimos pedido del usuario. Si, por ejemplo, pidió una "Pizza Vegetal", el sistema reordenará la lista para mostrar esa pizza en primer lugar, seguida de otras pizzas que compartan ingredientes similares o la misma categoría, facilitando así la repetición de compra o el descubrimiento de productos afines.
+* **Descripción**: La aplicación altera dinámicamente el orden de recomendaciones según el comportamiento del usuario registrado, combinando su último pedido con su historial completo de compras.
+* **Funcionamiento**: Al cargar la home, el algoritmo toma el último pedido del usuario, elimina duplicados y ordena esos productos por puntos (cantidad en el último pedido, después frecuencia histórica y por último desempate estable por id). Si ya hay 5 productos, devuelve esos 5. Si hay menos de 5, rellena con productos del catálogo priorizando categorías detectadas en el último pedido (si hay pizzas: pizzas -> entrantes -> bebidas; si no hay pizzas pero hay entrantes: entrantes -> pizzas -> bebidas; si solo hay bebidas: bebidas -> pizzas -> entrantes). Si aún faltan huecos, completa con el resto por orden histórico. El sistema admite relleno con productos de 0 puntos para poder llegar a 5 recomendaciones siempre que el catálogo tenga suficientes productos.
 
 ---
 
