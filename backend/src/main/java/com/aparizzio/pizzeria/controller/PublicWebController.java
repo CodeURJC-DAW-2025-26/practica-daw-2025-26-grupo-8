@@ -17,11 +17,11 @@ import java.util.Optional;
 
 import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.model.User;
-import com.aparizzio.pizzeria.repository.CategoryRepository;
 import com.aparizzio.pizzeria.model.Category;
 import com.aparizzio.pizzeria.service.HomeRecommendationService;
 import com.aparizzio.pizzeria.service.MenuService;
 import com.aparizzio.pizzeria.service.UserService;
+import com.aparizzio.pizzeria.service.CategoryService;
 
 @Controller
 public class PublicWebController {
@@ -29,7 +29,7 @@ public class PublicWebController {
     private static final int PAGE_SIZE = 4;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @Autowired
     private MenuService menuService;
@@ -59,7 +59,7 @@ public class PublicWebController {
         List<Product> personalizedProducts = homeRecommendationService.getPersonalizedRecommendations(currentUser,
                 isAdmin);
 
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("topProducts", topProducts);
         model.addAttribute("personalizedProducts", personalizedProducts);
         model.addAttribute("showPersonalizedRecommendations", !personalizedProducts.isEmpty());
@@ -86,7 +86,7 @@ public class PublicWebController {
             return prepareFragmentResponse(response, menuPageData, page);
         }
 
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("hasMoreProducts", menuPageData.getTotalProducts() > PAGE_SIZE);
         model.addAttribute("isMenu", true);
         return "menu";
