@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -27,10 +28,13 @@ public class SecurityConfig {
 
                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
 
         http.formLogin(formLogin -> formLogin
-                // Lógica para decidir a dónde redirigir tras el login
+                .loginPage("/")
+                .loginProcessingUrl("/login")
+                .failureUrl("/?error=true")
+
                 .successHandler((request, response, authentication) -> {
                     boolean isAdmin = authentication.getAuthorities().stream()
                             .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
@@ -46,6 +50,18 @@ public class SecurityConfig {
                 .logoutUrl("/logout") // The URL that triggers log out (matches your HTML form)
                 .logoutSuccessUrl("/") // Redirects to home page instead of login page
                 .permitAll());
+
+        // --- Error Handling Strategy ---
+        http.exceptionHandling(exceptions -> exceptions
+                // Unauthenticated access: Redirect to home with a custom parameter
+                // Using LoginUrlAuthenticationEntryPoint preserves the original requested URL
+                // in session
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/?auth_required=true"))
+
+                // Access Denied (Logged in, but wrong role)
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    response.sendError(403, "Access denied. You do not have the required permissions.");
+                }));
 
         http.csrf(csrf -> csrf.disable());
 

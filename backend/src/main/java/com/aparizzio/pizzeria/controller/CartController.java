@@ -1,5 +1,7 @@
 package com.aparizzio.pizzeria.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.service.CartService;
 import com.aparizzio.pizzeria.service.ProductService;
 
@@ -44,9 +47,14 @@ public class CartController {
             return ResponseEntity.status(401).body("No autorizado");
         }
 
-        productService.getProductById(id).ifPresent(cartService::addProduct);
+        Optional<Product> productOpt = productService.getProductById(id);
 
-        return ResponseEntity.ok("Producto añadido correctamente");
+        if (productOpt.isPresent()) {
+            cartService.addProduct(productOpt.get());
+            return ResponseEntity.ok("Producto añadido correctamente");
+        } else {
+            return ResponseEntity.status(404).body("Producto no encontrado");
+        }
     }
 
     @PostMapping("/cart/remove/{id}")

@@ -30,15 +30,29 @@
                             <h4 class="mb-4 fw-bold text-secondary">Tus Productos</h4>
                             {{#cartProducts}}
                             <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+
+                                {{#image}}
+                                <img src="/images/{{id}}" alt="{{title}}"
+                                    class="cart-product-img rounded-3 me-3 shadow-sm">
+                                {{/image}}
+                                {{^image}}
+                                <img src="/assets/images/logo.png" alt="Sin imagen"
+                                    class="cart-product-img rounded-3 me-3 shadow-sm bg-light p-2"
+                                    style="object-fit: contain;">
+                                {{/image}}
+
                                 <div class="flex-grow-1">
                                     <h5 class="fw-bold mb-1">{{title}}</h5>
-                                    <span class="fw-bold fs-5">{{price}}€</span>
+                                    <span class="fw-bold fs-5 text-primary-custom">{{price}}€</span>
                                 </div>
+
                                 <form action="/cart/remove/{{id}}" method="post">
-                                    <button type="submit" class="btn btn-link text-danger p-0">
+                                    <button type="submit" class="btn btn-link text-danger p-0 border-0 bg-transparent"
+                                        title="Eliminar del carrito">
                                         <i class="bi bi-trash fs-5"></i>
                                     </button>
                                 </form>
+
                             </div>
                             {{/cartProducts}}
 
