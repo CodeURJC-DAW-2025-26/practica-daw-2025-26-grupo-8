@@ -20,17 +20,17 @@ public class RepositoryUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Buscamos al usuario por su email en la base de datos
+        // Search for the user by email in the database
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        // Le asignamos sus roles (ej: ROLE_USER, ROLE_ADMIN)
+        // Assign their roles (e.g: ROLE_USER, ROLE_ADMIN)
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
         for (String role : user.getRoles()) {
             roles.add(new SimpleGrantedAuthority("ROLE_" + role));
         }
 
-        // Devolvemos el usuario en el formato que entiende Spring Security
+        // Return the user in the format that Spring Security understands
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getEncodedPassword(),

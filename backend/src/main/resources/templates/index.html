@@ -47,16 +47,21 @@
                 </div>
             </div>
             {{/topProducts}}
-
-
-
         </div>
     </section>
 
     {{#showPersonalizedRecommendations}}
-    <!-- SECCIÓN RECOMENDACIONES PERSONALIZADAS -->
-    <section class="section-padding container pt-0">
-        <h2 class="section-title text-center">Recomendadas para ti</h2>
+    <div class="container">
+        <hr class="text-muted opacity-25 my-3" style="border-width: 2px;">
+    </div>
+
+    <section class="section-padding container pt-5">
+
+        <div class="text-center mb-5">
+            <h2 class="section-title" style="margin-bottom: 0;">Recomendadas según tus gustos</h2>
+        </div>
+
+        <!-- RECOMENDATION SECTION -->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 justify-content-center">
             {{#personalizedProducts}}
             <div class="col">

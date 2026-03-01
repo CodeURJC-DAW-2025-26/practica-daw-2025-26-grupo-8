@@ -50,6 +50,16 @@ public class ShopOrderController {
             return "redirect:/menu";
         }
 
+        // Prevent blank fields
+        if (address == null || address.isBlank() ||
+                city == null || city.isBlank() ||
+                postalCode == null || postalCode.isBlank() ||
+                phoneNumber == null || phoneNumber.isBlank()) {
+
+            // If any vital data is missing, return to cart without processing the purchase
+            return "redirect:/cart";
+        }
+
         User orderUser = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
