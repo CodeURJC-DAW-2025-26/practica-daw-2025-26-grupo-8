@@ -160,7 +160,33 @@ Solo si han cambiado.
    cd [nombre-repositorio]
    ```
 
-2. **AQUÍ INDICAR LO SIGUIENTES PASOS**
+2. **Entrar en el backend**
+   ```bash
+   cd backend
+   ```
+
+3. **Levantar la base de datos MySQL con Docker**
+   - Linux/macOS/Git Bash:
+     ```bash
+     sh start_db.sh
+     ```
+   - PowerShell:
+     ```powershell
+     docker run --rm -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=pizzeria -p 3306:3306 -d mysql:9.2
+     ```
+
+4. **Arrancar la aplicación Spring Boot**
+   - Linux/macOS/Git Bash:
+     ```bash
+     ./mvnw spring-boot:run
+     ```
+   - PowerShell:
+     ```powershell
+     .\mvnw.cmd spring-boot:run
+     ```
+
+5. **Abrir la aplicación en el navegador**
+   - URL: `https://localhost:8443`
 
 #### **Credenciales de prueba**
 - **Usuario Admin**: usuario: `admin`, contraseña: `admin`
