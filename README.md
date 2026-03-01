@@ -260,7 +260,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](assets/images/Images-Readme/complete-classes-diagram.png)
+![Diagrama de Clases Actualizado](backend/src/main/resources/static/assets/images/Images-Readme/diagrama-clases-templates.png)
 
 ### **Instrucciones de Ejecución con Docker**
 
