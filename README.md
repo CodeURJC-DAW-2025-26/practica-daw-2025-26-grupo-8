@@ -75,54 +75,54 @@ La aplicación implementará un **Sistema de Recomendaciones Personalizado** en 
 ### **Diagrama de Navegación**
 Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-![Diagrama de Navegación](assets/images/Images-Readme/navigation-diagram.png)
+![Diagrama de Navegación](backend/src/main/resources/static/assets/images/Images-Readme/navigation-diagram.png)
 
 > [Descripción breve: El diagrama resume la navegacion principal desde la pagina de inicio hacia el catalogo y los detalles de producto, con acceso al carrito segun el rol del usuario. Las pantallas de autenticacion estan siempre disponibles y el administrador dispone de vistas de gestion adicionales.]
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Home**
-![Página Principal](assets/images/Images-Readme/index-page.png)
+![Página Principal](backend/src/main/resources/static/assets/images/Images-Readme/index-page.png)
 
 > [Descripción breve: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados aun."]
 
 #### **2. Menú**
-![Menú](assets/images/Images-Readme/menu-page.png)
+![Menú](backend/src/main/resources/static/assets/images/Images-Readme/menu-page.png)
 
 > [Descripción breve: "Listado completo del catálogo con filtros por categoría, precios visibles y tarjetas de producto. Permite entrar al detalle de cada pizza y añadirla rápidamente al carrito."]
 
 #### **3. Categoría**
-![Categoría](assets/images/Images-Readme/category-page.png)
+![Categoría](backend/src/main/resources/static/assets/images/Images-Readme/category-page.png)
 
 > [Descripción breve: "Vista filtrada por una categoría concreta donde se muestran solo los productos relacionados. Incluye nombre, imagen, precio y accesos directos al detalle."]
 
 #### **4. Producto**
-![Producto](assets/images/Images-Readme/product-page.png)
+![Producto](backend/src/main/resources/static/assets/images/Images-Readme/product-page.png)
 
 > [Descripción breve: "Página de detalle con imagen ampliada, descripción completa, ingredientes destacados y precio final. Ofrece acciones para elegir cantidad y añadir al carrito."]
 
 #### **5. Carrito**
-![Carrito](assets/images/Images-Readme/cart-page.png)
+![Carrito](backend/src/main/resources/static/assets/images/Images-Readme/cart-page.png)
 
 > [Descripción breve: "Resumen del pedido con productos añadidos, cantidades editables y subtotal por línea. Muestra el total final y la acción para continuar con el pago o finalizar la compra."]
 
 #### **6. Admin - Usuarios**
-![Admin Usuarios](assets/images/Images-Readme/admin-users-page.png)
+![Admin Usuarios](backend/src/main/resources/static/assets/images/Images-Readme/admin-users-page.png)
 
 > [Descripción breve: "Panel de administración para visualizar el listado de usuarios con su rol y estado. Permite gestionar altas, bajas o cambios de permisos desde una tabla central."]
 
 #### **7. Admin - Pedidos**
-![Admin Pedidos](assets/images/Images-Readme/admin-orders-page.png)
+![Admin Pedidos](backend/src/main/resources/static/assets/images/Images-Readme/admin-orders-page.png)
 
 > [Descripción breve: "Gestión de pedidos mostrando estado, fecha e importe. Ofrece acceso al detalle de cada compra y opciones para actualizar el estado del pedido."]
 
 #### **8. Admin - Categorías**
-![Admin Categorías](assets/images/Images-Readme/admin-categories-page.png)
+![Admin Categorías](backend/src/main/resources/static/assets/images/Images-Readme/admin-categories-page.png)
 
 > [Descripción breve: "Administración de categorías con listado actual y acciones de crear, editar o eliminar. Facilita organizar el catálogo por tipos de producto."]
 
 #### **9. Admin - Métricas**
-![Admin Métricas](assets/images/Images-Readme/admin-metrics-page.png)
+![Admin Métricas](backend/src/main/resources/static/assets/images/Images-Readme/admin-metrics-page.png)
 
 > [Descripción breve: "Panel de métricas con gráficos de ventas, productos más solicitados y comparativas básicas. Ayuda a detectar tendencias y rendimiento del catálogo."]
 
