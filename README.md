@@ -295,17 +295,23 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - [Alejandro Rico González]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Mi rol principal se ha centrado en el desarrollo Front-end dinámico, la gestión del panel de administración y la implementación robusta de la seguridad y arquitectura del Back-end:
+Vistas Dinámicas (Mustache): Integración del motor de plantillas para el renderizado del catálogo, gestionando lógicas condicionales (como el fallback de imágenes) y fragmentos AJAX para la paginación fluida.
+Panel de Administración: Desarrollo completo de la zona privada (/admin/**) para gestionar Usuarios, Pedidos, Categorías y Productos, incluyendo modales dinámicos de Bootstrap para operaciones críticas de borrado.
+Autenticación Integrada: Diseño de un flujo propio de Login/Registro sin salir del contexto visual (mediante modales). Implementación de cifrado con BCrypt y asignación automática de roles.
+Seguridad Avanzada (Spring Security): Protección activa contra CSRF en todos los formularios y control estricto de acceso basado en roles. Además, ayudé a gestionar de forma segura las excepciones redirigiendo a vistas personalizadas sin filtrar datos técnicos sensibles.
+Arquitectura Limpia: Refactorización del código para garantizar la correcta separación de responsabilidades, asegurando que los Controladores (ej. PublicWebController) interactúen exclusivamente con la capa de Servicios y nunca expongan los Repositorios directamente.]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Gestión de los permisos de usuario y admin y la redirección a sus páginas](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/1b45b4c6957b61594b60aa118fad76dd9869b7fa)  | [WebController.java](backend/src/main/java/com/aparizzio/pizzeria/controller/WebController.java)  [SecurityConfig.java](backend/src/main/java/com/aparizzio/pizzeria/security/SecurityConfig.java)  |
+|2| [Gestión de productos y categorías desde la página de administración](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/3d7301916e51cc1bc7c58364d552bb0f6fee4d45)  | [Admin-categories.html](backend/src/main/resources/templates/admin-categories.html) [WebController.java](backend/src/main/java/com/aparizzio/pizzeria/controller/WebController.java)  |
+|3| [Gestión de usuarios desde la pagina de administración](URL_commit_3)  | [WebController.java](backend/src/main/java/com/aparizzio/pizzeria/controller/WebController.java) [auth-modal.html](backend/src/main/resources/templates/auth-modal.html)   |
+|4| [Arreglada la arquitectura y en vez de tener un solo controlador (fat controller) que manejase todo y accediese a los repository dividir todo en varios controllers y services para tener una arquitectura adecuada](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/743bf936a80325ac651a2999ef2cc5240816995c#diff-45728e80f4ce691304cf8304aff61df22c5fc415889441f7f1ca6811ae4f0b85)  | [AdminInventoryController.java](backend/src/main/java/com/aparizzio/pizzeria/controller/AdminInventoryController.java) [CategoryService.java](backend/src/main/java/com/aparizzio/pizzeria/service/CategoryService.java)  |
+|5| [Refinamiento de la seguridad](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/4dd0a0c88a8652c1c8c45d80989d2e3421b64079)  | [SecurityConfig.java](backend/src/main/java/com/aparizzio/pizzeria/security/SecurityConfig.java)   |
+
 
 ---
 
