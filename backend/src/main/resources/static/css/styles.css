@@ -1,7 +1,7 @@
 /* --- VARIABLES Y RESET --- */
 :root {
     --color-primary: #ff6347;
-    /* Color Tomate Original */
+    /* Original Tomato Color */
     --color-text: #333;
     --font-heading: 'Lobster', cursive;
     --font-body: 'Roboto', sans-serif;
@@ -58,14 +58,14 @@ a {
     color: var(--color-primary) !important;
 }
 
-/* NUEVO: ESTILO PARA EL ICONO DEL CARRITO */
+/* NEW: STYLE FOR THE CART ICON */
 .cart-icon {
     font-size: 1.1rem;
     color: #333 !important;
     margin-right: 10px;
 }
 
-/* Botón Iniciar Sesión */
+/* Login Button */
 .btn-login {
     background-color: var(--color-primary);
     border: none;
@@ -102,7 +102,7 @@ a {
     background-color: #e5533d;
 }
 
-/* --- SECCIONES GENERALES --- */
+/* --- GENERAL SECTIONS --- */
 .section-padding {
     padding: 70px 0;
 }
@@ -139,7 +139,7 @@ a {
     font-size: 1.3rem;
 }
 
-/* --- CATEGORÍAS --- */
+/* --- CATEGORIES --- */
 .cat-card {
     height: 220px;
     border-radius: 12px;
@@ -220,9 +220,9 @@ a {
     border-color: #444 !important;
 }
 
-/* --- ESTILOS ESPECÍFICOS DE LA CARTA --- */
+/* --- MENU-SPECIFIC STYLES --- */
 
-/* Botones de Filtro */
+/* Filter Buttons */
 .btn-filter {
     border: 2px solid #eee;
     border-radius: 50px;
@@ -244,7 +244,7 @@ a {
     color: white;
 }
 
-/* Botones de alérgenos */
+/* Allergen Buttons */
 .btn-allergen-filter {
     border: 2px solid #eee;
     border-radius: 50px;
@@ -285,7 +285,7 @@ a {
     color: white;
 }
 
-/* Botón pequeño "Añadir" en las tarjetas */
+/* Small "Add" button on cards */
 .btn-outline-primary {
     color: var(--color-primary);
     border-color: var(--color-primary);
@@ -297,9 +297,9 @@ a {
 }
 
 
-/* --- ESTILOS PANEL ADMIN --- */
+/* --- ADMIN PANEL STYLES --- */
 
-/* Sidebar: Altura completa y color */
+/* Sidebar: Full height and color */
 .sidebar {
     min-height: 100vh;
     background-color: #212529;
@@ -318,92 +318,92 @@ a {
 .sidebar .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: #ff6347 !important;
-    /* Naranja al pasar ratón */
+    /* Orange on hover */
 }
 
-/* El enlace activo (Usuarios) se pone rojo tomate */
+/* Active link (Users) turns tomato red */
 .sidebar .nav-link.active {
     background-color: var(--color-primary) !important;
     color: white !important;
 }
 
-/* Ajuste de la tabla */
+/* Table alignment fix */
 .table td,
 .table th {
     vertical-align: middle;
 }
 
-/* Badge personalizado */
+/* Custom badge */
 .badge {
     font-weight: 500;
 }
 
 
-/* --- HEADER DE PÁGINA DE CATEGORÍA --- */
+/* --- CATEGORY PAGE HEADER --- */
 .category-header {
     height: 40vh;
-    /* Un poco más pequeño que el Hero de inicio (60vh) */
+    /* Slightly smaller than home hero (60vh) */
     background-size: cover;
     background-position: center;
     position: relative;
     margin-bottom: 2rem;
 }
 
-/* Sombra en el texto para que se lea bien sobre cualquier foto */
+/* Text shadow for readability on any image */
 .category-header h1,
 .category-header p {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* --- BOTÓN CARGAR MÁS --- */
+/* --- LOAD MORE BUTTON --- */
 
 .btn-load-more {
     background-color: var(--color-primary);
-    /* Naranja base */
+    /* Base orange */
     border-color: var(--color-primary);
     color: white;
     padding: 15px 40px;
-    /* Más grande y "gordito" */
+    /* Larger and bolder */
     font-size: 1.2rem;
     font-weight: bold;
     letter-spacing: 0.5px;
-    /* Sombra naranja suave inicial */
+    /* Initial soft orange shadow */
     box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    /* Transición elástica suave */
+    /* Smooth elastic transition */
 }
 
-/* Efecto al pasar el ratón */
+/* Hover effect */
 .btn-load-more:hover {
     background-color: #ff4500;
-    /* Naranja un poco más intenso (OrangeRed) */
+    /* Slightly stronger orange (OrangeRed) */
     border-color: #ff4500;
-    /* El botón se eleva y crece un pelín */
+    /* Button rises and slightly grows */
     transform: translateY(-3px) scale(1.02);
-    /* La sombra se hace más grande e intensa (efecto glow) */
+    /* Shadow gets larger and stronger (glow effect) */
     box-shadow: 0 10px 25px rgba(255, 69, 0, 0.5);
 }
 
-/* Efecto clic (cuando lo pulsas) */
+/* Click effect (when pressed) */
 .btn-load-more:active {
     transform: translateY(1px);
-    /* Se hunde un poco */
+    /* Slightly pressed down */
     box-shadow: 0 2px 5px rgba(255, 69, 0, 0.4);
 }
 
-/* Animación del icono de la flecha */
+/* Arrow icon animation */
 .btn-load-more i {
     transition: transform 0.3s ease;
 }
 
-/* Al hacer hover en el botón, la flecha baja sola */
+/* On button hover, the arrow moves down */
 .btn-load-more:hover i {
     transform: translateY(4px);
 }
 
-/* --- ESTILOS DEL MODAL DE LOGIN --- */
+/* --- LOGIN MODAL STYLES --- */
 
-/* Imagen lateral decorativa */
+/* Decorative side image */
 .auth-modal-img {
     position: absolute;
     top: 0;
@@ -414,7 +414,7 @@ a {
     object-position: center center;
 }
 
-/* Inputs más limpios */
+/* Cleaner inputs */
 .modal-content .form-control {
     padding: 10px 15px;
     background-color: #f8f9fa;
@@ -428,9 +428,9 @@ a {
     box-shadow: 0 0 0 4px rgba(255, 99, 71, 0.1);
 }
 
-/* --- ANIMACIONES DE INTERCAMBIO --- */
+/* --- TRANSITION ANIMATIONS --- */
 
-/* Clases utilitarias para la animación */
+/* Utility classes for animation */
 .fade-in-right {
     animation: fadeInRight 0.4s ease forwards;
 }
@@ -447,7 +447,7 @@ a {
     animation: fadeOutRight 0.3s ease forwards;
 }
 
-/* Definición de los movimientos */
+/* Motion keyframes definition */
 @keyframes fadeInRight {
     from {
         opacity: 0;
@@ -496,7 +496,7 @@ a {
     }
 }
 
-/* --- ESTILOS CARRITO --- */
+/* --- CART STYLES --- */
 .input-group-sm .btn {
     border-color: #ced4da;
     color: #333;
@@ -506,37 +506,37 @@ a {
     background-color: #eee;
 }
 
-/* Ajuste para que la imagen no se deforme */
+/* Prevent image distortion */
 .rounded-3 {
     object-fit: cover;
 }
 
-/* --- FORZAR COLOR NARANJA EN MENÚ ACTIVO --- */
+/* --- FORCE ORANGE COLOR ON ACTIVE MENU --- */
 
-/* Esto asegura que el enlace, el icono (i) y el texto (span) sean naranjas */
+/* Ensures link, icon (i), and text (span) are orange */
 .nav-link.active,
 .nav-link.active i,
 .nav-link.active span {
     color: var(--color-primary) !important;
     font-weight: 700;
-    /* Opcional: pone la sección actual en negrita */
+    /* Optional: make current section bold */
 }
 
-/* --- IMÁGENES DEL CARRITO --- */
+/* --- CART IMAGES --- */
 .cart-product-img {
     width: 90px;
     height: 90px;
     object-fit: cover;
 }
 
-/* --- IMÁGENES TABLAS ADMIN --- */
+/* --- ADMIN TABLE IMAGES --- */
 .admin-table-img {
     width: 50px;
     height: 50px;
     object-fit: cover;
 }
 
-/* --- SPINNER DE PIZZA --- */
+/* --- PIZZA SPINNER --- */
 #pizza-spinner-overlay {
     position: fixed;
     inset: 0;

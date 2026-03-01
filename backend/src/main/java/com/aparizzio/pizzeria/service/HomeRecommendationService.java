@@ -233,26 +233,28 @@ public class HomeRecommendationService {
 }
 
 /*
- * Algoritmo:
+ * Algorithm:
  * 
- * Coge elúltimo pedidodel usuario.
- * Quita duplicadosde esepedido.
- * Ordena esosproductos por:
- * -Puntos del último pedido (cantidad en ese pedido),
- * -Puntos históricos del usuario,
+ * Take the user's latest order.
+ * Remove duplicates from that order.
+ * Sort those products by:
+ * - Points from the latest order (quantity in that order),
+ * - User historical points,
  * 
- * -Id (desempate estable).
+ * - Id (stable tie-breaker).
  * 
- * Si ya hay 5 o más, devuelve 5 de ellos.
+ * If there are already 5 or more, return 5 of them.
  * 
- * Si hay menos de 5:
- * Rellena con histórico + catálogo según prioridad de categoría detectada en el
- * último pedido:
- * -Si hay pizzas: pizzas -> entrantes -> bebidas
- * -Si no hay pizzas pero hay entrantes: entrantes -> pizzas -> bebidas
- * -Si solo hay bebidas: bebidas -> pizzas -> entrantes
- * -Si aún falta, completa con el resto de productos por orden histórico.
- * El relleno admite productos con 0 puntos, así que puede llegar a 5 aunque sea
- * el primer pedido (si hay suficientes productos en catálogo).
+ * If there are fewer than 5:
+ * Fill using history + catalog based on category priority detected in the
+ * latest order:
+ * - If there are pizzas: pizzas -> starters -> drinks
+ * - If there are no pizzas but there are starters: starters -> pizzas -> drinks
+ * - If there are only drinks: drinks -> pizzas -> starters
+ * - If still missing items, complete with the remaining products by historical
+ * order.
+ * The fill process allows products with 0 points, so it can still reach 5 even
+ * on
+ * the first order (if there are enough products in the catalog).
  * 
  */

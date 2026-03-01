@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Verify it is not empty or an empty array "[]"
     if (allergiesString && allergiesString !== "[]" && allergiesString !== "") {
 
-        // Clean the Java brackets: from "[Gluten, Lácteos]" to "Gluten, Lácteos"
+        // Clean Java brackets: from "[Gluten, Dairy]" to "Gluten, Dairy"
         allergiesString = allergiesString.replace('[', '').replace(']', '');
 
         // Split by commas and trim excess whitespace

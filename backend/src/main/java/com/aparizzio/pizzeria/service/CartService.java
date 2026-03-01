@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@SessionScope // El carrito vive mientras dure la sesión del usuario
+@SessionScope // The cart lives for the duration of the user's session
 public class CartService {
     private List<Product> products = new ArrayList<>();
 
@@ -19,7 +19,7 @@ public class CartService {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId().equals(productId)) {
                 products.remove(i);
-                break; // Salimos del bucle tras eliminar solo uno
+                break; // Exit loop after removing only one item
             }
         }
     }
