@@ -75,54 +75,54 @@ La aplicación implementará un **Sistema de Recomendaciones Personalizado** en 
 ### **Diagrama de Navegación**
 Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-![Diagrama de Navegación](backend/src/main/resources/static/assets/images/Images-Readme/navigation-diagram.png)
+![Diagrama de Navegación](backend/src/main/resources/static/assets/images/ImagesPreparation/navigation-diagram.png)
 
 > [Descripción breve: El diagrama resume la navegacion principal desde la pagina de inicio hacia el catalogo y los detalles de producto, con acceso al carrito segun el rol del usuario. Las pantallas de autenticacion estan siempre disponibles y el administrador dispone de vistas de gestion adicionales.]
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Home**
-![Página Principal](backend/src/main/resources/static/assets/images/Images-Readme/index-page.png)
+![Página Principal](backend/src/main/resources/static/assets/images/ImagesPreparation/index-page.png)
 
 > [Descripción breve: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados aun."]
 
 #### **2. Menú**
-![Menú](backend/src/main/resources/static/assets/images/Images-Readme/menu-page.png)
+![Menú](backend/src/main/resources/static/assets/images/ImagesPreparation/menu-page.png)
 
 > [Descripción breve: "Listado completo del catálogo con filtros por categoría, precios visibles y tarjetas de producto. Permite entrar al detalle de cada pizza y añadirla rápidamente al carrito."]
 
 #### **3. Categoría**
-![Categoría](backend/src/main/resources/static/assets/images/Images-Readme/category-page.png)
+![Categoría](backend/src/main/resources/static/assets/images/ImagesPreparation/category-page.png)
 
 > [Descripción breve: "Vista filtrada por una categoría concreta donde se muestran solo los productos relacionados. Incluye nombre, imagen, precio y accesos directos al detalle."]
 
 #### **4. Producto**
-![Producto](backend/src/main/resources/static/assets/images/Images-Readme/product-page.png)
+![Producto](backend/src/main/resources/static/assets/images/ImagesPreparation/product-page.png)
 
 > [Descripción breve: "Página de detalle con imagen ampliada, descripción completa, ingredientes destacados y precio final. Ofrece acciones para elegir cantidad y añadir al carrito."]
 
 #### **5. Carrito**
-![Carrito](backend/src/main/resources/static/assets/images/Images-Readme/cart-page.png)
+![Carrito](backend/src/main/resources/static/assets/images/ImagesPreparation/cart-page.png)
 
 > [Descripción breve: "Resumen del pedido con productos añadidos, cantidades editables y subtotal por línea. Muestra el total final y la acción para continuar con el pago o finalizar la compra."]
 
 #### **6. Admin - Usuarios**
-![Admin Usuarios](backend/src/main/resources/static/assets/images/Images-Readme/admin-users-page.png)
+![Admin Usuarios](backend/src/main/resources/static/assets/images/ImagesPreparation/admin-users-page.png)
 
 > [Descripción breve: "Panel de administración para visualizar el listado de usuarios con su rol y estado. Permite gestionar altas, bajas o cambios de permisos desde una tabla central."]
 
 #### **7. Admin - Pedidos**
-![Admin Pedidos](backend/src/main/resources/static/assets/images/Images-Readme/admin-orders-page.png)
+![Admin Pedidos](backend/src/main/resources/static/assets/images/ImagesPreparation/admin-orders-page.png)
 
 > [Descripción breve: "Gestión de pedidos mostrando estado, fecha e importe. Ofrece acceso al detalle de cada compra y opciones para actualizar el estado del pedido."]
 
 #### **8. Admin - Categorías**
-![Admin Categorías](backend/src/main/resources/static/assets/images/Images-Readme/admin-categories-page.png)
+![Admin Categorías](backend/src/main/resources/static/assets/images/ImagesPreparation/admin-categories-page.png)
 
 > [Descripción breve: "Administración de categorías con listado actual y acciones de crear, editar o eliminar. Facilita organizar el catálogo por tipos de producto."]
 
 #### **9. Admin - Métricas**
-![Admin Métricas](backend/src/main/resources/static/assets/images/Images-Readme/admin-metrics-page.png)
+![Admin Métricas](backend/src/main/resources/static/assets/images/ImagesPreparation/admin-metrics-page.png)
 
 > [Descripción breve: "Panel de métricas con gráficos de ventas, productos más solicitados y comparativas básicas. Ayuda a detectar tendencias y rendimiento del catálogo."]
 
@@ -170,7 +170,7 @@ Solo si han cambiado.
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](assets/images/Images-Readme/database-diagram.png)
+![Diagrama Entidad-Relación](assets/images/ImagesPreparation/database-diagram.png)
 
 > [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
 
@@ -178,7 +178,7 @@ Diagrama mostrando las entidades, sus campos y relaciones:
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
 
-![Diagrama de Clases](assets/images/Images-Readme/diagrama-clases-templates.png)
+![Diagrama de Clases](backend\src\main\resources\static\assets\images\ImagesP1\diagrama-clases-templates.png)
 
 > [Descripción opcional del diagrama y relaciones principales]
 
@@ -260,7 +260,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](backend/src/main/resources/static/assets/images/Images-Readme/diagrama-clases-templates.png)
+![Diagrama de Clases Actualizado](backend/src/main/resources/static/assets/images/ImagesPreparation/diagrama-clases-templates.png)
 
 ### **Instrucciones de Ejecución con Docker**
 
@@ -425,7 +425,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 Diagrama mostrando los componentes React, hooks personalizados, servicios y sus relaciones:
 
-![Diagrama de Componentes React](assets/images/Images-Readme/spa-classes-diagram.png)
+![Diagrama de Componentes React](assets/images/ImagesPreparation/spa-classes-diagram.png)
 
 ### **Participación de Miembros en la Práctica 3**
 
