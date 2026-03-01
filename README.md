@@ -142,7 +142,55 @@ Solo si ha cambiado.
 
 #### **Capturas de Pantalla Actualizadas**
 
-Solo si han cambiado.
+#### **1. Página Principal / Home - CAMBIA PARA USERS CON PEDIDOS**
+![Página Principal](backend/src/main/resources/static/assets/images/ImagesP1/p1-index-users-page.png)
+
+> [Descripción breve: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados aun."]
+
+#### **2. Menú - CAMBIA EL FILTRO**
+![Menú](backend/src/main/resources/static/assets/images/ImagesP1/p1-new-menu-page.png)
+
+> [Descripción breve: "Listado completo del catálogo con filtros por categoría, precios visibles y tarjetas de producto. Permite entrar al detalle de cada pizza y añadirla rápidamente al carrito."]
+
+#### **3. Categoría - NO CAMBIA**
+![Categoría](backend/src/main/resources/static/assets/images/ImagesPreparation/category-page.png)
+
+> [Descripción breve: "Vista filtrada por una categoría concreta donde se muestran solo los productos relacionados. Incluye nombre, imagen, precio y accesos directos al detalle."]
+
+#### **4. Producto - NO CAMBIA**
+![Producto](backend/src/main/resources/static/assets/images/ImagesPreparation/product-page.png)
+
+> [Descripción breve: "Página de detalle con imagen ampliada, descripción completa, ingredientes destacados y precio final. Ofrece acciones para elegir cantidad y añadir al carrito."]
+
+#### **5. Carrito - NO CAMBIA**
+![Carrito](backend/src/main/resources/static/assets/images/ImagesP1/p1-cart-page.png)
+
+> [Descripción breve: "Resumen del pedido con productos añadidos, cantidades editables y subtotal por línea. Muestra el total final y la acción para continuar con el pago o finalizar la compra."]
+
+#### **6. Admin - Usuarios CONTRASEÑA**
+![Admin Usuarios](backend/src/main/resources/static/assets/images/ImagesP1/p1-admin-users-page.png)
+
+> [Descripción breve: "Panel de administración para visualizar el listado de usuarios con su rol y estado. Permite gestionar altas, bajas o cambios de permisos desde una tabla central."]
+
+#### **7. Admin - Pedidos**
+![Admin Pedidos](backend/src/main/resources/static/assets/images/ImagesP1/p1-admin-orders-page.png)
+
+> [Descripción breve: "Gestión de pedidos mostrando estado, fecha e importe. Ofrece acceso al detalle de cada compra y opciones para actualizar el estado del pedido."]
+
+#### **8. Admin - Categorías**
+![Admin Categorías](backend/src/main/resources/static/assets/images/ImagesP1/p1-admin-categories-page.png)
+
+> [Descripción breve: "Administración de categorías con listado actual y acciones de crear, editar o eliminar. Facilita organizar el catálogo por tipos de producto."]
+
+#### **9. Admin - Métricas - NO CAMBIA**
+![Admin Métricas](backend/src/main/resources/static/assets/images/ImagesPreparation/admin-metrics-page.png)
+
+> [Descripción breve: "Panel de métricas con gráficos de ventas, productos más solicitados y comparativas básicas. Ayuda a detectar tendencias y rendimiento del catálogo."]
+
+#### **10. Profile NUEVO**
+![Profile](backend/src/main/resources/static/assets/images/ImagesP1/p1-profile-page.png)
+
+> [Descripción breve: "Pantalla de perfil del usuario con su información y opciones de gestión de cuenta."]
 
 ### **Instrucciones de Ejecución**
 
