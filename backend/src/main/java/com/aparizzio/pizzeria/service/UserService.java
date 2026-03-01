@@ -80,4 +80,43 @@ public class UserService {
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    // --- Get user orders ---
+    public List<Order> getUserOrders(Long userId) {
+        return orderRepository.findByUserId(userId);
+    }
+
+    // --- Update profile (Email and/or Password) ---
+    public boolean updateUserProfile(Long id, String newName, String newEmail, String newPassword, String oldPassword) {
+        Optional<User> userOpt = userRepository.findById(id);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+
+            // Verify if the provided old password matches the current encoded password in
+            // the DB
+            if (!passwordEncoder.matches(oldPassword, user.getEncodedPassword())) {
+                return false; // Return false to indicate the update failed due to wrong password
+            }
+
+            // Update name if provided
+            if (newName != null && !newName.trim().isEmpty()) {
+                user.setName(newName);
+            }
+
+            // Update email if provided
+            if (newEmail != null && !newEmail.trim().isEmpty()) {
+                user.setEmail(newEmail);
+            }
+
+            // Update password only if the user typed a new one
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                user.setEncodedPassword(passwordEncoder.encode(newPassword));
+            }
+
+            userRepository.save(user);
+            return true; // Successfully updated
+        }
+        return false;
+    }
 }
