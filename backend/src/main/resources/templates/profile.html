@@ -97,11 +97,23 @@
                         {{/orders}}
 
                         {{#orders}}
-                        <div class="list-group">
-                            <div class="list-group-item list-group-item-action mb-2 border rounded">
-                                <div class="d-flex w-100 justify-content-between align-items-center">
-                                    <h5 class="mb-1 text-primary">Pedido #{{id}}</h5>
-                                </div>
+                        <div class="card mb-3 border-0 shadow-sm">
+                            <div
+                                class="card-header bg-light d-flex justify-content-between align-items-center border-bottom-0">
+                                <h5 class="mb-0 text-primary fw-bold">Pedido #{{id}}</h5>
+                                <span class="badge bg-secondary">Entregado</span>
+                            </div>
+
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    {{#products}}
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
+                                        <span><i class="bi bi-caret-right text-secondary me-2"></i>{{title}}</span>
+                                        <span class="text-muted fw-bold">{{price}}€</span>
+                                    </li>
+                                    {{/products}}
+                                </ul>
                             </div>
                         </div>
                         {{/orders}}

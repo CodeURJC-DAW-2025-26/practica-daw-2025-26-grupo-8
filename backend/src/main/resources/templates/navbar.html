@@ -33,6 +33,7 @@
                     </a>
                 </li>
 
+                {{^logged}}
                 <li class="nav-item">
                     <button class="btn btn-primary btn-login d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#authModal">
@@ -40,6 +41,29 @@
                         <span>Iniciar Sesión</span>
                     </button>
                 </li>
+                {{/logged}}
+
+                {{#logged}}
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center" href="/profile">
+                        <i class="bi bi-person-gear me-2"></i>
+                        <span>Mi Perfil</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <form action="/logout" method="post" class="m-0 p-0 d-flex">
+                        {{#token}}
+                        <input type="hidden" name="_csrf" value="{{token}}" />
+                        {{/token}}
+                        <button type="submit" class="btn btn-outline-danger d-flex align-items-center">
+                            <i class="bi bi-box-arrow-right me-2"></i>
+                            <span>Cerrar Sesión</span>
+                        </button>
+                    </form>
+                </li>
+                {{/logged}}
+
             </ul>
         </div>
     </div>

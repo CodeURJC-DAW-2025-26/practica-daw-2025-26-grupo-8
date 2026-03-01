@@ -42,6 +42,11 @@ public class SecurityConfig {
                 })
                 .permitAll());
 
+        http.logout(logout -> logout
+                .logoutUrl("/logout") // The URL that triggers log out (matches your HTML form)
+                .logoutSuccessUrl("/") // Redirects to home page instead of login page
+                .permitAll());
+
         http.csrf(csrf -> csrf.disable());
 
         return http.build();
