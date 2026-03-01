@@ -170,7 +170,7 @@ Solo si han cambiado.
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](assets/images/ImagesPreparation/database-diagram.png)
+![Diagrama Entidad-Relación](backend\src\main\resources\static\assets\images\ImagesP1\database-diagram.png)
 
 > [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
 
