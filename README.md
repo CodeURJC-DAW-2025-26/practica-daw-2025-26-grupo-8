@@ -136,61 +136,70 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ### **Navegación y Capturas de Pantalla**
 
-#### **Diagrama de Navegación**
+### **Diagrama de Navegación**
+Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-Solo si ha cambiado.
+![Diagrama de Navegación](backend/src/main/resources/static/assets/images/ImagesP1/Practica1DAW.drawio.png)
+
+> [Descripción breve: El diagrama es similar al de la preparación, tiene como cambios el añadido de la pagina de error al intentar entrar en la zona de administradores y una pagina con el perfil para usuarios registrados.]
 
 #### **Capturas de Pantalla Actualizadas**
 
-#### **1. Página Principal / Home - CAMBIA PARA USERS CON PEDIDOS**
+#### **1. Página Principal / Home**
 ![Página Principal](backend/src/main/resources/static/assets/images/ImagesP1/p1-index-users-page.png)
 
-> [Descripción breve: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados aun."]
+> [Descripción breve: "Respecto a la preparación, la home se adapta al usuario con historial y muestra recomendaciones personalizadas según sus pedidos anteriores, manteniendo la misma estructura visual general. También
+se muestra el algoritmo de recomendación para usuarios registrados con pedidos"]
 
-#### **2. Menú - CAMBIA EL FILTRO**
+#### **2. Menú **
 ![Menú](backend/src/main/resources/static/assets/images/ImagesP1/p1-new-menu-page.png)
 
-> [Descripción breve: "Listado completo del catálogo con filtros por categoría, precios visibles y tarjetas de producto. Permite entrar al detalle de cada pizza y añadirla rápidamente al carrito."]
+> [Descripción breve: "En esta práctica cambia el comportamiento del menú: el filtrado se hace en servidor, hay paginación con carga incremental y se mejora la interacción de filtros de alérgenos."]
 
-#### **3. Categoría - NO CAMBIA**
-![Categoría](backend/src/main/resources/static/assets/images/ImagesPreparation/category-page.png)
+#### **3. Categoría **
+![Categoría](backend/src/main/resources/static/assets/images/ImagesP1/p1-category-page.png)
 
-> [Descripción breve: "Vista filtrada por una categoría concreta donde se muestran solo los productos relacionados. Incluye nombre, imagen, precio y accesos directos al detalle."]
+> [Descripción breve: "No hemos añadido cambios funcionales relevantes respecto a la preparación; mantiene la vista filtrada por categoría con el mismo flujo de navegación."]
 
-#### **4. Producto - NO CAMBIA**
-![Producto](backend/src/main/resources/static/assets/images/ImagesPreparation/product-page.png)
+#### **4. Producto **
+![Producto](backend/src/main/resources/static/assets/images/ImagesP1/p1-product-page.png)
 
-> [Descripción breve: "Página de detalle con imagen ampliada, descripción completa, ingredientes destacados y precio final. Ofrece acciones para elegir cantidad y añadir al carrito."]
+> [Descripción breve: "Se mantiene prácticamente igual que en la preparación: detalle completo del producto con opción de añadir al carrito."]
 
-#### **5. Carrito - NO CAMBIA**
+#### **5. Carrito **
 ![Carrito](backend/src/main/resources/static/assets/images/ImagesP1/p1-cart-page.png)
 
-> [Descripción breve: "Resumen del pedido con productos añadidos, cantidades editables y subtotal por línea. Muestra el total final y la acción para continuar con el pago o finalizar la compra."]
+> [Descripción breve: "Conserva el flujo de preparación, mostrando resumen de líneas, cantidades y total antes de confirmar el pedido."]
 
-#### **6. Admin - Usuarios CONTRASEÑA**
+#### **6. Admin **
 ![Admin Usuarios](backend/src/main/resources/static/assets/images/ImagesP1/p1-admin-users-page.png)
 
-> [Descripción breve: "Panel de administración para visualizar el listado de usuarios con su rol y estado. Permite gestionar altas, bajas o cambios de permisos desde una tabla central."]
+> [Descripción breve: "Respecto a la preparación, esta vista incorpora mejoras de gestión de cuentas en la administración de usuarios y ajustes relacionados con credenciales."]
 
 #### **7. Admin - Pedidos**
 ![Admin Pedidos](backend/src/main/resources/static/assets/images/ImagesP1/p1-admin-orders-page.png)
 
-> [Descripción breve: "Gestión de pedidos mostrando estado, fecha e importe. Ofrece acceso al detalle de cada compra y opciones para actualizar el estado del pedido."]
+> [Descripción breve: "Mantiene la gestión de pedidos y su actualización de estado, consolidando el flujo administrativo en la parte dinámica de la práctica."]
 
 #### **8. Admin - Categorías**
 ![Admin Categorías](backend/src/main/resources/static/assets/images/ImagesP1/p1-admin-categories-page.png)
 
-> [Descripción breve: "Administración de categorías con listado actual y acciones de crear, editar o eliminar. Facilita organizar el catálogo por tipos de producto."]
+> [Descripción breve: "Continúa con el mismo objetivo que en preparación (alta, edición y borrado de categorías), integrada ya en el flujo completo de la práctica."]
 
-#### **9. Admin - Métricas - NO CAMBIA**
-![Admin Métricas](backend/src/main/resources/static/assets/images/ImagesPreparation/admin-metrics-page.png)
+#### **9. Admin - Métricas **
+![Admin Métricas](backend/src/main/resources/static/assets/images/ImagesP1/p1-admin-metrics-page.png)
 
-> [Descripción breve: "Panel de métricas con gráficos de ventas, productos más solicitados y comparativas básicas. Ayuda a detectar tendencias y rendimiento del catálogo."]
+> [Descripción breve: "No cambia de forma destacable respecto a preparación; mantiene el panel de métricas con visualización de ventas y productos más relevantes."]
 
 #### **10. Profile NUEVO**
 ![Profile](backend/src/main/resources/static/assets/images/ImagesP1/p1-profile-page.png)
 
-> [Descripción breve: "Pantalla de perfil del usuario con su información y opciones de gestión de cuenta."]
+> [Descripción breve: "Nueva pantalla añadida para usuarios registrados, con consulta y edición de datos de perfil."]
+
+#### **11. Error NUEVO**
+![Error](backend/src/main/resources/static/assets/images/ImagesP1/p1-error-page.png)
+
+> [Descripción breve: "Nueva pantalla de error (por ejemplo, accesos sin permisos a zona admin), con diseño consistente y enlaces de retorno."]
 
 ### **Instrucciones de Ejecución**
 
