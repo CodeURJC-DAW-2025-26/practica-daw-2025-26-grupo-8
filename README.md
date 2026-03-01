@@ -401,17 +401,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ### **Participación de Miembros en la Práctica 2**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Mario Aparisi Castro]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Encargado de hacer tareas como la gráfica en el dashboard de la aplicacion web, imlementar la funcionalidad de realizar un pedido donde se guarden en base de datos los productos pedidos por el usuario y se actualice la gráfica del dashboard con los pedidos y la parte de pedidos realizados con los datos del usuario, incluyendo nombre, número de productos y datos personales.la gráfica se arregló para que en vez de recoger todos los productos y filtrar de la base de datos solo seleccionase los que queremos directamente. Añadido de la funcionalidad de correo donde al realizar un pedido se enviará un correo al correo introducido por el usuario al registarse en la pagina web, y decorado con html y css acorde al diseño de nuestra página web.Funcionalidad de top 5 vendidos donde a través de la funcionalidad anterior de la gráfica que recogía el número de productos comprados pues se hace un top 5 productos más vendidos donde se muestran y se van actuaizando a medida que se hacen los productos los mas comprados. Añadida las páginas de error a la página web con mismo formato y diseño que la página web y con redirección a esta.]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [grafica en el dashboard de los pedidos]([URL_commit_1](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/bb877ce144fd2bbf8b9ee1d150774f6b11504acc))  | [Archivo1](URL_archivo_1)   |
+|2| [el confirmar pedido funciona y se actualiza la lista de pedidos y se actualiza la grafica de la dashboard]([URL_commit_2](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/32e16720cee94c8cfe4665b2e1e6db10293750b0))  | [Archivo2](URL_archivo_2)   |
+|3| [FUNCIONALIDAD CORREO ENVIADO AL HACER UN PEDIDO]([URL_commit_3](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/8776d9ede6e5ad712fe305c6973924b1a8235654))  | [Archivo3](URL_archivo_3)   |
+|4| [funcionalidad top 5 vendidos enlazados con la grafica de productos vendidos]([URL_commit_4](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/0d666ff79e5ddd822d96a817ba8c2254e1886032))  | [Archivo4](URL_archivo_4)   |
+|5| [paginas de error]([URL_commit_5](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/a7d2b2b14dc18758fec969775d500b1bcc9bd480))  | [Archivo5](URL_archivo_5)   |
 
 ---
 
