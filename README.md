@@ -315,17 +315,17 @@ Arquitectura Limpia: Refactorización del código para garantizar la correcta se
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 4 - [Gaizka Aranbarri Berasaluze]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Encargado de la configuración inicial, arquitectura base y modelado de datos del proyecto. Mi labor comenzó estructurando el esqueleto de la aplicación web en Spring Boot y definiendo las entidades de dominio para su correcto mapeado en base de datos. A nivel funcional, implementé el sistema del Carrito de la compra, permitiendo a los usuarios gestionar su pre-pedido, así como la vista del Perfil de usuario para la visualización de la cuenta. Finalmente, me encargué de refactorizar la inyección de atributos globales (token CSRF y el estado booleano de inicio de sesión) para que todos los controladores dispusieran de esta información y las plantillas pudieran renderizar correctamente la barra de navegación y los modales de forma segura en cualquier ruta.]
 
 | Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|:------------: |:------------| :------------|
+|1| [Creación de la base estructural del proyecto Spring Boot](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/06a8d5deb62216c862c676ad7dfbadcc94c69b8a)  | [pom.xml](backend/pom.xml)<br>[PizzeriaApplication.java](backend/src/main/java/com/aparizzio/pizzeria/PizzeriaApplication.java)   |
+|2| [Generación del modelo de datos y entidades JPA principales](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/5fea868102266cfe36d37f4993a38ada613dee59)  | [User.java](backend/src/main/java/com/aparizzio/pizzeria/model/User.java)<br>[Product.java](backend/src/main/java/com/aparizzio/pizzeria/model/Product.java)<br>[Order.java](backend/src/main/java/com/aparizzio/pizzeria/model/Order.java)   |
+|3| [Implementación de la funcionalidad y controladores del Carrito de la compra](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/c9888132deca2a03733f77c850f17fa7c6732490)  | [CartController.java](backend/src/main/java/com/aparizzio/pizzeria/controller/CartController.java)<br>[CartService.java](backend/src/main/java/com/aparizzio/pizzeria/service/CartService.java)<br>[cart.html](backend/src/main/resources/templates/cart.html)   |
+|4| [Creación de la página de Perfil para usuarios registrados](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/17f9f0175215e90fcd445205d11c823e34446841)  | [ProfileController.java](backend/src/main/java/com/aparizzio/pizzeria/controller/ProfileController.java)<br>[profile.html](backend/src/main/resources/templates/profile.html)   |
+|5| [Añadido de inyección global de token CSRF y estado 'logged' para todos los controladores](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/5868d82f460669ce4b41f416e5904f69b02c7b6e)  | [GlobalModelAttributes.java](backend/src/main/java/com/aparizzio/pizzeria/controller/GlobalModelAttributes.java)   |
 
 ---
 
