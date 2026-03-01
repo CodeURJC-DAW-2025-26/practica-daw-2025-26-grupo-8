@@ -272,17 +272,17 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [David Esteban Bernardo]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Encargado de la mejora del catálogo en la parte de usuario, implementando paginación en el menú y las categorías con AJAX y el botón de añadir mas elementos (“Load more”), pasando el filtrado de productos al servidor para evitar cargas completas en memoria. También he sido el encargado de el filtro de alérgenos (selección múltiple y botón “All”), además de añadir feedback visual con spinner de carga. En la parte de presentación y documentación, me he encargado de rutas y capturas del README para reflejar correctamente los cambios de la práctica asi como diagrama de navegación  entre otras cosas.] 
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Paginación y filtrado del menú/categoría completamente en servidor](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/9c7bfbc)  | [MenuService.java](backend/src/main/java/com/aparizzio/pizzeria/service/MenuService.java)   |
+|2| [Implementación inicial de paginación con AJAX en menú y categoría](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/23205b4)  | [category-menu-load-more.js](backend/src/main/resources/static/js/category-menu-load-more.js)   |
+|3| [Añadido spinner de carga y animación para mejorar la UX](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/4a64189)  | [spinner.js](backend/src/main/resources/static/js/spinner.js)   |
+|4| [Soporte para selección múltiple de alérgenos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d50d0fa)  | [alergensfilter.js](backend/src/main/resources/static/js/alergensfilter.js)   |
+|5| [Botón “All” y mejoras en la lógica de activación de filtros](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/fbb9ade)  | [menu.html](backend/src/main/resources/templates/menu.html)   |
 
 ---
 
