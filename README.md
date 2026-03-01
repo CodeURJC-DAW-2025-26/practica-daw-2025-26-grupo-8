@@ -255,7 +255,7 @@ Diagrama mostrando las entidades, sus campos y relaciones:
 
 ![Diagrama Entidad-Relación](backend/src/main/resources/static/assets/images/ImagesP1/database-diagram.png)
 
-> [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
+> [Descripción breve: Diagrama general de la base de datos con las entidades principales y sus relaciones.]
 
 ### **Diagrama de Clases y Templates**
 
@@ -263,7 +263,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ![Diagrama de Clases](backend/src/main/resources/static/assets/images/ImagesP1/diagrama-clases-templates.png)
 
-> [Descripción opcional del diagrama y relaciones principales]
+> [Descripción breve: Vista general de la estructura de clases y su organización en la aplicación.]
 
 ### **Participación de Miembros en la Práctica 1**
 
