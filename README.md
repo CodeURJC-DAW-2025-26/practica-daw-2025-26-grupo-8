@@ -264,7 +264,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [grafica en el dashboard de los pedidos]([https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/bb877ce144fd2bbf8b9ee1d150774f6b11504acc])  | [Archivo1](URL_archivo_1)   |
+|1| [grafica en el dashboard de los pedidos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/bb877ce144fd2bbf8b9ee1d150774f6b11504acc)  | [Archivo1](URL_archivo_1)   |
 |2| [el confirmar pedido funciona y se actualiza la lista de pedidos y se actualiza la grafica de la dashboard]([https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/32e16720cee94c8cfe4665b2e1e6db10293750b0])  | [Archivo2](URL_archivo_2)   |
 |3| [FUNCIONALIDAD CORREO ENVIADO AL HACER UN PEDIDO]([https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/8776d9ede6e5ad712fe305c6973924b1a8235654])  | [Archivo3](URL_archivo_3)   |
 |4| [funcionalidad top 5 vendidos enlazados con la grafica de productos vendidos]([https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/0d666ff79e5ddd822d96a817ba8c2254e1886032])  | [Archivo4](URL_archivo_4)   |
