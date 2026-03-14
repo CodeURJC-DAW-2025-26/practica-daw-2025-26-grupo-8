@@ -4,14 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.aparizzio.pizzeria.model.Image;
 import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.dto.ProductDTO;
 import com.aparizzio.pizzeria.dto.ProductMapper;
+import com.aparizzio.pizzeria.service.ImageService;
 import com.aparizzio.pizzeria.service.ProductService;
 import com.aparizzio.pizzeria.repository.ProductRepository;
 
@@ -28,13 +33,20 @@ public class ProductRestController {
     @Autowired
     private ProductMapper productMapper;
 
-    // GET: Obtener todos los productos
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private com.aparizzio.pizzeria.dto.ImageMapper imageMapper;
+
+    // GET: Get all products (Paginated)
     @GetMapping("/")
-    public List<ProductDTO> getProducts() {
-        // Usamos tu método getAllProducts() real
-        return productService.getAllProducts().stream()
-                .map(productMapper::toDTO)
-                .collect(Collectors.toList());
+    public Page<ProductDTO> getProducts(Pageable pageable) {
+
+        // We fetch the Page of entities from the service
+        // Then we use the .map() method from the Page interface to convert each entity
+        // to a DTO
+        return productService.getProducts(pageable).map(productMapper::toDTO);
     }
 
     // GET: Obtener un solo producto por ID
@@ -98,5 +110,48 @@ public class ProductRestController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // POST: Upload an image to an existing product
+    @PostMapping("/{id}/images/")
+    public ResponseEntity<com.aparizzio.pizzeria.dto.ImageDTO> createProductImage(
+            @PathVariable long id,
+            @RequestParam MultipartFile imageFile) throws java.io.IOException {
+
+        if (imageFile.isEmpty()) {
+            throw new IllegalArgumentException("Image file cannot be empty");
+        }
+
+        // Create the image using the generic image service
+        Image image = imageService.createImage(imageFile.getInputStream());
+
+        // Link the newly created image to the specific product
+        productService.addImageToProduct(id, image);
+
+        // Generate the URL to download the new image (Location header)
+        java.net.URI location = org.springframework.web.servlet.support.ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/api/images/{imageId}/media")
+                .buildAndExpand(image.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(imageMapper.toDTO(image));
+    }
+
+    // DELETE: Remove the image from a product and delete it from the DB
+    @DeleteMapping("/{productId}/images/{imageId}")
+    public com.aparizzio.pizzeria.dto.ImageDTO deleteProductImage(
+            @PathVariable long productId,
+            @PathVariable long imageId) throws java.io.IOException {
+
+        Image image = imageService.getImage(imageId);
+
+        // Unlink the image from the product first
+        productService.removeImageFromProduct(productId);
+
+        // Delete the image entity safely
+        imageService.deleteImage(imageId);
+
+        return imageMapper.toDTO(image);
     }
 }

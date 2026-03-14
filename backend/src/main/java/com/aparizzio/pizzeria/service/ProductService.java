@@ -108,4 +108,27 @@ public class ProductService {
             productRepository.deleteById(id);
         }
     }
+
+    // --- API REST: Add image to product ---
+    public Product addImageToProduct(long id, Image image) {
+        Product product = productRepository.findById(id).orElseThrow();
+        product.setImage(image);
+        productRepository.save(product);
+        return product;
+    }
+
+    // --- API REST: Remove image from product ---
+    public Product removeImageFromProduct(long productId) {
+        Product product = productRepository.findById(productId).orElseThrow();
+        product.setImage(null);
+        productRepository.save(product);
+        return product;
+    }
+
+    // --- REST API: Get paginated products ---
+    public org.springframework.data.domain.Page<Product> getProducts(
+            org.springframework.data.domain.Pageable pageable) {
+        // The repository's findAll method automatically accepts a Pageable object
+        return productRepository.findAll(pageable);
+    }
 }
