@@ -3,6 +3,7 @@ package com.aparizzio.pizzeria.controller;
 import java.security.Principal;
 
 import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -17,11 +18,20 @@ public class GlobalModelAttributes {
         return principal != null;
     }
 
-    // Automatically adds the CSRF "token" to all Mustache templates 
+    // Automatically adds the CSRF "token" to all Mustache templates
     // (You will need this to perform the POST request for logging out)
     @ModelAttribute("token")
     public String getCsrfToken(HttpServletRequest request) {
         CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         return csrfToken != null ? csrfToken.getToken() : "";
+    }
+
+    @ModelAttribute
+    public void addCsrfToken(HttpServletRequest request, Model model) {
+        CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        if (token != null) {
+            // Añadimos el token al modelo global para los formularios Mustache
+            model.addAttribute("token", token.getToken());
+        }
     }
 }
