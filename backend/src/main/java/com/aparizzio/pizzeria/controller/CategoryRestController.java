@@ -16,7 +16,7 @@ import com.aparizzio.pizzeria.service.CategoryService;
 import com.aparizzio.pizzeria.repository.CategoryRepository; // Importamos el repo para el POST/PUT sin imágenes
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/v1/categories")
 public class CategoryRestController {
 
     @Autowired

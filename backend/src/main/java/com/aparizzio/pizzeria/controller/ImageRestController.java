@@ -21,7 +21,7 @@ import com.aparizzio.pizzeria.dto.ImageMapper;
 import com.aparizzio.pizzeria.service.ImageService;
 
 @RestController
-@RequestMapping("/api/images")
+@RequestMapping("/api/v1/images")
 public class ImageRestController {
 
     @Autowired

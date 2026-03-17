@@ -21,7 +21,7 @@ import com.aparizzio.pizzeria.service.ProductService;
 import com.aparizzio.pizzeria.repository.ProductRepository;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1/products")
 public class ProductRestController {
 
     @Autowired
