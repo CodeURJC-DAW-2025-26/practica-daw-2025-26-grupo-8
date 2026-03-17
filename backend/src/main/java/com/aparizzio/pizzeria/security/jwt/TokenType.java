@@ -1,4 +1,4 @@
-package es.codeurjc.daw.library.security.jwt;
+package com.aparizzio.pizzeria.security.jwt;
 
 import java.time.Duration;
 

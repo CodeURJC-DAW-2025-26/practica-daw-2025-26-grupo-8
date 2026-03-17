@@ -7,6 +7,8 @@ import javax.crypto.SecretKey;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Claims;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -33,7 +35,7 @@ public class JwtTokenProvider {
     }
 
     private String tokenStringFromCookies(HttpServletRequest request) {
-        var cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();
         if (cookies == null) {
             throw new IllegalArgumentException("No cookies found in request");
         }
@@ -53,7 +55,7 @@ public class JwtTokenProvider {
     }
 
     public Claims validateToken(HttpServletRequest req, boolean fromCookie) {
-        var token = fromCookie ? tokenStringFromCookies(req) : tokenStringFromHeaders(req);
+        String token = fromCookie ? tokenStringFromCookies(req) : tokenStringFromHeaders(req);
         return validateToken(token);
     }
 
@@ -66,13 +68,13 @@ public class JwtTokenProvider {
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
-        var token = buildToken(TokenType.REFRESH, userDetails);
+        JwtBuilder token = buildToken(TokenType.REFRESH, userDetails);
         return token.compact();
     }
 
     private JwtBuilder buildToken(TokenType tokenType, UserDetails userDetails) {
-        var currentDate = new Date();
-        var expiryDate = Date.from(new Date().toInstant().plus(tokenType.duration));
+        Date currentDate = new Date();
+        Date expiryDate = Date.from(new Date().toInstant().plus(tokenType.duration));
         return Jwts.builder()
                 .claim("roles", userDetails.getAuthorities())
                 .claim("type", tokenType.name())

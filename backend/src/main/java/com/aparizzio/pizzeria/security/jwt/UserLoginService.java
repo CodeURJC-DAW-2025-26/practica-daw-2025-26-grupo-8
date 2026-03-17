@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import io.jsonwebtoken.Claims;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,8 +44,8 @@ public class UserLoginService {
         UserDetails user = userDetailsService.loadUserByUsername(username);
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        var newAccessToken = jwtTokenProvider.generateAccessToken(user);
-        var newRefreshToken = jwtTokenProvider.generateRefreshToken(user);
+        String newAccessToken = jwtTokenProvider.generateAccessToken(user);
+        String newRefreshToken = jwtTokenProvider.generateRefreshToken(user);
 
         response.addCookie(buildTokenCookie(TokenType.ACCESS, newAccessToken));
         response.addCookie(buildTokenCookie(TokenType.REFRESH, newRefreshToken));
@@ -55,10 +57,10 @@ public class UserLoginService {
 
     public ResponseEntity<AuthResponse> refresh(HttpServletResponse response, String refreshToken) {
         try {
-            var claims = jwtTokenProvider.validateToken(refreshToken);
+            Claims claims = jwtTokenProvider.validateToken(refreshToken);
             UserDetails user = userDetailsService.loadUserByUsername(claims.getSubject());
 
-            var newAccessToken = jwtTokenProvider.generateAccessToken(user);
+            String newAccessToken = jwtTokenProvider.generateAccessToken(user);
             response.addCookie(buildTokenCookie(TokenType.ACCESS, newAccessToken));
 
             AuthResponse loginResponse = new AuthResponse(AuthResponse.Status.SUCCESS,
