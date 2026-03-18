@@ -13,14 +13,14 @@ public class ProductDTO {
 
     // We flatten the category to avoid infinite recursion
     private String categoryTitle;
-    private boolean hasImage;
+    private Boolean hasImage;
 
     // Empty constructor
     public ProductDTO() {
     }
 
     public ProductDTO(Long id, String title, String description, String shortDescription, int price,
-            List<String> allergies, String categoryTitle, boolean hasImage) {
+            List<String> allergies, String categoryTitle, Boolean hasImage) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -88,11 +88,11 @@ public class ProductDTO {
         this.categoryTitle = categoryTitle;
     }
 
-    public boolean isHasImage() {
+    public Boolean getHasImage() {
         return hasImage;
     }
 
-    public void setHasImage(boolean hasImage) {
+    public void setHasImage(Boolean hasImage) {
         this.hasImage = hasImage;
     }
 }
