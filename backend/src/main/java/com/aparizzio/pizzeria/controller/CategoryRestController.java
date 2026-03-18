@@ -13,7 +13,7 @@ import com.aparizzio.pizzeria.model.Category;
 import com.aparizzio.pizzeria.dto.CategoryDTO;
 import com.aparizzio.pizzeria.dto.CategoryMapper;
 import com.aparizzio.pizzeria.service.CategoryService;
-import com.aparizzio.pizzeria.repository.CategoryRepository; // Importamos el repo para el POST/PUT sin imágenes
+import com.aparizzio.pizzeria.repository.CategoryRepository;
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -28,7 +28,7 @@ public class CategoryRestController {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    // GET: Obtener todas las categorías
+    // GET: Obtain all categories (Paginated)
     @GetMapping("/")
     public List<CategoryDTO> getCategories() {
         // Usamos tu método getAllCategories() real
@@ -37,7 +37,7 @@ public class CategoryRestController {
                 .collect(Collectors.toList());
     }
 
-    // GET: Obtener una sola categoría por ID
+    // GET: Obtain a single category by ID
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> getCategory(@PathVariable long id) {
         // Usamos tu método getCategoryById() real
@@ -49,7 +49,7 @@ public class CategoryRestController {
         }
     }
 
-    // POST: Crear una nueva categoría (Solo datos JSON, sin imagen)
+    // POST: Create a new category (Only JSON data, no image upload)
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
@@ -57,13 +57,13 @@ public class CategoryRestController {
         newCategory.setTitle(categoryDTO.getTitle());
         newCategory.setDescription(categoryDTO.getDescription());
 
-        // Guardamos directamente en el repo para evitar el error del MultipartFile
+        // Save the new category to the database
         categoryRepository.save(newCategory);
 
         return categoryMapper.toDTO(newCategory);
     }
 
-    // PUT: Actualizar una categoría existente (Solo datos JSON)
+    // PUT: Update an existing category (Only JSON data)
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDTO> updateCategory(@PathVariable long id,
             @RequestBody CategoryDTO updatedCategoryDTO) {
@@ -81,14 +81,15 @@ public class CategoryRestController {
         }
     }
 
-    // DELETE: Borrar una categoría de forma segura
+    // DELETE: Delete a category safely
     @DeleteMapping("/{id}")
     public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable long id) {
         Optional<Category> categoryOpt = categoryService.getCategoryById(id);
 
         if (categoryOpt.isPresent()) {
             Category category = categoryOpt.get();
-            // Usamos tu método seguro que desvincula los productos primero
+            // Use first the safe delete method that updates orders to remove the category
+            // reference
             categoryService.deleteCategorySafely(id);
             return ResponseEntity.ok(categoryMapper.toDTO(category));
         } else {
