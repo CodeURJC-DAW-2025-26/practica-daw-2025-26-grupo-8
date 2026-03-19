@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import com.aparizzio.pizzeria.model.Order;
 import com.aparizzio.pizzeria.model.Product;
-import com.aparizzio.pizzeria.dto.OrderDTO;
 
 @Component
 public class OrderMapper {

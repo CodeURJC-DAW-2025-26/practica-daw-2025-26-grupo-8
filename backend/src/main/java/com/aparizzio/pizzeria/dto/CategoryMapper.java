@@ -2,7 +2,6 @@ package com.aparizzio.pizzeria.dto;
 
 import org.springframework.stereotype.Component;
 import com.aparizzio.pizzeria.model.Category;
-import com.aparizzio.pizzeria.dto.CategoryDTO;
 
 @Component
 public class CategoryMapper {

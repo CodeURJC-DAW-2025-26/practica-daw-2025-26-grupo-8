@@ -2,7 +2,6 @@ package com.aparizzio.pizzeria.dto;
 
 import org.springframework.stereotype.Component;
 import com.aparizzio.pizzeria.model.Product;
-import com.aparizzio.pizzeria.dto.ProductDTO;
 
 @Component
 public class ProductMapper {
@@ -12,11 +11,13 @@ public class ProductMapper {
 
         boolean hasImage = product.getImage() != null;
 
-        // Safely extract the category title (if category exists) to avoid infinite
-        // recursion
+        // Safely extract the category title AND ID (if category exists)
         String categoryTitle = null;
+        Long categoryId = null;
+
         if (product.getCategory() != null) {
             categoryTitle = product.getCategory().getTitle();
+            categoryId = product.getCategory().getId();
         }
 
         return new ProductDTO(
@@ -26,6 +27,7 @@ public class ProductMapper {
                 product.getShortDescription(),
                 product.getPrice(),
                 product.getAllergies(),
+                categoryId,
                 categoryTitle,
                 hasImage);
     }

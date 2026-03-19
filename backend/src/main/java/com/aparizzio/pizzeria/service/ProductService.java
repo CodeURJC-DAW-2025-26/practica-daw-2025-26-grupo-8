@@ -128,7 +128,18 @@ public class ProductService {
     // --- REST API: Get paginated products ---
     public org.springframework.data.domain.Page<Product> getProducts(
             org.springframework.data.domain.Pageable pageable) {
-        // The repository's findAll method automatically accepts a Pageable object
         return productRepository.findAll(pageable);
     }
+
+    // --- API REST: Obtain products by category (Paginated) ---
+    public org.springframework.data.domain.Page<Product> getProductsByCategory(Long categoryId,
+            org.springframework.data.domain.Pageable pageable) {
+        return productRepository.findByCategoryId(categoryId, pageable);
+    }
+
+    // --- API REST: Save product ---
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
 }

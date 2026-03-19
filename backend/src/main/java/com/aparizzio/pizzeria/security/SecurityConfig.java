@@ -51,27 +51,28 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    // ---------------------------------------------------------
-    // 1. SEGURIDAD DE LA API REST (Stateless, JWT)
-    // ---------------------------------------------------------
-    @Bean
+    // ---------------------------------------
+    // 1. API REST SECURITY (Stateless, JWT)
+    // ---------------------------------------
     @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 
         http.authenticationProvider(authenticationProvider());
 
-        // Solo interceptamos las peticiones a la API
+        // Only apply this security configuration to API endpoints
         http.securityMatcher("/api/v1/**")
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 
         http.authorizeHttpRequests(authorize -> authorize
-                // ENDPOINTS PÚBLICOS (Login y lectura de datos)
+                // PUBLIC ENDPOINTS (Login, register and read-only access to
+                // products/categories/images)
                 .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/images/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
 
-                // ENDPOINTS PRIVADOS (Solo Administradores pueden modificar el menú)
+                // PRIVATE ENDPOINTS
                 .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/products/**").hasRole("ADMIN")
@@ -79,27 +80,26 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/api/v1/categories/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/**").hasRole("ADMIN")
 
-                // Cualquier otra petición a la API requerirá autenticación
+                // Any other request to the API will require authentication
                 .anyRequest().authenticated());
 
-        // Desactivamos formularios y CSRF para la API
+        // Disable forms and CSRF for the API
         http.formLogin(formLogin -> formLogin.disable());
         http.csrf(csrf -> csrf.disable());
         http.httpBasic(httpBasic -> httpBasic.disable());
 
-        // Sesiones Stateless para la API
+        // Stateless sessions for the API
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // Añadimos el filtro JWT del profesor
         http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // ---------------------------------------------------------
-    // 2. SEGURIDAD DE LA APLICACIÓN WEB (Tu configuración original)
-    // ---------------------------------------------------------
+    // -------------------------------
+    // 2. WEB APLICATION SECURITY
+    // -------------------------------
     @Bean
     @Order(2)
     public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
@@ -111,7 +111,7 @@ public class SecurityConfig {
                 .requestMatchers("/", "/menu", "/cart/**", "/product/**", "/category/**", "/error", "/register")
                 .permitAll()
 
-                // Rutas de documentación Swagger
+                // Documentation endpoints (Swagger/OpenAPI)
                 .requestMatchers("/v3/api-docs*/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
 
                 .requestMatchers("/admin/**").hasRole("ADMIN")

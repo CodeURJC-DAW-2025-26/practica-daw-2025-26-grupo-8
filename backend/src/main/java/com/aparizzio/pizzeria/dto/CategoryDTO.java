@@ -5,13 +5,13 @@ public class CategoryDTO {
     private Long id;
     private String title;
     private String description;
-    private boolean hasImage; // To let the frontend know if it should request the image
+    private Boolean hasImage; // To let the frontend know if it should request the image
 
     // Empty constructor required by Jackson for JSON deserialization
     public CategoryDTO() {
     }
 
-    public CategoryDTO(Long id, String title, String description, boolean hasImage) {
+    public CategoryDTO(Long id, String title, String description, Boolean hasImage) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -43,11 +43,11 @@ public class CategoryDTO {
         this.description = description;
     }
 
-    public boolean isHasImage() {
+    public Boolean isHasImage() {
         return hasImage;
     }
 
-    public void setHasImage(boolean hasImage) {
+    public void setHasImage(Boolean hasImage) {
         this.hasImage = hasImage;
     }
 }

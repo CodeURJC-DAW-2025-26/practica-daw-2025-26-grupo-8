@@ -36,6 +36,11 @@ public class CategoryService {
         return categoryRepository.findById(id);
     }
 
+    // --- API REST: Save category (used for both create and update) ---
+    public Category saveCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+
     // --- Create a new category ---
     public void createCategory(String title, String description, MultipartFile imageFile) throws IOException {
         Category newCategory = new Category();

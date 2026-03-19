@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.aparizzio.pizzeria.dto.OrderDTO;
@@ -15,9 +14,9 @@ import com.aparizzio.pizzeria.dto.OrderMapper;
 import com.aparizzio.pizzeria.model.Order;
 import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.model.User;
-import com.aparizzio.pizzeria.repository.UserRepository;
 import com.aparizzio.pizzeria.service.OrderService;
 import com.aparizzio.pizzeria.service.ProductService;
+import com.aparizzio.pizzeria.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -32,10 +31,10 @@ public class OrderRestController {
     private ProductService productService;
 
     @Autowired
-    private UserRepository userRepository;
+    private OrderMapper orderMapper;
 
     @Autowired
-    private OrderMapper orderMapper;
+    private UserService userService;
 
     // POST: Create a new order
     @PostMapping("/")
@@ -44,7 +43,7 @@ public class OrderRestController {
 
         // Identifies the user making the order from the JWT token
         String email = request.getUserPrincipal().getName();
-        User user = userRepository.findByEmail(email).orElseThrow();
+        User user = userService.getUserByEmail(email).orElseThrow();
 
         // Remake the list of products from the list of product IDs sent by the client
         List<Product> orderProducts = new ArrayList<>();

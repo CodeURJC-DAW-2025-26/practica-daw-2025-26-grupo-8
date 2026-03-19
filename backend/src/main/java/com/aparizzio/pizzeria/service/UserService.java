@@ -29,6 +29,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    // --- Get user by ID ---
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
     // --- Public registration (validating passwords and emails) ---
     public String registerUser(String name, String email, String password, String confirmPassword) {
         if (!password.equals(confirmPassword)) {
@@ -119,4 +124,5 @@ public class UserService {
         }
         return false;
     }
+
 }

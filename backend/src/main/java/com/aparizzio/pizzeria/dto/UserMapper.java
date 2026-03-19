@@ -2,7 +2,6 @@ package com.aparizzio.pizzeria.dto;
 
 import org.springframework.stereotype.Component;
 import com.aparizzio.pizzeria.model.User;
-import com.aparizzio.pizzeria.dto.UserDTO;
 
 @Component
 public class UserMapper {

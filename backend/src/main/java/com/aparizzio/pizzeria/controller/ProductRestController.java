@@ -8,9 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.aparizzio.pizzeria.model.Image;
 import com.aparizzio.pizzeria.model.Product;
@@ -18,7 +16,6 @@ import com.aparizzio.pizzeria.dto.ProductDTO;
 import com.aparizzio.pizzeria.dto.ProductMapper;
 import com.aparizzio.pizzeria.service.ImageService;
 import com.aparizzio.pizzeria.service.ProductService;
-import com.aparizzio.pizzeria.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -26,9 +23,6 @@ public class ProductRestController {
 
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private ProductMapper productMapper;
@@ -39,22 +33,19 @@ public class ProductRestController {
     @Autowired
     private com.aparizzio.pizzeria.dto.ImageMapper imageMapper;
 
-    // GET: Get all products (Paginated)
+    @Autowired
+    private com.aparizzio.pizzeria.service.CategoryService categoryService;
+
+    // GET: Obtain all products (Paginated)
     @GetMapping("/")
     public Page<ProductDTO> getProducts(Pageable pageable) {
-
-        // We fetch the Page of entities from the service
-        // Then we use the .map() method from the Page interface to convert each entity
-        // to a DTO
         return productService.getProducts(pageable).map(productMapper::toDTO);
     }
 
-    // GET: Obtener un solo producto por ID
+    // GET: Obtain a single product by ID
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable long id) {
-        // Usamos tu método getProductById() real
         Optional<Product> productOpt = productService.getProductById(id);
-
         if (productOpt.isPresent()) {
             return ResponseEntity.ok(productMapper.toDTO(productOpt.get()));
         } else {
@@ -62,7 +53,7 @@ public class ProductRestController {
         }
     }
 
-    // POST: Crear un nuevo producto (Solo datos JSON)
+    // POST: Create a new product (Only JSON data, no image upload)
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
@@ -73,11 +64,20 @@ public class ProductRestController {
         newProduct.setPrice(productDTO.getPrice());
         newProduct.setAllergies(productDTO.getAllergies());
 
-        productRepository.save(newProduct);
+        // Search for the category by ID and set it to the product (if categoryId is
+        // provided)
+        if (productDTO.getCategoryId() != null) {
+            Optional<com.aparizzio.pizzeria.model.Category> categoryOpt = categoryService
+                    .getCategoryById(productDTO.getCategoryId());
+            categoryOpt.ifPresent(newProduct::setCategory);
+        }
+
+        productService.save(newProduct);
+
         return productMapper.toDTO(newProduct);
     }
 
-    // PUT: Actualizar producto existente
+    // PUT: Update an existing product (Only JSON data, no image upload)
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable long id, @RequestBody ProductDTO updatedProductDTO) {
         Optional<Product> productOpt = productService.getProductById(id);
@@ -90,30 +90,37 @@ public class ProductRestController {
             product.setPrice(updatedProductDTO.getPrice());
             product.setAllergies(updatedProductDTO.getAllergies());
 
-            productRepository.save(product);
+            // 1. Search for the category by ID and set it to the product (if categoryId is
+            // provided)
+            if (updatedProductDTO.getCategoryId() != null) {
+                Optional<com.aparizzio.pizzeria.model.Category> categoryOpt = categoryService
+                        .getCategoryById(updatedProductDTO.getCategoryId());
+                categoryOpt.ifPresent(product::setCategory);
+            }
+
+            productService.save(product);
+
             return ResponseEntity.ok(productMapper.toDTO(product));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    // DELETE: Borrar un producto de forma segura
+    // DELETE: Delete a product safely (Unlinks from orders first)
     @DeleteMapping("/{id}")
     public ResponseEntity<ProductDTO> deleteProduct(@PathVariable long id) {
         Optional<Product> productOpt = productService.getProductById(id);
-
         if (productOpt.isPresent()) {
-            Product product = productOpt.get();
-            // Usamos tu método seguro que actualiza los pedidos primero
+            ProductDTO dto = productMapper.toDTO(productOpt.get());
             productService.deleteProductSafely(id);
-            return ResponseEntity.ok(productMapper.toDTO(product));
+            return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    // POST: Upload an image to an existing product
-    @PostMapping("/{id}/images/")
+    // POST: Upload an image for a product
+    @PostMapping("/{id}/images")
     public ResponseEntity<com.aparizzio.pizzeria.dto.ImageDTO> createProductImage(
             @PathVariable long id,
             @RequestParam MultipartFile imageFile) throws java.io.IOException {
@@ -121,37 +128,25 @@ public class ProductRestController {
         if (imageFile.isEmpty()) {
             throw new IllegalArgumentException("Image file cannot be empty");
         }
-
-        // Create the image using the generic image service
         Image image = imageService.createImage(imageFile.getInputStream());
-
-        // Link the newly created image to the specific product
         productService.addImageToProduct(id, image);
 
-        // Generate the URL to download the new image (Location header)
         java.net.URI location = org.springframework.web.servlet.support.ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("/api/images/{imageId}/media")
-                .buildAndExpand(image.getId())
-                .toUri();
+                .fromCurrentContextPath().path("/api/v1/images/{imageId}/media")
+                .buildAndExpand(image.getId()).toUri();
 
         return ResponseEntity.created(location).body(imageMapper.toDTO(image));
     }
 
-    // DELETE: Remove the image from a product and delete it from the DB
+    // DELETE: Delete an image from a product
     @DeleteMapping("/{productId}/images/{imageId}")
     public com.aparizzio.pizzeria.dto.ImageDTO deleteProductImage(
             @PathVariable long productId,
             @PathVariable long imageId) throws java.io.IOException {
 
         Image image = imageService.getImage(imageId);
-
-        // Unlink the image from the product first
         productService.removeImageFromProduct(productId);
-
-        // Delete the image entity safely
         imageService.deleteImage(imageId);
-
         return imageMapper.toDTO(image);
     }
 }

@@ -10,28 +10,30 @@ public class ProductDTO {
     private String shortDescription;
     private int price;
     private List<String> allergies;
+    private Long categoryId;
 
     // We flatten the category to avoid infinite recursion
     private String categoryTitle;
-    private boolean hasImage;
+    private Boolean hasImage;
 
     // Empty constructor
     public ProductDTO() {
     }
 
     public ProductDTO(Long id, String title, String description, String shortDescription, int price,
-            List<String> allergies, String categoryTitle, boolean hasImage) {
+            List<String> allergies, Long categoryId, String categoryTitle, Boolean hasImage) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.shortDescription = shortDescription;
         this.price = price;
         this.allergies = allergies;
+        this.categoryId = categoryId;
         this.categoryTitle = categoryTitle;
         this.hasImage = hasImage;
     }
 
-    // Getters and Setters (Obligatorios para Jackson)
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -80,6 +82,14 @@ public class ProductDTO {
         this.allergies = allergies;
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getCategoryTitle() {
         return categoryTitle;
     }
@@ -88,11 +98,11 @@ public class ProductDTO {
         this.categoryTitle = categoryTitle;
     }
 
-    public boolean getHasImage() {
+    public Boolean getHasImage() {
         return hasImage;
     }
 
-    public void setHasImage(boolean hasImage) {
+    public void setHasImage(Boolean hasImage) {
         this.hasImage = hasImage;
     }
 }
