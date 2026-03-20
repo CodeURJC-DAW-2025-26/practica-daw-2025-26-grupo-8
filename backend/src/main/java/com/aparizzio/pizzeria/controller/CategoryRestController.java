@@ -35,6 +35,12 @@ public class CategoryRestController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private com.aparizzio.pizzeria.service.ImageService imageService;
+
+    @Autowired
+    private com.aparizzio.pizzeria.dto.ImageMapper imageMapper;
+
     // GET: Obtain all categories (Paginated)
     @GetMapping("/")
     public List<CategoryDTO> getCategories() {
@@ -108,5 +114,45 @@ public class CategoryRestController {
     @GetMapping("/{id}/products")
     public Page<ProductDTO> getCategoryProducts(@PathVariable long id, Pageable pageable) {
         return productService.getProductsByCategory(id, pageable).map(productMapper::toDTO);
+    }
+
+    // POST: Upload an image for a category (Multipart form data)
+    @PostMapping("/{id}/images")
+    public ResponseEntity<com.aparizzio.pizzeria.dto.ImageDTO> createCategoryImage(
+            @PathVariable long id,
+            @RequestParam org.springframework.web.multipart.MultipartFile imageFile) throws java.io.IOException {
+
+        if (imageFile.isEmpty()) {
+            throw new IllegalArgumentException("Image file cannot be empty");
+        }
+        com.aparizzio.pizzeria.model.Image image = imageService.createImage(imageFile.getInputStream());
+
+        Category category = categoryService.getCategoryById(id).orElseThrow();
+        category.setImage(image);
+        categoryService.saveCategory(category);
+
+        java.net.URI location = org.springframework.web.servlet.support.ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/api/v1/images/{imageId}/media")
+                .buildAndExpand(image.getId()).toUri();
+
+        return ResponseEntity.created(location).body(imageMapper.toDTO(image));
+    }
+
+    // DELETE: Delete an image from a category
+    @DeleteMapping("/{categoryId}/images/{imageId}")
+    public ResponseEntity<Void> deleteCategoryImage(
+            @PathVariable long categoryId,
+            @PathVariable long imageId) throws java.io.IOException {
+
+        // 1. Remove the image from the category
+        Category category = categoryService.getCategoryById(categoryId).orElseThrow();
+        category.setImage(null);
+        categoryService.saveCategory(category);
+
+        // 2. Delete the image from the database and storage
+        imageService.deleteImage(imageId);
+
+        // 3. Return no content response
+        return ResponseEntity.noContent().build();
     }
 }

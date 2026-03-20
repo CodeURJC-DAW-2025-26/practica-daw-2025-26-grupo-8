@@ -108,12 +108,11 @@ public class ProductRestController {
 
     // DELETE: Delete a product safely (Unlinks from orders first)
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductDTO> deleteProduct(@PathVariable long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable long id) {
         Optional<Product> productOpt = productService.getProductById(id);
         if (productOpt.isPresent()) {
-            ProductDTO dto = productMapper.toDTO(productOpt.get());
             productService.deleteProductSafely(id);
-            return ResponseEntity.ok(dto);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -140,13 +139,17 @@ public class ProductRestController {
 
     // DELETE: Delete an image from a product
     @DeleteMapping("/{productId}/images/{imageId}")
-    public com.aparizzio.pizzeria.dto.ImageDTO deleteProductImage(
+    public ResponseEntity<Void> deleteProductImage(
             @PathVariable long productId,
             @PathVariable long imageId) throws java.io.IOException {
 
-        Image image = imageService.getImage(imageId);
+        // 1. Desvinculate the image from the product
         productService.removeImageFromProduct(productId);
+
+        // 2. Delete the image from the database and storage
         imageService.deleteImage(imageId);
-        return imageMapper.toDTO(image);
+
+        // 3. Return no content response
+        return ResponseEntity.noContent().build();
     }
 }

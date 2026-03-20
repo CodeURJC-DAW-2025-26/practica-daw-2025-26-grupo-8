@@ -125,4 +125,8 @@ public class UserService {
         return false;
     }
 
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
 }

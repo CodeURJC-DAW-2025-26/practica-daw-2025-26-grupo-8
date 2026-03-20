@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.aparizzio.pizzeria.dto.OrderDTO;
@@ -63,5 +64,36 @@ public class OrderRestController {
                 user);
 
         return orderMapper.toDTO(newOrder);
+    }
+
+    // GET: See all orders (ADMIN)
+    @GetMapping("/")
+    public java.util.List<OrderDTO> getAllOrders() {
+        return orderService.getAllOrders().stream()
+                .map(orderMapper::toDTO)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    // GET: See order details (ADMIN)
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderDTO> getOrder(@PathVariable long id) {
+        Optional<Order> orderOpt = orderService.getOrderById(id);
+        if (orderOpt.isPresent()) {
+            return ResponseEntity.ok(orderMapper.toDTO(orderOpt.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // DELETE: Delete an order (ADMIN)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable long id) {
+        Optional<Order> orderOpt = orderService.getOrderById(id);
+        if (orderOpt.isPresent()) {
+            orderService.deleteOrder(id);
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
