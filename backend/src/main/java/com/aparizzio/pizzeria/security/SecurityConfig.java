@@ -14,11 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.aparizzio.pizzeria.security.jwt.JwtRequestFilter;
-import com.aparizzio.pizzeria.security.jwt.JwtTokenProvider;
 import com.aparizzio.pizzeria.security.jwt.UnauthorizedHandlerJwt;
 
 @Configuration
@@ -26,97 +24,100 @@ import com.aparizzio.pizzeria.security.jwt.UnauthorizedHandlerJwt;
 public class SecurityConfig {
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    public RepositoryUserDetailsService userDetailService;
+    private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
     private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
 
+    @Autowired
+    private RepositoryUserDetailsService userDetailsService;
+
+    // 1. PASSWORD ENCODER
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // 2. AUTHENTICATION PROVIDER (ConectS the UserDetailsService with the
+    // PasswordEncoder)
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    // 3. AUTHENTICATION MANAGER (Necessary for the UserLoginService)
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    // ====================================
+    // FILTER 1: SECURITY FOR THE API REST
+    // ====================================
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    // ---------------------------------------
-    // 1. API REST SECURITY (Stateless, JWT)
-    // ---------------------------------------
     @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 
+        http.securityMatcher("/api/**");
+
         http.authenticationProvider(authenticationProvider());
 
-        // Only apply this security configuration to API endpoints
-        http.securityMatcher("/api/v1/**")
-                .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+        // Error handler for unauthorized access
+        http.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 
         http.authorizeHttpRequests(authorize -> authorize
-                // PUBLIC ENDPOINTS (Login, register and read-only access to
-                // products/categories/images)
+                // PETICIONES PÚBLICAS (No token required)
                 .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/images/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
 
-                // PRIVATE ENDPOINTS
+                // ADMIN
                 .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/products/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/v1/categories/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/categories/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/users/{id}").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/orders/").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/orders/{id}").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/orders/**").hasRole("ADMIN")
 
-                // Any other request to the API will require authentication
+                // USER (The rest of the endpoints under /api/v1/users/me and /api/v1/orders are
+                // protected in the controllers)
                 .anyRequest().authenticated());
 
-        // Disable forms and CSRF for the API
-        http.formLogin(formLogin -> formLogin.disable());
+        // Desactivates CSRF, FormLogin and makes the sessions STATELESS
         http.csrf(csrf -> csrf.disable());
+        http.formLogin(formLogin -> formLogin.disable());
         http.httpBasic(httpBasic -> httpBasic.disable());
-
-        // Stateless sessions for the API
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),
-                UsernamePasswordAuthenticationFilter.class);
+        // JWT Filter
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // -------------------------------
-    // 2. WEB APLICATION SECURITY
-    // -------------------------------
+    // ======================================
+    // FILTRO 2: SECURITY FOR THE WEB (HTML)
+    // ======================================
     @Bean
-    @Order(2)
     public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
 
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/assets/**", "/images/**", "/js/**").permitAll()
-                .requestMatchers("/", "/menu", "/cart/**", "/product/**", "/category/**", "/error", "/register")
-                .permitAll()
-
-                // Documentation endpoints (Swagger/OpenAPI)
-                .requestMatchers("/v3/api-docs*/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll());
 
+        // Login and logout configuration
         http.formLogin(formLogin -> formLogin
                 .loginPage("/")
                 .loginProcessingUrl("/login")
@@ -137,12 +138,6 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll());
-
-        http.exceptionHandling(exceptions -> exceptions
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/?auth_required=true"))
-                .accessDeniedHandler((request, response, accessDeniedException) -> {
-                    response.sendError(403, "Access denied. You do not have the required permissions.");
-                }));
 
         http.csrf(csrf -> csrf.disable());
 
