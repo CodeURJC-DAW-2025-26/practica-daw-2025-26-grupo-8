@@ -1,0 +1,231 @@
+{
+    "info": {
+        "name": "PizzaFast API REST",
+        "_postman_id": "a67a8f58-b2b3-47fb-a145-147644a0fa6c",
+        "description": "Coleccion Postman generada a partir de la especificacion OpenAPI de PizzaFast.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"username\": \"admin@admin.com\",\n  \"password\": \"admin\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/auth/login",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Refresh",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/auth/refresh",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "refresh"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/auth/logout",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "logout"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "Register",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Nuevo Usuario\",\n  \"email\": \"nuevo@correo.com\",\n  \"password\": \"1234\",\n  \"confirmPassword\": \"1234\"\n}"
+                        },
+                        "url": "{{baseUrl}}/api/v1/users/register"
+                    }
+                },
+                {
+                    "name": "Get Me",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/users/me"
+                    }
+                },
+                {
+                    "name": "Get My Orders",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/users/me/orders"
+                    }
+                },
+                {
+                    "name": "Admin Get All Users",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/users/"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Products",
+            "item": [
+                {
+                    "name": "Get Products",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/products/?page=0&size=10"
+                    }
+                },
+                {
+                    "name": "Get Product By Id",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/products/1"
+                    }
+                },
+                {
+                    "name": "Create Product (ADMIN)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Pizza Margarita\",\n  \"description\": \"Masa fina, tomate y mozzarella\",\n  \"shortDescription\": \"Clasica\",\n  \"price\": 10,\n  \"allergies\": [\"gluten\", \"lactosa\"],\n  \"categoryId\": 1\n}"
+                        },
+                        "url": "{{baseUrl}}/api/v1/products/"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Categories",
+            "item": [
+                {
+                    "name": "Get Categories",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/categories/"
+                    }
+                },
+                {
+                    "name": "Get Category Products",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/categories/1/products?page=0&size=10"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Orders",
+            "item": [
+                {
+                    "name": "Create Order",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"productIds\": [1, 2],\n  \"address\": \"Calle Mayor 1\",\n  \"city\": \"Madrid\",\n  \"postalCode\": \"28001\",\n  \"phoneNumber\": \"600123123\"\n}"
+                        },
+                        "url": "{{baseUrl}}/api/v1/orders/"
+                    }
+                },
+                {
+                    "name": "Admin Get All Orders",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/orders/"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Images",
+            "item": [
+                {
+                    "name": "Get Image Metadata",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/images/1"
+                    }
+                },
+                {
+                    "name": "Get Image Binary",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/api/v1/images/1/media"
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://localhost:8443"
+        }
+    ]
+}

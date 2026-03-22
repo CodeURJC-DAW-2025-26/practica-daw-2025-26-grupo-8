@@ -20,8 +20,15 @@ import com.aparizzio.pizzeria.dto.ImageDTO;
 import com.aparizzio.pizzeria.dto.ImageMapper;
 import com.aparizzio.pizzeria.service.ImageService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/images")
+@Tag(name = "Images", description = "Consulta y reemplazo del contenido binario de imagenes")
 public class ImageRestController {
 
     @Autowired
@@ -32,12 +39,22 @@ public class ImageRestController {
 
     // GET basic image info (JSON)
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener metadatos de imagen", description = "Devuelve metadatos basicos de una imagen por su ID.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Imagen encontrada"),
+            @ApiResponse(responseCode = "404", description = "Imagen no encontrada")
+    })
     public ImageDTO getImage(@PathVariable long id) {
         return mapper.toDTO(imageService.getImage(id));
     }
 
     // GET the actual binary image file
     @GetMapping("/{id}/media")
+    @Operation(summary = "Descargar imagen", description = "Devuelve el contenido binario de la imagen con su content-type detectado.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Binario de imagen devuelto"),
+            @ApiResponse(responseCode = "404", description = "Imagen no encontrada")
+    })
     public ResponseEntity<Object> getImageFile(@PathVariable long id)
             throws SQLException, IOException {
 
@@ -56,6 +73,12 @@ public class ImageRestController {
 
     // PUT to replace the existing binary image file
     @PutMapping("/{id}/media")
+    @Operation(summary = "Reemplazar imagen", description = "Sustituye el binario de una imagen existente. Requiere autenticacion y permisos adecuados.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Imagen reemplazada"),
+            @ApiResponse(responseCode = "401", description = "No autenticado")
+    })
     public ResponseEntity<Object> replaceImageFile(@PathVariable long id,
             @RequestParam MultipartFile imageFile) throws IOException {
 

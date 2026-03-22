@@ -19,10 +19,17 @@ import com.aparizzio.pizzeria.service.OrderService;
 import com.aparizzio.pizzeria.service.ProductService;
 import com.aparizzio.pizzeria.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/orders")
+@Tag(name = "Orders", description = "Creacion y gestion de pedidos")
 public class OrderRestController {
 
     @Autowired
@@ -40,6 +47,12 @@ public class OrderRestController {
     // POST: Create a new order
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Crear pedido", description = "Crea un pedido para el usuario autenticado.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Pedido creado"),
+            @ApiResponse(responseCode = "401", description = "No autenticado")
+    })
     public OrderDTO createOrder(@RequestBody OrderRequestDTO requestDTO, HttpServletRequest request) {
 
         // Identifies the user making the order from the JWT token
@@ -68,6 +81,12 @@ public class OrderRestController {
 
     // GET: See all orders (ADMIN)
     @GetMapping("/")
+    @Operation(summary = "Listar pedidos", description = "Devuelve todos los pedidos. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Pedidos obtenidos"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public java.util.List<OrderDTO> getAllOrders() {
         return orderService.getAllOrders().stream()
                 .map(orderMapper::toDTO)
@@ -76,6 +95,13 @@ public class OrderRestController {
 
     // GET: See order details (ADMIN)
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener pedido por ID", description = "Recupera un pedido concreto. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Pedido encontrado"),
+            @ApiResponse(responseCode = "404", description = "Pedido no encontrado"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<OrderDTO> getOrder(@PathVariable long id) {
         Optional<Order> orderOpt = orderService.getOrderById(id);
         if (orderOpt.isPresent()) {
@@ -87,6 +113,13 @@ public class OrderRestController {
 
     // DELETE: Delete an order (ADMIN)
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar pedido", description = "Elimina un pedido por ID. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Pedido eliminado"),
+            @ApiResponse(responseCode = "404", description = "Pedido no encontrado"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<Void> deleteOrder(@PathVariable long id) {
         Optional<Order> orderOpt = orderService.getOrderById(id);
         if (orderOpt.isPresent()) {

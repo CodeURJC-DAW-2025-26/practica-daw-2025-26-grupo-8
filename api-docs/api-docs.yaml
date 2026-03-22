@@ -1,0 +1,839 @@
+openapi: 3.0.3
+info:
+  title: PizzaFast API REST
+  version: v1
+  description: |
+    API REST de PizzaFast para autenticacion, usuarios, catalogo, imagenes y pedidos.
+    La autenticacion se basa en cookies HTTP-only generadas por los endpoints de auth.
+servers:
+  - url: https://localhost:8443
+    description: Desarrollo local
+
+tags:
+  - name: Auth
+    description: Endpoints de autenticacion
+  - name: Users
+    description: Perfil, registro y gestion de usuarios
+  - name: Products
+    description: Catalogo y gestion de productos
+  - name: Categories
+    description: Catalogo y gestion de categorias
+  - name: Orders
+    description: Creacion y gestion de pedidos
+  - name: Images
+    description: Consulta y reemplazo de binarios de imagenes
+
+paths:
+  /api/v1/auth/login:
+    post:
+      tags: [Auth]
+      summary: Iniciar sesion
+      description: Valida credenciales y genera cookies AccessToken y RefreshToken.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Autenticacion procesada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  /api/v1/auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refrescar token
+      description: Renueva la cookie AccessToken usando la cookie RefreshToken.
+      responses:
+        '200':
+          description: Refresco procesado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  /api/v1/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Cerrar sesion
+      description: Elimina cookies de autenticacion y limpia el contexto de seguridad.
+      responses:
+        '200':
+          description: Sesion cerrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  /api/v1/users/register:
+    post:
+      tags: [Users]
+      summary: Registrar usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterDTO'
+      responses:
+        '201':
+          description: Usuario registrado
+        '400':
+          description: Datos invalidos
+
+  /api/v1/users/me:
+    get:
+      tags: [Users]
+      summary: Obtener mi perfil
+      security:
+        - accessTokenCookie: []
+      responses:
+        '200':
+          description: Perfil obtenido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '401':
+          description: No autenticado
+    put:
+      tags: [Users]
+      summary: Actualizar mi perfil
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateDTO'
+      responses:
+        '200':
+          description: Perfil actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Datos invalidos
+        '401':
+          description: No autenticado
+
+  /api/v1/users/me/orders:
+    get:
+      tags: [Users]
+      summary: Obtener mis pedidos
+      security:
+        - accessTokenCookie: []
+      responses:
+        '200':
+          description: Pedidos obtenidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDTO'
+        '401':
+          description: No autenticado
+
+  /api/v1/users/:
+    get:
+      tags: [Users]
+      summary: Listar usuarios
+      security:
+        - accessTokenCookie: []
+      responses:
+        '200':
+          description: Usuarios obtenidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+        '403':
+          description: Acceso denegado
+
+  /api/v1/users/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Users]
+      summary: Obtener usuario por ID
+      security:
+        - accessTokenCookie: []
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '404':
+          description: Usuario no encontrado
+        '403':
+          description: Acceso denegado
+    delete:
+      tags: [Users]
+      summary: Eliminar usuario
+      security:
+        - accessTokenCookie: []
+      responses:
+        '204':
+          description: Usuario eliminado
+        '404':
+          description: Usuario no encontrado
+        '403':
+          description: Acceso denegado
+
+  /api/v1/products/:
+    get:
+      tags: [Products]
+      summary: Listar productos
+      description: Devuelve productos paginados. Parametros page/size/sort opcionales.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: Productos obtenidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductPage'
+    post:
+      tags: [Products]
+      summary: Crear producto
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '201':
+          description: Producto creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+        '403':
+          description: Acceso denegado
+
+  /api/v1/products/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Products]
+      summary: Obtener producto por ID
+      responses:
+        '200':
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+        '404':
+          description: Producto no encontrado
+    put:
+      tags: [Products]
+      summary: Actualizar producto
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '200':
+          description: Producto actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+        '404':
+          description: Producto no encontrado
+        '403':
+          description: Acceso denegado
+    delete:
+      tags: [Products]
+      summary: Eliminar producto
+      security:
+        - accessTokenCookie: []
+      responses:
+        '204':
+          description: Producto eliminado
+        '404':
+          description: Producto no encontrado
+        '403':
+          description: Acceso denegado
+
+  /api/v1/products/{id}/images:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    post:
+      tags: [Products]
+      summary: Subir imagen de producto
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [imageFile]
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Imagen creada y asociada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDTO'
+        '400':
+          description: Fichero invalido
+        '403':
+          description: Acceso denegado
+
+  /api/v1/products/{productId}/images/{imageId}:
+    delete:
+      tags: [Products]
+      summary: Eliminar imagen de producto
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/ProductIdPath'
+        - $ref: '#/components/parameters/ImageIdPath'
+      responses:
+        '204':
+          description: Imagen eliminada
+        '403':
+          description: Acceso denegado
+
+  /api/v1/categories/:
+    get:
+      tags: [Categories]
+      summary: Listar categorias
+      responses:
+        '200':
+          description: Categorias obtenidas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDTO'
+    post:
+      tags: [Categories]
+      summary: Crear categoria
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDTO'
+      responses:
+        '201':
+          description: Categoria creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        '403':
+          description: Acceso denegado
+
+  /api/v1/categories/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Categories]
+      summary: Obtener categoria por ID
+      responses:
+        '200':
+          description: Categoria encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        '404':
+          description: Categoria no encontrada
+    put:
+      tags: [Categories]
+      summary: Actualizar categoria
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDTO'
+      responses:
+        '200':
+          description: Categoria actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        '404':
+          description: Categoria no encontrada
+        '403':
+          description: Acceso denegado
+    delete:
+      tags: [Categories]
+      summary: Eliminar categoria
+      security:
+        - accessTokenCookie: []
+      responses:
+        '200':
+          description: Categoria eliminada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        '404':
+          description: Categoria no encontrada
+        '403':
+          description: Acceso denegado
+
+  /api/v1/categories/{id}/products:
+    get:
+      tags: [Categories]
+      summary: Listar productos de una categoria
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: Productos obtenidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductPage'
+
+  /api/v1/categories/{id}/images:
+    post:
+      tags: [Categories]
+      summary: Subir imagen de categoria
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [imageFile]
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Imagen creada y asociada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDTO'
+        '400':
+          description: Fichero invalido
+        '403':
+          description: Acceso denegado
+
+  /api/v1/categories/{categoryId}/images/{imageId}:
+    delete:
+      tags: [Categories]
+      summary: Eliminar imagen de categoria
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/CategoryIdPath'
+        - $ref: '#/components/parameters/ImageIdPath'
+      responses:
+        '204':
+          description: Imagen eliminada
+        '403':
+          description: Acceso denegado
+
+  /api/v1/orders/:
+    post:
+      tags: [Orders]
+      summary: Crear pedido
+      security:
+        - accessTokenCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequestDTO'
+      responses:
+        '201':
+          description: Pedido creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDTO'
+        '401':
+          description: No autenticado
+    get:
+      tags: [Orders]
+      summary: Listar pedidos
+      security:
+        - accessTokenCookie: []
+      responses:
+        '200':
+          description: Pedidos obtenidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDTO'
+        '403':
+          description: Acceso denegado
+
+  /api/v1/orders/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Orders]
+      summary: Obtener pedido por ID
+      security:
+        - accessTokenCookie: []
+      responses:
+        '200':
+          description: Pedido encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDTO'
+        '404':
+          description: Pedido no encontrado
+        '403':
+          description: Acceso denegado
+    delete:
+      tags: [Orders]
+      summary: Eliminar pedido
+      security:
+        - accessTokenCookie: []
+      responses:
+        '204':
+          description: Pedido eliminado
+        '404':
+          description: Pedido no encontrado
+        '403':
+          description: Acceso denegado
+
+  /api/v1/images/{id}:
+    get:
+      tags: [Images]
+      summary: Obtener metadatos de imagen
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Imagen encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDTO'
+        '404':
+          description: Imagen no encontrada
+
+  /api/v1/images/{id}/media:
+    get:
+      tags: [Images]
+      summary: Descargar imagen
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: Binario de imagen devuelto
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Imagen no encontrada
+    put:
+      tags: [Images]
+      summary: Reemplazar imagen
+      security:
+        - accessTokenCookie: []
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [imageFile]
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        '204':
+          description: Imagen reemplazada
+        '401':
+          description: No autenticado
+
+components:
+  securitySchemes:
+    accessTokenCookie:
+      type: apiKey
+      in: cookie
+      name: AccessToken
+      description: JWT de acceso almacenado en cookie HTTP-only.
+
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    ProductIdPath:
+      name: productId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    CategoryIdPath:
+      name: categoryId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    ImageIdPath:
+      name: imageId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+      description: Numero de pagina (base 0)
+    Size:
+      name: size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+      description: Tamano de pagina
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+      description: Criterio de ordenacion, por ejemplo title,asc
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [SUCCESS, FAILURE]
+        message:
+          type: string
+        error:
+          type: string
+          nullable: true
+
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+          format: email
+        password:
+          type: string
+
+    UserRegisterDTO:
+      type: object
+      required: [name, email, password, confirmPassword]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        confirmPassword:
+          type: string
+
+    UserUpdateDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        price:
+          type: integer
+        allergies:
+          type: array
+          items:
+            type: string
+        categoryId:
+          type: integer
+          format: int64
+          nullable: true
+        categoryTitle:
+          type: string
+          nullable: true
+        hasImage:
+          type: boolean
+          nullable: true
+
+    CategoryDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        hasImage:
+          type: boolean
+          nullable: true
+
+    OrderRequestDTO:
+      type: object
+      required: [productIds, address, city, postalCode, phoneNumber]
+      properties:
+        productIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        address:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+
+    OrderDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        address:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        userEmail:
+          type: string
+          format: email
+        productTitles:
+          type: array
+          items:
+            type: string
+
+    ImageDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+
+    ProductPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTO'
+        number:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+        empty:
+          type: boolean

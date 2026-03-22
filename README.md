@@ -341,9 +341,9 @@ Arquitectura Limpia: Refactorización del código para garantizar la correcta se
 📄 **[Especificación OpenAPI (YAML)](/api-docs/api-docs.yaml)**
 
 #### **Documentación HTML**
-📖 **[Documentación API REST (HTML)](https://raw.githack.com/[usuario]/[repositorio]/main/api-docs/api-docs.html)**
+📖 **[Documentación API REST (HTML)](https://raw.githack.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/main/api-docs/apidocs.html)**
 
-> La documentación de la API REST se encuentra en la carpeta `/api-docs` del repositorio. Se ha generado automáticamente con SpringDoc a partir de las anotaciones en el código Java.
+> La documentación de la API REST se encuentra en la carpeta `/api-docs` del repositorio. Incluye la especificación OpenAPI (`api-docs.yaml`), la vista HTML (`apidocs.html`) y la colección de Postman (`postman_collection.json`).
 
 ### **Diagrama de Clases y Templates Actualizado**
 

@@ -17,8 +17,15 @@ import com.aparizzio.pizzeria.dto.ProductMapper;
 import com.aparizzio.pizzeria.service.ImageService;
 import com.aparizzio.pizzeria.service.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/products")
+@Tag(name = "Products", description = "Catalogo de productos y gestion de imagenes de producto")
 public class ProductRestController {
 
     @Autowired
@@ -38,12 +45,21 @@ public class ProductRestController {
 
     // GET: Obtain all products (Paginated)
     @GetMapping("/")
+    @Operation(summary = "Listar productos", description = "Devuelve productos paginados del catalogo.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Productos obtenidos")
+    })
     public Page<ProductDTO> getProducts(Pageable pageable) {
         return productService.getProducts(pageable).map(productMapper::toDTO);
     }
 
     // GET: Obtain a single product by ID
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener producto por ID", description = "Recupera el detalle de un producto.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Producto encontrado"),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
     public ResponseEntity<ProductDTO> getProduct(@PathVariable long id) {
         Optional<Product> productOpt = productService.getProductById(id);
         if (productOpt.isPresent()) {
@@ -56,6 +72,12 @@ public class ProductRestController {
     // POST: Create a new product (Only JSON data, no image upload)
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Crear producto", description = "Crea un producto nuevo. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Producto creado"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
         Product newProduct = new Product();
         newProduct.setTitle(productDTO.getTitle());
@@ -79,6 +101,13 @@ public class ProductRestController {
 
     // PUT: Update an existing product (Only JSON data, no image upload)
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar producto", description = "Actualiza un producto existente. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Producto actualizado"),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable long id, @RequestBody ProductDTO updatedProductDTO) {
         Optional<Product> productOpt = productService.getProductById(id);
 
@@ -108,6 +137,13 @@ public class ProductRestController {
 
     // DELETE: Delete a product safely (Unlinks from orders first)
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar producto", description = "Elimina un producto de forma segura. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Producto eliminado"),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<Void> deleteProduct(@PathVariable long id) {
         Optional<Product> productOpt = productService.getProductById(id);
         if (productOpt.isPresent()) {
@@ -120,6 +156,13 @@ public class ProductRestController {
 
     // POST: Upload an image for a product
     @PostMapping("/{id}/images")
+    @Operation(summary = "Subir imagen de producto", description = "Asocia una imagen binaria al producto. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Imagen creada y asociada"),
+            @ApiResponse(responseCode = "400", description = "Fichero invalido"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<com.aparizzio.pizzeria.dto.ImageDTO> createProductImage(
             @PathVariable long id,
             @RequestParam MultipartFile imageFile) throws java.io.IOException {
@@ -139,6 +182,12 @@ public class ProductRestController {
 
     // DELETE: Delete an image from a product
     @DeleteMapping("/{productId}/images/{imageId}")
+    @Operation(summary = "Eliminar imagen de producto", description = "Desvincula y elimina la imagen asociada a un producto. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Imagen eliminada"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<Void> deleteProductImage(
             @PathVariable long productId,
             @PathVariable long imageId) throws java.io.IOException {

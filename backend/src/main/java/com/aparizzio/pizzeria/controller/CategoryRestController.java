@@ -19,8 +19,15 @@ import com.aparizzio.pizzeria.dto.ProductMapper;
 import com.aparizzio.pizzeria.service.CategoryService;
 import com.aparizzio.pizzeria.service.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/categories")
+@Tag(name = "Categories", description = "Gestion de categorias y productos por categoria")
 public class CategoryRestController {
 
     @Autowired
@@ -43,6 +50,10 @@ public class CategoryRestController {
 
     // GET: Obtain all categories (Paginated)
     @GetMapping("/")
+    @Operation(summary = "Listar categorias", description = "Devuelve todas las categorias del catalogo.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Categorias obtenidas")
+    })
     public List<CategoryDTO> getCategories() {
         // Usamos tu método getAllCategories() real
         return categoryService.getAllCategories().stream()
@@ -52,6 +63,11 @@ public class CategoryRestController {
 
     // GET: Obtain a single category by ID
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener categoria por ID", description = "Recupera una categoria concreta.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Categoria encontrada"),
+            @ApiResponse(responseCode = "404", description = "Categoria no encontrada")
+    })
     public ResponseEntity<CategoryDTO> getCategory(@PathVariable long id) {
         // Usamos tu método getCategoryById() real
         Optional<Category> category = categoryService.getCategoryById(id);
@@ -65,6 +81,12 @@ public class CategoryRestController {
     // POST: Create a new category (Only JSON data, no image upload)
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Crear categoria", description = "Crea una categoria nueva. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Categoria creada"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category newCategory = new Category();
         newCategory.setTitle(categoryDTO.getTitle());
@@ -78,6 +100,13 @@ public class CategoryRestController {
 
     // PUT: Update an existing category (Only JSON data)
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar categoria", description = "Actualiza una categoria existente. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Categoria actualizada"),
+            @ApiResponse(responseCode = "404", description = "Categoria no encontrada"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<CategoryDTO> updateCategory(@PathVariable long id,
             @RequestBody CategoryDTO updatedCategoryDTO) {
         Optional<Category> categoryOpt = categoryService.getCategoryById(id);
@@ -96,6 +125,13 @@ public class CategoryRestController {
 
     // DELETE: Delete a category safely
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar categoria", description = "Elimina una categoria de forma segura. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Categoria eliminada"),
+            @ApiResponse(responseCode = "404", description = "Categoria no encontrada"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable long id) {
         Optional<Category> categoryOpt = categoryService.getCategoryById(id);
 
@@ -112,12 +148,23 @@ public class CategoryRestController {
 
     // GET: See products of a category (Paginated)
     @GetMapping("/{id}/products")
+    @Operation(summary = "Listar productos de una categoria", description = "Devuelve los productos paginados de una categoria.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Productos obtenidos")
+    })
     public Page<ProductDTO> getCategoryProducts(@PathVariable long id, Pageable pageable) {
         return productService.getProductsByCategory(id, pageable).map(productMapper::toDTO);
     }
 
     // POST: Upload an image for a category (Multipart form data)
     @PostMapping("/{id}/images")
+    @Operation(summary = "Subir imagen de categoria", description = "Asocia una imagen a una categoria. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Imagen creada y asociada"),
+            @ApiResponse(responseCode = "400", description = "Fichero invalido"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<com.aparizzio.pizzeria.dto.ImageDTO> createCategoryImage(
             @PathVariable long id,
             @RequestParam org.springframework.web.multipart.MultipartFile imageFile) throws java.io.IOException {
@@ -140,6 +187,12 @@ public class CategoryRestController {
 
     // DELETE: Delete an image from a category
     @DeleteMapping("/{categoryId}/images/{imageId}")
+    @Operation(summary = "Eliminar imagen de categoria", description = "Desvincula y elimina la imagen de una categoria. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Imagen eliminada"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
     public ResponseEntity<Void> deleteCategoryImage(
             @PathVariable long categoryId,
             @PathVariable long imageId) throws java.io.IOException {
