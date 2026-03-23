@@ -30,7 +30,7 @@ public class GlobalModelAttributes {
     public void addCsrfToken(HttpServletRequest request, Model model) {
         CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
         if (token != null) {
-            // Añadimos el token al modelo global para los formularios Mustache
+            // Add the token to the global model for Mustache forms
             model.addAttribute("token", token.getToken());
         }
     }

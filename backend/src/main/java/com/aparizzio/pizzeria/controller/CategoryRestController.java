@@ -55,7 +55,7 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "200", description = "Categorias obtenidas")
     })
     public List<CategoryDTO> getCategories() {
-        // Usamos tu método getAllCategories() real
+        // Use your real getAllCategories() method
         return categoryService.getAllCategories().stream()
                 .map(categoryMapper::toDTO)
                 .collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "404", description = "Categoria no encontrada")
     })
     public ResponseEntity<CategoryDTO> getCategory(@PathVariable long id) {
-        // Usamos tu método getCategoryById() real
+        // Use your real getCategoryById() method
         Optional<Category> category = categoryService.getCategoryById(id);
         if (category.isPresent()) {
             return ResponseEntity.ok(categoryMapper.toDTO(category.get()));

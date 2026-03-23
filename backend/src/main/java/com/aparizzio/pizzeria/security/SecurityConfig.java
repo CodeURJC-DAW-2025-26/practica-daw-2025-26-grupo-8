@@ -68,7 +68,7 @@ public class SecurityConfig {
         http.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 
         http.authorizeHttpRequests(authorize -> authorize
-                // PETICIONES PÚBLICAS (No token required)
+                // PUBLIC REQUESTS (No token required)
                 .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
