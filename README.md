@@ -565,7 +565,6 @@ Implementación de la API REST, seguridad con JWT y configuración de Docker.
 |3| [Add Category and Product REST controllers with CRUD operations](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/e0be3af) | [CategoryRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e0be3af/backend/src/main/java/com/aparizzio/pizzeria/controller/CategoryRestController.java) |
 |4| [Set up docker compose to work with dockerhub image](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/3d94d5f) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/3d94d5f/docker-compose.yml) |
 |5| [Docker build and publish scripts and env addition to docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d720e07) | [create_image.sh](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d720e07/create_image.sh) |
->>>>>>> a5b63fcadf4adc42af4101ca27a7867bf39229e9
 
 ---
 
