@@ -46,7 +46,7 @@ public class DatabaseInitializer {
         public void init() throws IOException {
 
                 // Check whether the database already has data to avoid duplicates on restart
-                if (productRepository.count() == 0) {
+                if (userRepository.count() == 0) {
 
                         System.out.println("--- INICIANDO CARGA DE DATOS DE PRUEBA ---");
 
