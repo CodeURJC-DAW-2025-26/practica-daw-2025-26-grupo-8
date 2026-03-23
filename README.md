@@ -524,7 +524,8 @@ Encargado de la mayor parte de la migración a API REST de la página, apoyo en 
 
 ---
 
-#### **Alumno 3 - Mario Aparisi Castro**
+<<<<<<< HEAD
+#### **Alumno 2 - Mario Aparisi Castro**
 
 Encargado de la implementación y ajuste de endpoints REST clave (pedidos con correo y métricas), integración de docker-compose para despliegue, automatización de scripts de publicación en entorno Windows y exportación de la colección de Postman para pruebas de la API.
 
@@ -535,6 +536,19 @@ Encargado de la implementación y ajuste de endpoints REST clave (pedidos con co
 |3| [docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/a8fc062439a1a3a618d01122f289a0a3513d9df6) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/a8fc062439a1a3a618d01122f289a0a3513d9df6/docker-compose.yml) |
 |4| [scripts imagen windows](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d7cde9881e8e6a215e2f88e1d47be75d4de6a15d) | [publish_docker-compose.ps1](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d7cde9881e8e6a215e2f88e1d47be75d4de6a15d/publish_docker-compose.ps1) |
 |5| [exportado postman](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/a5a20117c59794cf9f32454b3e291cc9343d9a99) | [Aparizzio API.postman_collection.json](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/a5a20117c59794cf9f32454b3e291cc9343d9a99/Aparizzio%20API.postman_collection.json) |
+=======
+#### **Alumno 3 - Gaizka Aranbarri Berasaluze**
+
+Implementación de la API REST, seguridad con JWT y configuración de Docker.
+
+| Nº    | Commits      | Files      |
+|:------------: |:------------:| :------------:|
+|1| [Implement JWT authentication with login, refresh, and logout endpoints](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/69107d9) | [AuthRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/69107d9/backend/src/main/java/com/aparizzio/pizzeria/controller/AuthRestController.java) |
+|2| [Update REST controller endpoints to include versioning in the URL](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/6efbb59) | [ProductRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/6efbb59/backend/src/main/java/com/aparizzio/pizzeria/controller/ProductRestController.java) |
+|3| [Add Category and Product REST controllers with CRUD operations](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/e0be3af) | [CategoryRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e0be3af/backend/src/main/java/com/aparizzio/pizzeria/controller/CategoryRestController.java) |
+|4| [Set up docker compose to work with dockerhub image](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/3d94d5f) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/3d94d5f/docker-compose.yml) |
+|5| [Docker build and publish scripts and env addition to docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d720e07) | [create_image.sh](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d720e07/create_image.sh) |
+>>>>>>> a5b63fcadf4adc42af4101ca27a7867bf39229e9
 
 ---
 
@@ -626,17 +640,17 @@ Diagrama mostrando los componentes React, hooks personalizados, servicios y sus 
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - Gaizka Aranbarri Berasaluze**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+Implementación de la API REST, seguridad con JWT y configuración de Docker.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Implement JWT authentication with login, refresh, and logout endpoints](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/69107d9) | [AuthRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/69107d9/backend/src/main/java/com/aparizzio/pizzeria/controller/AuthRestController.java) |
+|2| [Update REST controller endpoints to include versioning in the URL](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/6efbb59) | [ProductRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/6efbb59/backend/src/main/java/com/aparizzio/pizzeria/controller/ProductRestController.java) |
+|3| [Add Category and Product REST controllers with CRUD operations](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/e0be3af) | [CategoryRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e0be3af/backend/src/main/java/com/aparizzio/pizzeria/controller/CategoryRestController.java) |
+|4| [Set up docker compose to work with dockerhub image](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/3d94d5f) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/3d94d5f/docker-compose.yml) |
+|5| [Docker build and publish scripts and env addition to docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d720e07) | [create_image.sh](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d720e07/create_image.sh) |
 
 ---
 
