@@ -81,6 +81,13 @@ public class DatabaseInitializer {
                                         "USER");
                         userRepository.save(laura);
 
+                        User Gaizka = new User(
+                                        "Gaizka Aranbarri",
+                                        "g.aranbarri.2022@alumnos.urjc.es",
+                                        passwordEncoder.encode("1234"),
+                                        "USER");
+                        userRepository.save(Gaizka);
+
                         // 2. LOAD CATEGORIES
                         Category catPizzas = new Category();
                         catPizzas.setTitle("Pizzas");

@@ -44,6 +44,9 @@ public class OrderRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private com.aparizzio.pizzeria.service.OrderEmailService orderEmailService;
+
     // POST: Create a new order
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
@@ -75,6 +78,9 @@ public class OrderRestController {
                 requestDTO.getPostalCode(),
                 requestDTO.getPhoneNumber(),
                 user);
+
+        // Send the order summary email to the user
+        orderEmailService.sendOrderSummaryEmail(user, newOrder);
 
         return orderMapper.toDTO(newOrder);
     }
