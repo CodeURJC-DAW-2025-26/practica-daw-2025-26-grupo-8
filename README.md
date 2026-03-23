@@ -349,7 +349,7 @@ Arquitectura Limpia: Refactorización del código para garantizar la correcta se
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](backend/src/main/resources/static/assets/images/ImagesPreparation/diagrama-clases-templates.png)
+![Diagrama de Clases Actualizado](images/classes-diagram-prac2.png)
 
 ### **Instrucciones de Ejecución con Docker**
 

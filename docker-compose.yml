@@ -20,9 +20,7 @@ services:
       - pizzeria-network
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: gaizkaar/pizzeria
     container_name: pizzeria-app
     depends_on:
       mysql:
