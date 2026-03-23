@@ -337,13 +337,28 @@ Arquitectura Limpia: Refactorización del código para garantizar la correcta se
 
 ### **Documentación de la API REST**
 
-#### **Especificación OpenAPI**
-📄 **[Especificación OpenAPI (YAML)](/api-docs/api-docs.yaml)**
+La API REST de PizzaFast está completamente documentada siguiendo la especificación **OpenAPI 3.0.3** con soporte para autenticación mediante cookies HTTP-only. La documentación incluye todos los endpoints de:
+- 🔐 **Autenticación** (login, logout, refresh token)
+- 👥 **Usuarios** (registro, perfil, gestión de cuentas)
+- 🍕 **Productos** (catálogo, filtrado, búsqueda)
+- 📂 **Categorías** (listado, gestión)
+- 📦 **Pedidos** (crear, obtener, actualizar estado)
+- 🖼️ **Imágenes** (subida y consulta de recursos binarios)
 
-#### **Documentación HTML**
-📖 **[Documentación API REST (HTML)](https://raw.githack.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/main/api-docs/apidocs.html)**
+#### **Enlaces a la Documentación:**
 
-> La documentación de la API REST se encuentra en la carpeta `/api-docs` del repositorio. Incluye la especificación OpenAPI (`api-docs.yaml`), la vista HTML (`apidocs.html`) y la colección de Postman (`postman_collection.json`).
+- **📄 Especificación OpenAPI (YAML):** [api-docs.yaml](/api-docs/api-docs.yaml)
+  
+- **📖 Documentación HTML:** [apidocs.html](https://raw.githack.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/main/api-docs/apidocs.html)
+  > Visualización completa de la documentación con estilos en el navegador
+
+#### **Características de la API:**
+- ✅ Autenticación segura con JWT en cookies HTTP-only
+- ✅ CORS configurado para integración frontend
+- ✅ Validación de permisos basada en roles (ADMIN, USER)
+- ✅ Manejo centralizado de errores con mensajes descriptivos
+- ✅ Paginación en endpoints de listado
+- ✅ Filtrado y búsqueda avanzada de productos
 
 ### **Diagrama de Clases y Templates Actualizado**
 
