@@ -380,7 +380,39 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    cd [repositorio]
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**:
+2. **(Opcional) Configurar variables de entorno**:
+   - Si no defines nada, se usan estos valores por defecto:
+     - `DB_NAME=pizzeria`
+     - `DB_PASSWORD=password`
+   - Ejemplo rápido (Linux/macOS):
+     ```bash
+     export DB_NAME=pizzeria
+     export DB_PASSWORD=password
+     ```
+   - Ejemplo rápido (PowerShell):
+     ```powershell
+     $env:DB_NAME="pizzeria"
+     $env:DB_PASSWORD="password"
+     ```
+
+3. **Levantar los servicios (MySQL + app)**:
+   ```bash
+   docker compose up -d
+   ```
+
+4. **Comprobar estado y logs**:
+   ```bash
+   docker compose ps
+   docker compose logs -f app
+   ```
+
+5. **Abrir la aplicación en el navegador**:
+   - URL: `https://localhost:8443`
+
+6. **Parar y eliminar contenedores cuando termines**:
+   ```bash
+   docker compose down
+   ```
 
 ### **Construcción de la Imagen Docker**
 
@@ -389,12 +421,56 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 #### **Pasos para construir y publicar la imagen:**
 
-1. **Navegar al directorio de Docker**:
+1. **Navegar a la raíz del proyecto** (donde están `Dockerfile` y scripts):
    ```bash
-   cd docker
+   cd [repositorio]
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**
+2. **Construir la imagen Docker**:
+   - Linux/macOS:
+     ```bash
+     chmod +x create_image.sh
+     ./create_image.sh pizzeria
+     ```
+   - PowerShell:
+     ```powershell
+     .\create_image.bat pizzeria
+     ```
+   - Alternativa manual:
+     ```bash
+     docker build -t pizzeria .
+     ```
+
+3. **Verificar que la imagen existe**:
+   - Linux/macOS:
+     ```bash
+     docker images | grep pizzeria
+     ```
+   - PowerShell:
+     ```powershell
+     docker images | findstr pizzeria
+     ```
+
+4. **Publicar en Docker Hub**:
+   - Iniciar sesión:
+     ```bash
+     docker login
+     ```
+   - Publicar con scripts:
+     - Linux/macOS:
+       ```bash
+       chmod +x publish_image.sh
+       ./publish_image.sh pizzeria <tu_usuario_dockerhub>
+       ```
+     - PowerShell:
+       ```powershell
+       .\publish_image.bat pizzeria <tu_usuario_dockerhub>
+       ```
+   - Equivalente manual:
+     ```bash
+     docker tag pizzeria <tu_usuario_dockerhub>/pizzeria
+     docker push <tu_usuario_dockerhub>/pizzeria
+     ```
 
 ### **Despliegue en Máquina Virtual**
 
