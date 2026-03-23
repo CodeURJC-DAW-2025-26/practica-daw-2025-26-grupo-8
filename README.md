@@ -585,17 +585,17 @@ Implementación de la API REST, seguridad con JWT y configuración de Docker.
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 4 - David Esteban Bernardoç**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+In charge of API REST documentation and integration, OpenAPI/Swagger UI configuration, Dockerfile implementation, and optimizations in data transfer objects (DTOs).
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Integrate OpenAPI documentation](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/8f72e2e) | [api-docs.yaml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/8f72e2e/api-docs/api-docs.yaml), [OpenApiConfig.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/8f72e2e/backend/src/main/java/com/aparizzio/pizzeria/config/OpenApiConfig.java), [pom.xml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/8f72e2e/backend/pom.xml) |
+|2| [Create Dockerfile for containerization](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/8608686) | [Dockerfile](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/8608686/Dockerfile) |
+|3| [Change hasImage field type from Boolean to boolean for consistency and performance](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/7787827) | [ProductDTO.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/7787827/backend/src/main/java/com/aparizzio/pizzeria/dto/ProductDTO.java) |
+|4| [Add API REST documentation with OpenAPI specification and apidocs.html](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/184d82a) | [README.md](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/184d82a/README.md) |
+|5| [Enable Swagger UI configuration on localhost with public permissions](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/22236b1) | [SecurityConfig.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/22236b1/backend/src/main/java/com/aparizzio/pizzeria/security/SecurityConfig.java), [application.properties](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/22236b1/backend/src/main/resources/application.properties) |
 
 ---
 
