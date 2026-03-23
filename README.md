@@ -430,15 +430,15 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    - Linux/macOS:
      ```bash
      chmod +x create_image.sh
-     ./create_image.sh pizzeria
+     ./create_image.sh <image_name>
      ```
    - PowerShell:
      ```powershell
-     .\create_image.bat pizzeria
+     .\create_image.bat <image_name>
      ```
    - Alternativa manual:
      ```bash
-     docker build -t pizzeria .
+     docker build -t image_name .
      ```
 
 3. **Verificar que la imagen existe**:
@@ -460,16 +460,16 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
      - Linux/macOS:
        ```bash
        chmod +x publish_image.sh
-       ./publish_image.sh pizzeria <tu_usuario_dockerhub>
+      ./publish_image.sh <image_name> <dockerhub_account>
        ```
      - PowerShell:
        ```powershell
-       .\publish_image.bat pizzeria <tu_usuario_dockerhub>
+       .\publish_image.bat <image_name> <tu_usuario_dockerhub>
        ```
    - Equivalente manual:
      ```bash
-     docker tag pizzeria <tu_usuario_dockerhub>/pizzeria
-     docker push <tu_usuario_dockerhub>/pizzeria
+     docker tag pizzeria <tu_usuario_dockerhub>/<image_name>
+     docker push <tu_usuario_dockerhub>/<image_name>
      ```
 
 ### **Despliegue en Máquina Virtual**
@@ -483,7 +483,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 1. **Conectar a la máquina virtual**:
    ```bash
-   ssh -i [ruta/a/clave.key] [usuario]@[IP-o-dominio-VM]
+   ssh -i ssh-keys/appWeb08.key vmuser@10.100.139.112
    ```
    
    Ejemplo:
@@ -491,11 +491,43 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
    ssh -i ssh-keys/app.key vmuser@10.100.139.XXX
    ```
 
-2. **AQUÍ LOS SIGUIENTES PASOS**:
+2. **Instalar Docker en Ubuntu**:
+   Actualizar el índice de paquetes e instalar las dependencias necesarias:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install ca-certificates curl
+   sudo install -m 0755 -d /etc/apt/keyrings
+   sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+   sudo chmod a+r /etc/apt/keyrings/docker.asc
+   ```
+
+   Añadir el repositorio de Docker a las fuentes de Apt:
+   ```bash
+   echo \
+     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+     $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   sudo apt-get update
+   ```
+
+   Instalar Docker Engine, CLI, containerd y Docker Compose:
+   ```bash
+   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   ```
+
+3. **Ejecutar la imagen remotamente**:
+   Usar el comando `docker compose` con la imagen publicada en Docker Hub (OCI registry). Asegúrate de configurar las variables de entorno necesarias como la contraseña de la base de datos:
+
+   ```bash
+   DB_PASSWORD=MY_SECRET_MODIFY DB_NAME=web \
+   docker compose -f oci://docker.io/gaizkaar/pizzeria_compose up
+   ```
+   
+   *(Añade `-d` al final para ejecutar en segundo plano)*
 
 ### **URL de la Aplicación Desplegada**
 
-🌐 **URL de acceso**: `https://[nombre-app].etsii.urjc.es:8443`
+🌐 **URL de acceso**: `https://appWeb08.dawgis.etsii.urjc.es:8443`
 
 #### **Credenciales de Usuarios de Ejemplo**
 
