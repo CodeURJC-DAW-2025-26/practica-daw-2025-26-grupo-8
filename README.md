@@ -524,17 +524,17 @@ Encargado de la mayor parte de la migración a API REST de la página, apoyo en 
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - Mario Aparisi Castro**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+Encargado de la implementación y ajuste de endpoints REST clave (pedidos con correo y métricas), integración de docker-compose para despliegue, automatización de scripts de publicación en entorno Windows y exportación de la colección de Postman para pruebas de la API.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [API rest correo usuario pedido](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/c3536ebaf4ba7d322f7cdd732a3b81073e692de7) | [OrderRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/c3536ebaf4ba7d322f7cdd732a3b81073e692de7/backend/src/main/java/com/aparizzio/pizzeria/controller/OrderRestController.java), [DatabaseInitializer.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/c3536ebaf4ba7d322f7cdd732a3b81073e692de7/backend/src/main/java/com/aparizzio/pizzeria/service/DatabaseInitializer.java) |
+|2| [API rest grafica](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/5f9e4d007e79998fd3cd3bf09c1bd14f66afd555) | [MetricsRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/5f9e4d007e79998fd3cd3bf09c1bd14f66afd555/backend/src/main/java/com/aparizzio/pizzeria/controller/MetricsRestController.java) |
+|3| [docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/a8fc062439a1a3a618d01122f289a0a3513d9df6) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/a8fc062439a1a3a618d01122f289a0a3513d9df6/docker-compose.yml) |
+|4| [scripts imagen windows](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d7cde9881e8e6a215e2f88e1d47be75d4de6a15d) | [publish_docker-compose.ps1](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d7cde9881e8e6a215e2f88e1d47be75d4de6a15d/publish_docker-compose.ps1) |
+|5| [exportado postman](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/a5a20117c59794cf9f32454b3e291cc9343d9a99) | [Aparizzio API.postman_collection.json](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/a5a20117c59794cf9f32454b3e291cc9343d9a99/Aparizzio%20API.postman_collection.json) |
 
 ---
 
