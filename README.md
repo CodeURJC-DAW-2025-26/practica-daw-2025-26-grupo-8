@@ -542,7 +542,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 2 - Alejandro Rico González**
+#### **Alumno 1 - Alejandro Rico González**
 
 Encargado de la mayor parte de la migración a API REST de la página, apoyo en la creación y validación de la colección de Postman, y control/corrección de errores de arquitectura en controladores, servicios y configuración de seguridad.
 
@@ -556,6 +556,20 @@ Encargado de la mayor parte de la migración a API REST de la página, apoyo en 
 
 ---
 
+
+#### **Alumno 2 - Mario Aparisi Castro**
+
+Encargado de la implementación y ajuste de endpoints REST clave (pedidos con correo y métricas), integración de docker-compose para despliegue, automatización de scripts de publicación en entorno Windows y exportación de la colección de Postman para pruebas de la API.
+
+| Nº    | Commits      | Files      |
+|:------------: |:------------:| :------------:|
+|1| [REST API email user order](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/c3536ebaf4ba7d322f7cdd732a3b81073e692de7) | [OrderRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/c3536ebaf4ba7d322f7cdd732a3b81073e692de7/backend/src/main/java/com/aparizzio/pizzeria/controller/OrderRestController.java), [DatabaseInitializer.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/c3536ebaf4ba7d322f7cdd732a3b81073e692de7/backend/src/main/java/com/aparizzio/pizzeria/service/DatabaseInitializer.java) |
+|2| [graphical rest API](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/5f9e4d007e79998fd3cd3bf09c1bd14f66afd555) | [MetricsRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/5f9e4d007e79998fd3cd3bf09c1bd14f66afd555/backend/src/main/java/com/aparizzio/pizzeria/controller/MetricsRestController.java) |
+|3| [docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/a8fc062439a1a3a618d01122f289a0a3513d9df6) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/a8fc062439a1a3a618d01122f289a0a3513d9df6/docker-compose.yml) |
+|4| [scripts image windows](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d7cde9881e8e6a215e2f88e1d47be75d4de6a15d) | [publish_docker-compose.ps1](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d7cde9881e8e6a215e2f88e1d47be75d4de6a15d/publish_docker-compose.ps1) |
+|5| [export postman](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/a5a20117c59794cf9f32454b3e291cc9343d9a99) | [Aparizzio API.postman_collection.json](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/a5a20117c59794cf9f32454b3e291cc9343d9a99/Aparizzio%20API.postman_collection.json) |
+
+
 #### **Alumno 3 - Gaizka Aranbarri Berasaluze**
 
 Implementación de la API REST, seguridad con JWT y configuración de Docker.
@@ -567,6 +581,7 @@ Implementación de la API REST, seguridad con JWT y configuración de Docker.
 |3| [Add Category and Product REST controllers with CRUD operations](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/e0be3af) | [CategoryRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e0be3af/backend/src/main/java/com/aparizzio/pizzeria/controller/CategoryRestController.java) |
 |4| [Set up docker compose to work with dockerhub image](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/3d94d5f) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/3d94d5f/docker-compose.yml) |
 |5| [Docker build and publish scripts and env addition to docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d720e07) | [create_image.sh](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d720e07/create_image.sh) |
+>>>>>>> a5b63fcadf4adc42af4101ca27a7867bf39229e9
 
 ---
 
