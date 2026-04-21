@@ -1,0 +1,634 @@
+/* --- VARIABLES Y RESET --- */
+:root {
+    --color-primary: #ff6347;
+    /* Original Tomato Color */
+    --color-text: #333;
+    --font-heading: 'Lobster', cursive;
+    --font-body: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+}
+
+h1,
+h2,
+h3,
+.navbar-brand {
+    font-family: var(--font-heading);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* --- NAVBAR PERSONALIZADO --- */
+.custom-navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    color: var(--color-primary) !important;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    margin-right: 10px;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.nav-link {
+    color: #333 !important;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-primary) !important;
+}
+
+/* NEW: STYLE FOR THE CART ICON */
+.cart-icon {
+    font-size: 1.1rem;
+    color: #333 !important;
+    margin-right: 10px;
+}
+
+/* Login Button */
+.btn-login {
+    background-color: var(--color-primary);
+    border: none;
+    padding: 8px 20px;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    background-color: #e5533d;
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    height: 60vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/pizza-pepperoni-banner-principal.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-section h1 {
+    font-size: 4rem;
+}
+
+.btn-cta {
+    background-color: var(--color-primary);
+    border: none;
+    padding: 12px 35px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-cta:hover {
+    background-color: #e5533d;
+}
+
+/* --- GENERAL SECTIONS --- */
+.section-padding {
+    padding: 70px 0;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    color: var(--color-primary);
+    margin-bottom: 50px;
+}
+
+/* --- TARJETAS --- */
+.product-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.price {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: 1.3rem;
+}
+
+/* --- CATEGORIES --- */
+.cat-card {
+    height: 220px;
+    border-radius: 12px;
+    color: white;
+    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s;
+}
+
+.cat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    transition: background 0.3s;
+}
+
+.cat-card:hover {
+    transform: scale(1.02);
+}
+
+.cat-card:hover::before {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.cat-card h3 {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- FULL MENU BANNER --- */
+.full-menu-cta {
+    padding: 80px 0;
+    background-color: #333;
+}
+
+.full-menu-cta h2 {
+    font-size: 2.5rem;
+    font-family: var(--font-heading);
+}
+
+.btn-cta-secondary {
+    border: 2px solid white;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.btn-cta-secondary:hover {
+    background-color: white;
+    color: #333;
+}
+
+/* --- FOOTER --- */
+.footer-section {
+    background-color: #222;
+    color: #bbb;
+    padding: 60px 0 30px;
+}
+
+.footer-section h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: #777;
+    border-color: #444 !important;
+}
+
+/* --- MENU-SPECIFIC STYLES --- */
+
+/* Filter Buttons */
+.btn-filter {
+    border: 2px solid #eee;
+    border-radius: 50px;
+    padding: 8px 25px;
+    background-color: white;
+    color: #555;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-filter:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-filter.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+/* Allergen Buttons */
+.btn-allergen-filter {
+    border: 2px solid #eee;
+    border-radius: 50px;
+    padding: 8px 16px;
+    background-color: white;
+    color: #555;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.btn-allergen-filter i {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    font-size: 0.95rem;
+}
+
+.btn-allergen-filter:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-allergen-filter.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.btn-allergen-filter.active i {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Small "Add" button on cards */
+.btn-outline-primary {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+
+/* --- ADMIN PANEL STYLES --- */
+
+/* Sidebar: Full height and color */
+.sidebar {
+    min-height: 100vh;
+    background-color: #212529;
+    /* Dark Bootstrap */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .nav-link {
+    font-size: 1rem;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ff6347 !important;
+    /* Orange on hover */
+}
+
+/* Active link (Users) turns tomato red */
+.sidebar .nav-link.active {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+}
+
+/* Table alignment fix */
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+/* Custom badge */
+.badge {
+    font-weight: 500;
+}
+
+
+/* --- CATEGORY PAGE HEADER --- */
+.category-header {
+    height: 40vh;
+    /* Slightly smaller than home hero (60vh) */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+/* Text shadow for readability on any image */
+.category-header h1,
+.category-header p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* --- LOAD MORE BUTTON --- */
+
+.btn-load-more {
+    background-color: var(--color-primary);
+    /* Base orange */
+    border-color: var(--color-primary);
+    color: white;
+    padding: 15px 40px;
+    /* Larger and bolder */
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    /* Initial soft orange shadow */
+    box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Smooth elastic transition */
+}
+
+/* Hover effect */
+.btn-load-more:hover {
+    background-color: #ff4500;
+    /* Slightly stronger orange (OrangeRed) */
+    border-color: #ff4500;
+    /* Button rises and slightly grows */
+    transform: translateY(-3px) scale(1.02);
+    /* Shadow gets larger and stronger (glow effect) */
+    box-shadow: 0 10px 25px rgba(255, 69, 0, 0.5);
+}
+
+/* Click effect (when pressed) */
+.btn-load-more:active {
+    transform: translateY(1px);
+    /* Slightly pressed down */
+    box-shadow: 0 2px 5px rgba(255, 69, 0, 0.4);
+}
+
+/* Arrow icon animation */
+.btn-load-more i {
+    transition: transform 0.3s ease;
+}
+
+/* On button hover, the arrow moves down */
+.btn-load-more:hover i {
+    transform: translateY(4px);
+}
+
+/* --- LOGIN MODAL STYLES --- */
+
+/* Decorative side image */
+.auth-modal-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Cleaner inputs */
+.modal-content .form-control {
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.modal-content .form-control:focus {
+    background-color: #fff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(255, 99, 71, 0.1);
+}
+
+/* --- TRANSITION ANIMATIONS --- */
+
+/* Utility classes for animation */
+.fade-in-right {
+    animation: fadeInRight 0.4s ease forwards;
+}
+
+.fade-in-left {
+    animation: fadeInLeft 0.4s ease forwards;
+}
+
+.fade-out-left {
+    animation: fadeOutLeft 0.3s ease forwards;
+}
+
+.fade-out-right {
+    animation: fadeOutRight 0.3s ease forwards;
+}
+
+/* Motion keyframes definition */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes fadeOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+/* --- CART STYLES --- */
+.input-group-sm .btn {
+    border-color: #ced4da;
+    color: #333;
+}
+
+.input-group-sm .btn:hover {
+    background-color: #eee;
+}
+
+/* Prevent image distortion */
+.rounded-3 {
+    object-fit: cover;
+}
+
+/* --- FORCE ORANGE COLOR ON ACTIVE MENU --- */
+
+/* Ensures link, icon (i), and text (span) are orange */
+.nav-link.active,
+.nav-link.active i,
+.nav-link.active span {
+    color: var(--color-primary) !important;
+    font-weight: 700;
+    /* Optional: make current section bold */
+}
+
+/* --- CART IMAGES --- */
+.cart-product-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}
+
+/* --- ADMIN TABLE IMAGES --- */
+.admin-table-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* --- PIZZA SPINNER --- */
+#pizza-spinner-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#pizza-spinner-overlay.is-visible {
+    display: flex;
+}
+
+.pizza-spinner {
+    width: 96px;
+    height: 96px;
+    position: relative;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+}
+
+.pizza-base {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #f5c071;
+    border: 8px solid #c47b2f;
+    position: relative;
+    overflow: hidden;
+}
+
+.pizza-cheese {
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffe39a 0, #ffd166 70%, #f5be4e 100%);
+}
+
+.pizza-slice {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 46%;
+    height: 46%;
+    transform-origin: 0% 0%;
+    pointer-events: none;
+}
+
+.pizza-slice::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 58px solid #ff8a3d;
+    transform: rotate(45deg);
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.pizza-pepperoni {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #bb3d2e;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
+}
+
+.pizza-pepperoni.p1 {
+    top: 18px;
+    left: 2px;
+}
+
+.pizza-pepperoni.p2 {
+    top: 28px;
+    left: 16px;
+}
+
+.pizza-pepperoni.p3 {
+    top: 38px;
+    left: 4px;
+}
+
+.pizza-spinner-label {
+    margin-top: 14px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    user-select: none;
+}
