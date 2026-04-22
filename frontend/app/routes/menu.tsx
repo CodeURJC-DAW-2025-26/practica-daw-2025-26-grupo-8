@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link, useLoaderData } from "react-router";
 import { productService } from "../services/product-service";
-import { ProductDTO } from "../dtos/ProductDTO";
+import type { ProductDTO } from "../dtos/ProductDTO";
 
 // EL CLIENT LOADER: Se ejecuta antes de entrar a la pantalla
 export async function clientLoader() {

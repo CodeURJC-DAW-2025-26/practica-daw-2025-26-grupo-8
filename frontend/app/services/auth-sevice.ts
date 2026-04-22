@@ -1,4 +1,4 @@
-import { UserDTO, UserRegisterDTO } from "../dtos/UserDTO";
+import type { UserDTO, UserRegisterDTO } from "../dtos/UserDTO";
 
 const BASE_URL = '/api/v1';
 

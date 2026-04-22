@@ -1,4 +1,4 @@
-import { ProductDTO } from "../dtos/ProductDTO";
+import type { ProductDTO } from "../dtos/ProductDTO";
 
 const BASE_URL = '/api/v1/products';
 
