@@ -2,12 +2,16 @@ package com.aparizzio.pizzeria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 import com.aparizzio.pizzeria.model.Image;
@@ -200,5 +204,29 @@ public class ProductRestController {
 
         // 3. Return no content response
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/image")
+    @Operation(summary = "Descargar imagen del producto", description = "Devuelve el contenido binario de la imagen asociada al producto.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Binario de imagen devuelto"),
+            @ApiResponse(responseCode = "404", description = "Producto o imagen no encontrada")
+    })
+    public ResponseEntity<Object> downloadProductImage(@PathVariable long id)
+            throws SQLException, java.io.IOException {
+
+        Product product = productService.getProductById(id).orElseThrow();
+
+        if (product.getImage() != null) {
+            Resource imageFile = imageService.getImageFile(product.getImage().getId());
+
+            MediaType mediaType = MediaTypeFactory
+                    .getMediaType(imageFile)
+                    .orElse(MediaType.IMAGE_JPEG);
+
+            return ResponseEntity.ok().contentType(mediaType).body(imageFile);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
