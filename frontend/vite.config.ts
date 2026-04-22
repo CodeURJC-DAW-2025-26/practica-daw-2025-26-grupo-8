@@ -12,6 +12,10 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
         secure: false
       },
+      "/images": {
+        target: "https://localhost:8443",
+        secure: false
+      }
     },
   },
 });

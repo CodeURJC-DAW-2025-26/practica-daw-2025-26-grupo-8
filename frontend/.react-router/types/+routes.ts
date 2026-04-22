@@ -14,20 +14,28 @@ type Pages = {
   "/": {
     params: {};
   };
+  "/menu": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/";
+    page: "/" | "/menu";
   };
   "routes/home.tsx": {
     id: "routes/home";
     page: "/";
+  };
+  "routes/menu.tsx": {
+    id: "routes/menu";
+    page: "/menu";
   };
 };
 
 type RouteModules = {
   "root": typeof import("./app/root.tsx");
   "routes/home": typeof import("./app/routes/home.tsx");
+  "routes/menu": typeof import("./app/routes/menu.tsx");
 };

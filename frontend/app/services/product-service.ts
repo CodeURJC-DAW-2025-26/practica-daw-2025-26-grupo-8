@@ -7,7 +7,12 @@ export const productService = {
     async getProducts(page: number = 0): Promise<ProductDTO[]> {
         const response = await fetch(`${BASE_URL}/?page=${page}`);
         if (!response.ok) throw new Error("Error al cargar los productos");
-        return response.json();
+
+        const data = await response.json();
+
+        // TRUCO: Si Spring Boot devuelve un objeto paginado, el array está en "data.content".
+        // Si por algún motivo devuelve el array directo, usamos "data".
+        return data.content ? data.content : data;
     },
 
     // Obtener un producto por ID

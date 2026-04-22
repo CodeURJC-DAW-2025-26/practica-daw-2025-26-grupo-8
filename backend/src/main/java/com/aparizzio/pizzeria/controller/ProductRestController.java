@@ -1,19 +1,28 @@
 package com.aparizzio.pizzeria.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.util.Optional;
 
-import com.aparizzio.pizzeria.model.Image;
-import com.aparizzio.pizzeria.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.aparizzio.pizzeria.dto.ProductDTO;
 import com.aparizzio.pizzeria.dto.ProductMapper;
+import com.aparizzio.pizzeria.model.Image;
+import com.aparizzio.pizzeria.model.Product;
 import com.aparizzio.pizzeria.service.ImageService;
 import com.aparizzio.pizzeria.service.ProductService;
 
@@ -200,5 +209,20 @@ public class ProductRestController {
 
         // 3. Return no content response
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/image")
+    @Operation(summary = "Obtener imagen del producto", description = "Busca la imagen asociada al producto y la devuelve.")
+    public ResponseEntity<Object> getProductImage(@PathVariable long id)
+            throws java.sql.SQLException, java.io.IOException {
+        Optional<Product> product = productService.getProductById(id);
+
+        if (product.isPresent() && product.get().getImage() != null) {
+            // Usamos el servicio para obtener el recurso físico de la imagen asociada
+            return ResponseEntity.ok()
+                    .contentType(org.springframework.http.MediaType.IMAGE_JPEG)
+                    .body(imageService.getImageFile(product.get().getImage().getId()));
+        }
+        return ResponseEntity.notFound().build();
     }
 }
