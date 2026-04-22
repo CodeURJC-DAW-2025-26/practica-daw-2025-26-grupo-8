@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Link, useLoaderData } from "react-router";
 import { productService } from "../services/product-service";
 import type { ProductDTO } from "../dtos/ProductDTO";
+import logoImage from "../assets/images/logo.png";
 
 // EL CLIENT LOADER: Se ejecuta antes de entrar a la pantalla
 export async function clientLoader() {
@@ -112,7 +113,7 @@ export default function Menu() {
                             <div className="card h-100 border-0 shadow-sm">
                                 <Link to={`/product/${p.id}`}>
                                     <img
-                                        src={p.hasImage ? `/api/v1/products/${p.id}/image` : "/assets/images/logo.png"}
+                                        src={p.hasImage ? `/api/v1/products/${p.id}/image` : logoImage}
                                         className="card-img-top"
                                         alt={p.title}
                                         style={{ height: "200px", objectFit: "cover" }}

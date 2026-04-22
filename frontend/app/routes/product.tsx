@@ -1,5 +1,6 @@
 import { useLoaderData, Form } from "react-router";
 import { productService } from "../services/product-service";
+import logoImage from "../assets/images/logo.png";
 
 export async function clientLoader({ params }: any) {
     const id = Number(params.id);
@@ -41,7 +42,7 @@ export default function Product() {
                                 />
                             ) : (
                                 <img
-                                    src="/assets/images/logo.png"
+                                    src={logoImage}
                                     className="img-fluid w-100 p-5"
                                     alt="Sin imagen"
                                 />

@@ -1,16 +1,17 @@
 import { Link, NavLink } from "react-router";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { useUserStore } from "../stores/user-store";
+import logoImage from "../assets/images/logo.png";
 
 export default function Header() {
     // Leemos de Zustand si estamos logueados y nuestra información
-    const { isLogged, user, removeCurrentUser } = useUserStore();
+    const { isLogged, removeCurrentUser } = useUserStore();
 
     return (
         <Navbar expand="lg" sticky="top" className="custom-navbar">
             <Container>
                 <Navbar.Brand as={Link} to="/" className="logo">
-                    <img src="/assets/images/logo.png" alt="Logo" />
+                    <img src={logoImage} alt="Logo" />
                     <span>Aparizzio</span>
                 </Navbar.Brand>
 
@@ -31,7 +32,7 @@ export default function Header() {
                         {/* Renderizado Condicional: Si NO está logueado */}
                         {!isLogged && (
                             <Nav.Item>
-                                <Link to="/login" className="btn btn-primary btn-login d-flex align-items-center">
+                                <Link to="/?auth=login" className="btn btn-primary btn-login d-flex align-items-center">
                                     <i className="bi bi-person-circle me-2"></i> Iniciar Sesión
                                 </Link>
                             </Nav.Item>

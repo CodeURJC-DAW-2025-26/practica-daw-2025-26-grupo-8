@@ -1,4 +1,5 @@
 import type { UserDTO, UserRegisterDTO } from "../dtos/UserDTO";
+import type { OrderDTO } from "../dtos/OrderDTO";
 
 const BASE_URL = '/api/v1';
 
@@ -17,6 +18,13 @@ export const authService = {
     // Obtener mi perfil (usando el token/cookie que ya tiene el navegador)
     async getMe(): Promise<UserDTO> {
         const response = await fetch(`${BASE_URL}/users/me`);
+        if (!response.ok) throw new Error("No autenticado");
+        return response.json();
+    },
+
+    // Obtener mis pedidos
+    async getMyOrders(): Promise<OrderDTO[]> {
+        const response = await fetch(`${BASE_URL}/users/me/orders`);
         if (!response.ok) throw new Error("No autenticado");
         return response.json();
     },
