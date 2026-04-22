@@ -6,4 +6,7 @@ export default [
 
     // NUEVA RUTA: La carta de pizzas
     route("/menu", "routes/menu.tsx"),
+
+    // NUEVA RUTA: Detalle de producto
+    route("/product/:id", "routes/product.tsx"),
 ] satisfies RouteConfig;
