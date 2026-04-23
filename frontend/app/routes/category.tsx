@@ -1,7 +1,7 @@
 // frontend/app/routes/category.tsx
 import { useState } from "react";
 import { Link, useLoaderData, useParams } from "react-router";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button } from "react-bootstrap";
 import { categoryService } from "../services/category-service";
 import { productService } from "../services/product-service";
 import type { ProductDTO } from "../dtos/ProductDTO";
@@ -20,7 +20,7 @@ export async function clientLoader({ params }: { params: { id: string } }) {
 }
 
 export default function CategoryPage() {
-    const { category, initialProducts, initialLast, categoryId } = useLoaderData<typeof clientLoader>();
+    const { category, initialProducts, initialLast } = useLoaderData<typeof clientLoader>();
     const { id } = useParams(); // Obtenemos el ID de la URL
 
     // ESTADOS PARA PAGINACIÓN (Igual que en el ejemplo de los profesores)

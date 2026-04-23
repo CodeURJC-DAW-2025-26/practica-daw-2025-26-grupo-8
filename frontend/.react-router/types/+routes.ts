@@ -39,6 +39,11 @@ type Pages = {
   "/admin/orders": {
     params: {};
   };
+  "/admin/orders/:id": {
+    params: {
+      "id": string;
+    };
+  };
   "/admin/categories": {
     params: {};
   };
@@ -47,7 +52,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/categories";
+    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -67,7 +72,7 @@ type RouteFiles = {
   };
   "routes/admin/layout.tsx": {
     id: "routes/admin/layout";
-    page: "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/categories";
+    page: "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories";
   };
   "routes/admin/metrics.tsx": {
     id: "routes/admin/metrics";
@@ -80,6 +85,10 @@ type RouteFiles = {
   "routes/admin/orders.tsx": {
     id: "routes/admin/orders";
     page: "/admin/orders";
+  };
+  "routes/admin/order-details.tsx": {
+    id: "routes/admin/order-details";
+    page: "/admin/orders/:id";
   };
   "routes/admin/categories.tsx": {
     id: "routes/admin/categories";
@@ -97,5 +106,6 @@ type RouteModules = {
   "routes/admin/metrics": typeof import("./app/routes/admin/metrics.tsx");
   "routes/admin/users": typeof import("./app/routes/admin/users.tsx");
   "routes/admin/orders": typeof import("./app/routes/admin/orders.tsx");
+  "routes/admin/order-details": typeof import("./app/routes/admin/order-details.tsx");
   "routes/admin/categories": typeof import("./app/routes/admin/categories.tsx");
 };

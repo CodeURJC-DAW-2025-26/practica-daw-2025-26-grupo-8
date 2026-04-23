@@ -9,7 +9,7 @@ import {
 } from "react-router";
 
 // Importamos los tipos autogenerados por React Router
-import type { Route } from "./+types/root";
+// import type { Route } from "./+types/root";
 
 // 1. Importaciones directas de CSS (La forma que le gusta a Vite)
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -59,7 +59,7 @@ export default function App() {
 }
 
 // 5. El capturador de errores del profesor (Evita el pantallazo en blanco si algo falla)
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export function ErrorBoundary({ error }: any) {
     let message = "¡Ups!";
     let details = "Ha ocurrido un error inesperado.";
     let stack: string | undefined;
