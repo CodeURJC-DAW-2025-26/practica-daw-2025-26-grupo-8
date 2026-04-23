@@ -31,6 +31,7 @@ export default function AdminCategories() {
     const [productDesc, setProductDesc] = useState("");
     const [productAllergies, setProductAllergies] = useState<string[]>([]);
     const [productImage, setProductImage] = useState<File | null>(null);
+    const [showAllergens, setShowAllergens] = useState(false);
 
     const fetchAll = async () => {
         try {
@@ -231,12 +232,13 @@ export default function AdminCategories() {
                                     <label className="form-label small text-muted">Alérgenos</label>
                                     <button
                                         className="btn btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center bg-white"
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#listaAlergenos">
+                                        type="button" 
+                                        onClick={() => setShowAllergens(!showAllergens)}>
                                         <span className="text-muted">Seleccionar alérgenos...</span>
-                                        <i className="bi bi-chevron-down"></i>
+                                        <i className={`bi bi-chevron-${showAllergens ? 'up' : 'down'}`}></i>
                                     </button>
 
-                                    <div className="collapse mt-2" id="listaAlergenos">
+                                    <div className={`collapse mt-2 ${showAllergens ? 'show' : ''}`} id="listaAlergenos">
                                         <div className="card card-body bg-light border-0 small">
                                             <div className="row g-2">
                                                 {['Gluten', 'Lácteos', 'Huevo', 'Pescado', 'Frutos Secos', 'Picante'].map(alg => (
