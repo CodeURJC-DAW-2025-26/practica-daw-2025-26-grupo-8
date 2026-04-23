@@ -31,9 +31,85 @@ export const productService = {
         };
     },
 
+    async getAllProductsAdmin(): Promise<ProductDTO[]> {
+        const response = await fetch(`/api/v1/products/?page=0&size=1000`);
+        if (!response.ok) throw new Error("Error al cargar productos");
+        
+        const data = await response.json();
+        return Array.isArray(data.content) ? data.content : [];
+    },
+
     async getProductById(id: number): Promise<ProductDTO> {
         const response = await fetch(`${BASE_URL}/${id}`);
         if (!response.ok) throw new Error("Producto no encontrado");
         return response.json();
+    },
+
+    async createProduct(product: Partial<ProductDTO>, imageFile?: File): Promise<ProductDTO> {
+        const response = await fetch(`${BASE_URL}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product)
+        });
+        
+        if (!response.ok) {
+            throw new Error("Error al crear producto");
+        }
+        
+        const createdProduct = await response.json();
+
+        if (imageFile) {
+            await this.uploadImage(createdProduct.id, imageFile);
+        }
+
+        return createdProduct;
+    },
+
+    async updateProduct(id: number, product: Partial<ProductDTO>, imageFile?: File | null): Promise<ProductDTO> {
+        const response = await fetch(`${BASE_URL}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product)
+        });
+        
+        if (!response.ok) {
+            throw new Error("Error al actualizar producto");
+        }
+        
+        const updatedProduct = await response.json();
+
+        if (imageFile) {
+            await this.uploadImage(updatedProduct.id, imageFile);
+        }
+
+        return updatedProduct;
+    },
+
+    async deleteProduct(id: number): Promise<void> {
+        const response = await fetch(`${BASE_URL}/${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (!response.ok) {
+            throw new Error("Error al eliminar producto");
+        }
+    },
+
+    async uploadImage(productId: number, imageFile: File): Promise<void> {
+        const formData = new FormData();
+        formData.append('imageFile', imageFile);
+
+        const response = await fetch(`${BASE_URL}/${productId}/images`, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al subir imagen");
+        }
     }
 };

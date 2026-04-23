@@ -20,6 +20,8 @@ export default [
         route("orders", "routes/admin/orders.tsx"),
         route("orders/:id", "routes/admin/order-details.tsx"),
         route("categories", "routes/admin/categories.tsx"),
+        route("categories/:id/edit", "routes/admin/category-edit.tsx"),
+        route("products/:id/edit", "routes/admin/product-edit.tsx"),
     ]),
 
     route("profile", "routes/profile.tsx"),

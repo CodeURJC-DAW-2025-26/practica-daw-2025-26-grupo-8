@@ -47,6 +47,16 @@ type Pages = {
   "/admin/categories": {
     params: {};
   };
+  "/admin/categories/:id/edit": {
+    params: {
+      "id": string;
+    };
+  };
+  "/admin/products/:id/edit": {
+    params: {
+      "id": string;
+    };
+  };
   "/profile": {
     params: {};
   };
@@ -55,7 +65,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories" | "/profile";
+    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories" | "/admin/categories/:id/edit" | "/admin/products/:id/edit" | "/profile";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -75,7 +85,7 @@ type RouteFiles = {
   };
   "routes/admin/layout.tsx": {
     id: "routes/admin/layout";
-    page: "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories";
+    page: "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories" | "/admin/categories/:id/edit" | "/admin/products/:id/edit";
   };
   "routes/admin/metrics.tsx": {
     id: "routes/admin/metrics";
@@ -97,6 +107,14 @@ type RouteFiles = {
     id: "routes/admin/categories";
     page: "/admin/categories";
   };
+  "routes/admin/category-edit.tsx": {
+    id: "routes/admin/category-edit";
+    page: "/admin/categories/:id/edit";
+  };
+  "routes/admin/product-edit.tsx": {
+    id: "routes/admin/product-edit";
+    page: "/admin/products/:id/edit";
+  };
   "routes/profile.tsx": {
     id: "routes/profile";
     page: "/profile";
@@ -115,5 +133,7 @@ type RouteModules = {
   "routes/admin/orders": typeof import("./app/routes/admin/orders.tsx");
   "routes/admin/order-details": typeof import("./app/routes/admin/order-details.tsx");
   "routes/admin/categories": typeof import("./app/routes/admin/categories.tsx");
+  "routes/admin/category-edit": typeof import("./app/routes/admin/category-edit.tsx");
+  "routes/admin/product-edit": typeof import("./app/routes/admin/product-edit.tsx");
   "routes/profile": typeof import("./app/routes/profile.tsx");
 };
