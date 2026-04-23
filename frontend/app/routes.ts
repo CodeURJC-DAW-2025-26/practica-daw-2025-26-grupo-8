@@ -12,4 +12,12 @@ export default [
 
     // NUEVA RUTA: Detalle de categoría (con paginación)
     route("/category/:id", "routes/category.tsx"),
+
+    // --- PANEL DE ADMINISTRACIÓN ---
+    route("/admin", "routes/admin/layout.tsx", [
+        route("metrics", "routes/admin/metrics.tsx"),
+        route("users", "routes/admin/users.tsx"),
+        route("orders", "routes/admin/orders.tsx"),
+        route("categories", "routes/admin/categories.tsx"),
+    ]),
 ] satisfies RouteConfig;

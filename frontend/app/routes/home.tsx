@@ -340,7 +340,11 @@ export default function Home() {
             const me = await authService.getMe();
             setCurrentUser(me);
             closeAuthModal();
-            navigate("/", { replace: true });
+            if (me.roles?.includes("ADMIN")) {
+                navigate("/admin/metrics", { replace: true });
+            } else {
+                navigate("/", { replace: true });
+            }
         } catch {
             setLoginError("Correo o contraseña incorrectos.");
         } finally {

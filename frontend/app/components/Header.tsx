@@ -5,7 +5,7 @@ import logoImage from "../assets/images/logo.png";
 
 export default function Header() {
     // Leemos de Zustand si estamos logueados y nuestra información
-    const { isLogged, removeCurrentUser } = useUserStore();
+    const { isLogged, isAdmin, removeCurrentUser } = useUserStore();
 
     return (
         <Navbar expand="lg" sticky="top" className="custom-navbar">
@@ -41,6 +41,11 @@ export default function Header() {
                         {/* Renderizado Condicional: Si SÍ está logueado */}
                         {isLogged && (
                             <>
+                                {isAdmin && (
+                                    <Nav.Link as={NavLink} to="/admin/metrics" className="d-flex align-items-center text-warning fw-bold">
+                                        <i className="bi bi-speedometer2 me-2"></i> Admin Panel
+                                    </Nav.Link>
+                                )}
                                 <Nav.Link as={NavLink} to="/profile" className="d-flex align-items-center">
                                     <i className="bi bi-person-gear me-2"></i> Mi Perfil
                                 </Nav.Link>

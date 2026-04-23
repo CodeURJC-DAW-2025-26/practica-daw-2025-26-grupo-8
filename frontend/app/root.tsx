@@ -5,6 +5,7 @@ import {
     Outlet,
     Scripts,
     ScrollRestoration,
+    useLocation,
 } from "react-router";
 
 // Importamos los tipos autogenerados por React Router
@@ -25,6 +26,9 @@ export const links = () => [
 
 // 3. El Layout: El chasis exacto del profesor, pero con tus componentes
 export function Layout({ children }: { children: React.ReactNode }) {
+    const location = useLocation();
+    const isAdminRoute = location.pathname.startsWith('/admin');
+
     return (
         <html lang="es">
             <head>
@@ -35,13 +39,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Links />
             </head>
             <body className="d-flex flex-column min-vh-100">
-                <Header />
+                {!isAdminRoute && <Header />}
 
                 <main className="flex-grow-1">
                     {children}
                 </main>
 
-                <Footer />
+                {!isAdminRoute && <Footer />}
                 <ScrollRestoration />
                 <Scripts />
             </body>

@@ -175,4 +175,42 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // POST: Create a user from admin (ADMIN)
+    @PostMapping("/")
+    @Operation(summary = "Crear usuario", description = "Crea un usuario desde el panel de control. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Usuario creado"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
+    public ResponseEntity<UserDTO> createUser(@RequestBody com.aparizzio.pizzeria.dto.UserRegisterDTO requestDTO, @RequestParam(required = false, defaultValue = "USER") String role) {
+        userService.createAdminUser(
+                requestDTO.getName(),
+                requestDTO.getEmail(),
+                role,
+                requestDTO.getPassword());
+        
+        User user = userService.getUserByEmail(requestDTO.getEmail()).orElseThrow();
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toDTO(user));
+    }
+
+    // PUT: Update a user's password (ADMIN)
+    @PutMapping("/{id}/password")
+    @Operation(summary = "Actualizar contraseña de usuario", description = "Actualiza la contraseña de un usuario. Requiere rol ADMIN.")
+    @SecurityRequirement(name = "accessTokenCookie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Contraseña actualizada"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado")
+    })
+    public ResponseEntity<Void> updatePassword(@PathVariable long id, @RequestBody com.aparizzio.pizzeria.dto.UserUpdateDTO updateDTO) {
+        Optional<User> userOpt = userService.getUserById(id);
+        if (userOpt.isPresent()) {
+            userService.changePassword(id, updateDTO.getNewPassword());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

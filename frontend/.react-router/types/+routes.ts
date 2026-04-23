@@ -27,12 +27,27 @@ type Pages = {
       "id": string;
     };
   };
+  "/admin": {
+    params: {};
+  };
+  "/admin/metrics": {
+    params: {};
+  };
+  "/admin/users": {
+    params: {};
+  };
+  "/admin/orders": {
+    params: {};
+  };
+  "/admin/categories": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/menu" | "/product/:id" | "/category/:id";
+    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/categories";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -50,6 +65,26 @@ type RouteFiles = {
     id: "routes/category";
     page: "/category/:id";
   };
+  "routes/admin/layout.tsx": {
+    id: "routes/admin/layout";
+    page: "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/categories";
+  };
+  "routes/admin/metrics.tsx": {
+    id: "routes/admin/metrics";
+    page: "/admin/metrics";
+  };
+  "routes/admin/users.tsx": {
+    id: "routes/admin/users";
+    page: "/admin/users";
+  };
+  "routes/admin/orders.tsx": {
+    id: "routes/admin/orders";
+    page: "/admin/orders";
+  };
+  "routes/admin/categories.tsx": {
+    id: "routes/admin/categories";
+    page: "/admin/categories";
+  };
 };
 
 type RouteModules = {
@@ -58,4 +93,9 @@ type RouteModules = {
   "routes/menu": typeof import("./app/routes/menu.tsx");
   "routes/product": typeof import("./app/routes/product.tsx");
   "routes/category": typeof import("./app/routes/category.tsx");
+  "routes/admin/layout": typeof import("./app/routes/admin/layout.tsx");
+  "routes/admin/metrics": typeof import("./app/routes/admin/metrics.tsx");
+  "routes/admin/users": typeof import("./app/routes/admin/users.tsx");
+  "routes/admin/orders": typeof import("./app/routes/admin/orders.tsx");
+  "routes/admin/categories": typeof import("./app/routes/admin/categories.tsx");
 };
