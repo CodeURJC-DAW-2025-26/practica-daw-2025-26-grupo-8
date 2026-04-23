@@ -22,12 +22,17 @@ type Pages = {
       "id": string;
     };
   };
+  "/category/:id": {
+    params: {
+      "id": string;
+    };
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/menu" | "/product/:id";
+    page: "/" | "/menu" | "/product/:id" | "/category/:id";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -41,6 +46,10 @@ type RouteFiles = {
     id: "routes/product";
     page: "/product/:id";
   };
+  "routes/category.tsx": {
+    id: "routes/category";
+    page: "/category/:id";
+  };
 };
 
 type RouteModules = {
@@ -48,4 +57,5 @@ type RouteModules = {
   "routes/home": typeof import("./app/routes/home.tsx");
   "routes/menu": typeof import("./app/routes/menu.tsx");
   "routes/product": typeof import("./app/routes/product.tsx");
+  "routes/category": typeof import("./app/routes/category.tsx");
 };

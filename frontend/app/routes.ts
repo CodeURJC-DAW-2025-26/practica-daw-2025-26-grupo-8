@@ -9,4 +9,7 @@ export default [
 
     // NUEVA RUTA: Detalle de producto
     route("/product/:id", "routes/product.tsx"),
+
+    // NUEVA RUTA: Detalle de categoría (con paginación)
+    route("/category/:id", "routes/category.tsx"),
 ] satisfies RouteConfig;

@@ -446,7 +446,7 @@ export default function Home() {
                         {categories.map((cat) => (
                             <div className="col-md-6 col-lg-3" key={cat.id}>
                                 <Link
-                                    to={`/menu?category=${cat.id}`}
+                                    to={`/category/${cat.id}`}
                                     className="cat-card d-flex align-items-center justify-content-center"
                                     style={{ backgroundImage: `url(${cat.hasImage ? `/api/v1/categories/${cat.id}/image` : logoImage})` }}
                                 >

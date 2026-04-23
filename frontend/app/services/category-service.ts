@@ -13,5 +13,13 @@ export const categoryService = {
             throw new Error("Error al obtener las categorías");
         }
         return response.json();
+    },
+
+    async getCategoryById(id: number): Promise<CategoryDTO> {
+        const response = await fetch(`${BASE_URL}/${id}`);
+        if (!response.ok) {
+            throw new Error("Categoría no encontrada");
+        }
+        return response.json();
     }
 };

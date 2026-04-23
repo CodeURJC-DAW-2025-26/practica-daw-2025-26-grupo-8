@@ -8,43 +8,26 @@ export const productService = {
      * @param page Número de página (empieza en 0)
      * @param size Cantidad de elementos por página (fijado a 4)
      */
-    async getProducts(page: number = 0, size: number = 4): Promise<{ content: ProductDTO[], last: boolean }> {
-        // Añadimos explícitamente el parámetro size=4 a la URL
-        const response = await fetch(`${BASE_URL}/?page=${page}&size=${size}`);
+    async getProducts(page: number = 0, size: number = 4, categoryId?: number): Promise<{ content: ProductDTO[], last: boolean }> {
+        // Si se especifica una categoría, usa el endpoint de categorías
+        let url = categoryId
+            ? `/api/v1/categories/${categoryId}/products?page=${page}&size=${size}`
+            : `/api/v1/products/?page=${page}&size=${size}`;
 
-        if (!response.ok) {
-            throw new Error("Error al cargar los productos");
-        }
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Error al cargar productos");
 
         const data = await response.json();
-        const content: ProductDTO[] = data.content || [];
+        const content = Array.isArray(data.content) ? data.content : [];
 
-        // Soporta ambas serializaciones de Spring Page:
-        // 1) shape clásico con `last`
-        // 2) VIA_DTO con `page: { number, totalPages }`
-        let isLast = false;
-
-        if (typeof data.last === "boolean") {
-            isLast = data.last;
-        } else if (
-            data.page &&
-            typeof data.page.number === "number" &&
-            typeof data.page.totalPages === "number"
-        ) {
-            isLast = data.page.totalPages === 0 || data.page.number >= data.page.totalPages - 1;
-        } else if (
-            typeof data.number === "number" &&
-            typeof data.totalPages === "number"
-        ) {
-            isLast = data.totalPages === 0 || data.number >= data.totalPages - 1;
-        } else {
-            // Fallback: si la página trae menos elementos que `size`, asumimos que no hay más
-            isLast = content.length < size;
-        }
+        // Compatibilidad: si el backend no devuelve `last`, lo inferimos por tamaño de página
+        const last = typeof data.last === "boolean"
+            ? data.last
+            : content.length < size;
 
         return {
             content,
-            last: isLast
+            last
         };
     },
 
