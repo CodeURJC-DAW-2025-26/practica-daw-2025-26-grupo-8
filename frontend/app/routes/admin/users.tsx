@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import { useLoaderData } from "react-router";
 import { Modal } from "react-bootstrap";
 import { adminUserService } from "../../services/admin-user-service";
 import type { UserDTO } from "../../dtos/UserDTO";
@@ -15,7 +15,7 @@ export async function clientLoader() {
 
 export default function AdminUsers() {
     const { users: initialUsers, error: loadError } = useLoaderData<typeof clientLoader>();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [users, setUsers] = useState<UserDTO[]>(initialUsers);
     const [successMessage, setSuccessMessage] = useState("");

@@ -18,6 +18,7 @@ export default [
         route("metrics", "routes/admin/metrics.tsx"),
         route("users", "routes/admin/users.tsx"),
         route("orders", "routes/admin/orders.tsx"),
+        route("orders/:id", "routes/admin/order-details.tsx"),
         route("categories", "routes/admin/categories.tsx"),
     ]),
 
