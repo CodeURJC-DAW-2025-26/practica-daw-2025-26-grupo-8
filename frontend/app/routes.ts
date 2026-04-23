@@ -20,4 +20,6 @@ export default [
         route("orders", "routes/admin/orders.tsx"),
         route("categories", "routes/admin/categories.tsx"),
     ]),
+
+    route("profile", "routes/profile.tsx"),
 ] satisfies RouteConfig;

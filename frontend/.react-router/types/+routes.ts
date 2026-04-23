@@ -42,12 +42,15 @@ type Pages = {
   "/admin/categories": {
     params: {};
   };
+  "/profile": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/categories";
+    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/categories" | "/profile";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -85,6 +88,10 @@ type RouteFiles = {
     id: "routes/admin/categories";
     page: "/admin/categories";
   };
+  "routes/profile.tsx": {
+    id: "routes/profile";
+    page: "/profile";
+  };
 };
 
 type RouteModules = {
@@ -98,4 +105,5 @@ type RouteModules = {
   "routes/admin/users": typeof import("./app/routes/admin/users.tsx");
   "routes/admin/orders": typeof import("./app/routes/admin/orders.tsx");
   "routes/admin/categories": typeof import("./app/routes/admin/categories.tsx");
+  "routes/profile": typeof import("./app/routes/profile.tsx");
 };
