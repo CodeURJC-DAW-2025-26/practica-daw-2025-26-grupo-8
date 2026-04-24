@@ -1,7 +1,7 @@
 // frontend/app/routes/profile.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, redirect, useLoaderData } from "react-router";
-import { Container, Form, Button, Card, Row, Col, Alert } from "react-bootstrap";
+import { Container, Form, Button, Card, Row, Col, Alert, Spinner } from "react-bootstrap";
 import { useUserStore } from "../stores/user-store";
 import { authService } from "../services/auth-sevice";
 import { userService } from "../services/user-service";
@@ -9,36 +9,25 @@ import { productService } from "../services/product-service";
 import type { OrderDTO } from "../dtos/OrderDTO";
 
 /**
- * CLIENT LOADER: Protege la página.
- * Si el usuario no está en el Store (Zustand), lo mandamos al login.
+ * CLIENT LOADER: Solo protege la página, devuelve el usuario inmediatamente.
+ * Los pedidos se cargan en segundo plano con useEffect para evitar delay.
  */
 export async function clientLoader() {
     const user = useUserStore.getState().user;
     if (!user) {
         return redirect("/?auth=login&auth_required=1");
     }
-
-    try {
-        const [orders, catalog] = await Promise.all([
-            authService.getMyOrders(),
-            productService.getProducts(0, 1000)
-        ]);
-
-        const pricesByTitle = new Map<string, number>();
-        for (const product of catalog.content) {
-            pricesByTitle.set(product.title, product.price);
-        }
-
-        return { user, orders, pricesByTitleEntries: Array.from(pricesByTitle.entries()) };
-    } catch {
-        return { user, orders: [] as OrderDTO[], pricesByTitleEntries: [] as Array<[string, number]> };
-    }
+    return { user };
 }
 
 export default function Profile() {
-    const { user, orders, pricesByTitleEntries } = useLoaderData<typeof clientLoader>();
+    const { user } = useLoaderData<typeof clientLoader>();
     const setCurrentUser = useUserStore((state) => state.setCurrentUser);
-    const pricesByTitle = new Map<string, number>(pricesByTitleEntries);
+
+    // Estado para las órdenes (cargadas en background)
+    const [orders, setOrders] = useState<OrderDTO[]>([]);
+    const [pricesByTitle, setPricesByTitle] = useState<Map<string, number>>(new Map());
+    const [loadingOrders, setLoadingOrders] = useState(true);
 
     const [formData, setFormData] = useState({
         name: user?.name || "",
@@ -47,6 +36,34 @@ export default function Profile() {
         oldPassword: ""
     });
     const [status, setStatus] = useState<{ type: 'success' | 'danger', msg: string } | null>(null);
+
+    // Cargar pedidos en background (no bloquea la renderización)
+    useEffect(() => {
+        const loadOrders = async () => {
+            try {
+                setLoadingOrders(true);
+                const [ordersData, catalog] = await Promise.all([
+                    authService.getMyOrders(),
+                    productService.getProducts(0, 1000)
+                ]);
+
+                setOrders(ordersData);
+
+                const priceMap = new Map<string, number>();
+                for (const product of catalog.content) {
+                    priceMap.set(product.title, product.price);
+                }
+                setPricesByTitle(priceMap);
+            } catch (error) {
+                console.error("Error cargando pedidos:", error);
+                setOrders([]);
+            } finally {
+                setLoadingOrders(false);
+            }
+        };
+
+        loadOrders();
+    }, []); // Solo ejecuta una vez al montar el componente
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -154,37 +171,46 @@ export default function Profile() {
                             <h3 className="h5 mb-0"><i className="bi bi-bag-check me-2"></i>Mis Pedidos</h3>
                         </Card.Header>
                         <Card.Body className="p-4">
-                            {orders.length === 0 && (
+                            {loadingOrders ? (
+                                <div className="text-center py-5">
+                                    <Spinner animation="border" role="status" className="text-primary mb-3">
+                                        <span className="visually-hidden">Cargando pedidos...</span>
+                                    </Spinner>
+                                    <p className="text-muted">Cargando tus pedidos...</p>
+                                </div>
+                            ) : orders.length === 0 ? (
                                 <div className="text-center text-muted mt-4">
                                     <i className="bi bi-receipt display-4 d-block mb-3"></i>
                                     <p>Aún no has realizado ningún pedido.</p>
                                     <Link to="/menu" className="btn btn-outline-primary mt-2">Ver la carta</Link>
                                 </div>
+                            ) : (
+                                <>
+                                    {orders.map((order) => (
+                                        <Card key={order.id} className="mb-3 border-0 shadow-sm">
+                                            <Card.Header className="bg-light d-flex justify-content-between align-items-center border-bottom-0">
+                                                <h5 className="mb-0 text-primary fw-bold">Pedido #{order.id}</h5>
+                                            </Card.Header>
+
+                                            <Card.Body className="p-0">
+                                                <ul className="list-group list-group-flush">
+                                                    {(order.productTitles || []).map((title, index) => (
+                                                        <li
+                                                            key={`${order.id}-${title}-${index}`}
+                                                            className="list-group-item d-flex justify-content-between align-items-center bg-transparent"
+                                                        >
+                                                            <span><i className="bi bi-caret-right text-secondary me-2"></i>{title}</span>
+                                                            <span className="text-muted fw-bold">
+                                                                {pricesByTitle.has(title) ? `${pricesByTitle.get(title)}€` : "-"}
+                                                            </span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </Card.Body>
+                                        </Card>
+                                    ))}
+                                </>
                             )}
-
-                            {orders.map((order) => (
-                                <Card key={order.id} className="mb-3 border-0 shadow-sm">
-                                    <Card.Header className="bg-light d-flex justify-content-between align-items-center border-bottom-0">
-                                        <h5 className="mb-0 text-primary fw-bold">Pedido #{order.id}</h5>
-                                    </Card.Header>
-
-                                    <Card.Body className="p-0">
-                                        <ul className="list-group list-group-flush">
-                                            {(order.productTitles || []).map((title, index) => (
-                                                <li
-                                                    key={`${order.id}-${title}-${index}`}
-                                                    className="list-group-item d-flex justify-content-between align-items-center bg-transparent"
-                                                >
-                                                    <span><i className="bi bi-caret-right text-secondary me-2"></i>{title}</span>
-                                                    <span className="text-muted fw-bold">
-                                                        {pricesByTitle.has(title) ? `${pricesByTitle.get(title)}€` : "-"}
-                                                    </span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </Card.Body>
-                                </Card>
-                            ))}
                         </Card.Body>
                     </Card>
                 </Col>

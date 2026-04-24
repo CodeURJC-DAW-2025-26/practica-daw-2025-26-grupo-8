@@ -27,6 +27,12 @@ type Pages = {
       "id": string;
     };
   };
+  "/cart": {
+    params: {};
+  };
+  "/checkout": {
+    params: {};
+  };
   "/admin": {
     params: {};
   };
@@ -65,7 +71,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories" | "/admin/categories/:id/edit" | "/admin/products/:id/edit" | "/profile";
+    page: "/" | "/menu" | "/product/:id" | "/category/:id" | "/cart" | "/checkout" | "/admin" | "/admin/metrics" | "/admin/users" | "/admin/orders" | "/admin/orders/:id" | "/admin/categories" | "/admin/categories/:id/edit" | "/admin/products/:id/edit" | "/profile";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -82,6 +88,14 @@ type RouteFiles = {
   "routes/category.tsx": {
     id: "routes/category";
     page: "/category/:id";
+  };
+  "routes/cart.tsx": {
+    id: "routes/cart";
+    page: "/cart";
+  };
+  "routes/checkout.tsx": {
+    id: "routes/checkout";
+    page: "/checkout";
   };
   "routes/admin/layout.tsx": {
     id: "routes/admin/layout";
@@ -127,6 +141,8 @@ type RouteModules = {
   "routes/menu": typeof import("./app/routes/menu.tsx");
   "routes/product": typeof import("./app/routes/product.tsx");
   "routes/category": typeof import("./app/routes/category.tsx");
+  "routes/cart": typeof import("./app/routes/cart.tsx");
+  "routes/checkout": typeof import("./app/routes/checkout.tsx");
   "routes/admin/layout": typeof import("./app/routes/admin/layout.tsx");
   "routes/admin/metrics": typeof import("./app/routes/admin/metrics.tsx");
   "routes/admin/users": typeof import("./app/routes/admin/users.tsx");

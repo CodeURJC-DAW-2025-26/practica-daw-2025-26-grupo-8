@@ -1,5 +1,7 @@
-import { useLoaderData, Form } from "react-router";
+import { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router";
 import { productService } from "../services/product-service";
+import { useCartStore } from "../stores/cart-store";
 import logoImage from "../assets/images/logo.png";
 
 export async function clientLoader({ params }: any) {
@@ -17,6 +19,9 @@ export async function clientLoader({ params }: any) {
 
 export default function Product() {
     const { product, error } = useLoaderData<typeof clientLoader>();
+    const navigate = useNavigate();
+    const addToCart = useCartStore((state) => state.addToCart);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     if (error || !product) {
         return (
@@ -26,6 +31,18 @@ export default function Product() {
             </div>
         );
     }
+
+    const handleAddToCart = () => {
+        addToCart({
+            productId: product.id,
+            title: product.title,
+            price: product.price,
+            quantity: 1,
+            hasImage: product.hasImage,
+        });
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 2000);
+    };
 
     return (
         <>
@@ -79,17 +96,31 @@ export default function Product() {
                                 )}
                             </div>
 
+                            {showSuccessMessage && (
+                                <div className="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                                    <i className="bi bi-check-circle me-2"></i>
+                                    Producto añadido al carrito
+                                </div>
+                            )}
+
                             <div className="d-grid gap-3 d-md-flex justify-content-md-start">
-                                {/* Formulario para añadir al carrito. Pendiente de implementar la accion en React */}
-                                <Form className="add-to-cart-form w-100" method="post" action={`/cart/add/${product.id}`}>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary btn-custom btn-load-more w-100 py-3 rounded-pill d-flex align-items-center justify-content-center gap-2 border-0"
-                                    >
-                                        <span>Añadir al Pedido</span>
-                                        <i className="bi bi-cart-plus-fill fs-5"></i>
-                                    </button>
-                                </Form>
+                                <button
+                                    type="button"
+                                    onClick={handleAddToCart}
+                                    className="btn btn-primary btn-custom btn-load-more w-100 py-3 rounded-pill d-flex align-items-center justify-content-center gap-2 border-0"
+                                >
+                                    <span>Añadir al Pedido</span>
+                                    <i className="bi bi-cart-plus-fill fs-5"></i>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => navigate("/cart")}
+                                    className="btn btn-outline-primary rounded-pill py-3 d-flex align-items-center justify-content-center gap-2"
+                                >
+                                    <i className="bi bi-cart-check fs-5"></i>
+                                    <span>Ver Carrito</span>
+                                </button>
                             </div>
                         </div>
                     </div>

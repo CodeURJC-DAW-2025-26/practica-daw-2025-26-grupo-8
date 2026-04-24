@@ -1,0 +1,217 @@
+{
+  "_admin-user-service-CZCeC8sI.js": {
+    "file": "assets/admin-user-service-CZCeC8sI.js",
+    "name": "admin-user-service"
+  },
+  "_auth-sevice-Iq6779Ns.js": {
+    "file": "assets/auth-sevice-Iq6779Ns.js",
+    "name": "auth-sevice"
+  },
+  "_cart-store-Cz8axkd9.js": {
+    "file": "assets/cart-store-Cz8axkd9.js",
+    "name": "cart-store"
+  },
+  "_category-service-DucSZTVQ.js": {
+    "file": "assets/category-service-DucSZTVQ.js",
+    "name": "category-service"
+  },
+  "_logo-dqhES8Zi.js": {
+    "file": "assets/logo-dqhES8Zi.js",
+    "name": "logo",
+    "assets": [
+      "assets/logo-Cqwofxjs.png"
+    ]
+  },
+  "_order-service-BKvTJaUG.js": {
+    "file": "assets/order-service-BKvTJaUG.js",
+    "name": "order-service"
+  },
+  "_product-service-BkwnfBmn.js": {
+    "file": "assets/product-service-BkwnfBmn.js",
+    "name": "product-service"
+  },
+  "_user-store-C1C9MW7l.js": {
+    "file": "assets/user-store-C1C9MW7l.js",
+    "name": "user-store"
+  },
+  "app/root.tsx?__react-router-build-client-route": {
+    "file": "assets/root-BtuFOBoK.js",
+    "name": "root",
+    "src": "app/root.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_logo-dqhES8Zi.js",
+      "_cart-store-Cz8axkd9.js",
+      "_user-store-C1C9MW7l.js"
+    ],
+    "css": [
+      "assets/root-CUfOievd.css"
+    ],
+    "assets": [
+      "assets/bootstrap-icons-mSm7cUeB.woff2",
+      "assets/bootstrap-icons-BeopsB42.woff",
+      "assets/pizza-pepperoni-banner-principal-C5E4PAbN.jpg"
+    ]
+  },
+  "app/routes/admin/categories.tsx?__react-router-build-client-route": {
+    "file": "assets/categories-DL58uz6T.js",
+    "name": "categories",
+    "src": "app/routes/admin/categories.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_category-service-DucSZTVQ.js",
+      "_product-service-BkwnfBmn.js"
+    ]
+  },
+  "app/routes/admin/category-edit.tsx?__react-router-build-client-route": {
+    "file": "assets/category-edit-CDmhCPBa.js",
+    "name": "category-edit",
+    "src": "app/routes/admin/category-edit.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_category-service-DucSZTVQ.js"
+    ]
+  },
+  "app/routes/admin/layout.tsx?__react-router-build-client-route": {
+    "file": "assets/layout-nWZ4Mmh5.js",
+    "name": "layout",
+    "src": "app/routes/admin/layout.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_user-store-C1C9MW7l.js"
+    ]
+  },
+  "app/routes/admin/metrics.tsx?__react-router-build-client-route": {
+    "file": "assets/metrics-D-wzNLnK.js",
+    "name": "metrics",
+    "src": "app/routes/admin/metrics.tsx?__react-router-build-client-route",
+    "isEntry": true
+  },
+  "app/routes/admin/order-details.tsx?__react-router-build-client-route": {
+    "file": "assets/order-details-C0zigqzA.js",
+    "name": "order-details",
+    "src": "app/routes/admin/order-details.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_logo-dqhES8Zi.js",
+      "_admin-user-service-CZCeC8sI.js",
+      "_order-service-BKvTJaUG.js",
+      "_product-service-BkwnfBmn.js"
+    ]
+  },
+  "app/routes/admin/orders.tsx?__react-router-build-client-route": {
+    "file": "assets/orders-DuWFfofh.js",
+    "name": "orders",
+    "src": "app/routes/admin/orders.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_admin-user-service-CZCeC8sI.js",
+      "_order-service-BKvTJaUG.js"
+    ]
+  },
+  "app/routes/admin/product-edit.tsx?__react-router-build-client-route": {
+    "file": "assets/product-edit-AZr9h6aD.js",
+    "name": "product-edit",
+    "src": "app/routes/admin/product-edit.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_category-service-DucSZTVQ.js",
+      "_product-service-BkwnfBmn.js"
+    ]
+  },
+  "app/routes/admin/users.tsx?__react-router-build-client-route": {
+    "file": "assets/users-Cuiwt118.js",
+    "name": "users",
+    "src": "app/routes/admin/users.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_admin-user-service-CZCeC8sI.js"
+    ]
+  },
+  "app/routes/cart.tsx?__react-router-build-client-route": {
+    "file": "assets/cart-CRA06Cr9.js",
+    "name": "cart",
+    "src": "app/routes/cart.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_logo-dqhES8Zi.js",
+      "_cart-store-Cz8axkd9.js"
+    ]
+  },
+  "app/routes/category.tsx?__react-router-build-client-route": {
+    "file": "assets/category-B6brIuCK.js",
+    "name": "category",
+    "src": "app/routes/category.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_category-service-DucSZTVQ.js",
+      "_product-service-BkwnfBmn.js"
+    ]
+  },
+  "app/routes/checkout.tsx?__react-router-build-client-route": {
+    "file": "assets/checkout-x5g68aAI.js",
+    "name": "checkout",
+    "src": "app/routes/checkout.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_order-service-BKvTJaUG.js",
+      "_cart-store-Cz8axkd9.js",
+      "_user-store-C1C9MW7l.js"
+    ]
+  },
+  "app/routes/home.tsx?__react-router-build-client-route": {
+    "file": "assets/home-BSQ6NvG1.js",
+    "name": "home",
+    "src": "app/routes/home.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_logo-dqhES8Zi.js",
+      "_auth-sevice-Iq6779Ns.js",
+      "_category-service-DucSZTVQ.js",
+      "_product-service-BkwnfBmn.js",
+      "_user-store-C1C9MW7l.js"
+    ],
+    "assets": [
+      "assets/inicio-sesion_resized-DfzxC5nc.jpg",
+      "assets/logo-Cqwofxjs.png"
+    ]
+  },
+  "app/routes/menu.tsx?__react-router-build-client-route": {
+    "file": "assets/menu-D4c_QA_b.js",
+    "name": "menu",
+    "src": "app/routes/menu.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_logo-dqhES8Zi.js",
+      "_product-service-BkwnfBmn.js"
+    ]
+  },
+  "app/routes/product.tsx?__react-router-build-client-route": {
+    "file": "assets/product-BbRJ5A_u.js",
+    "name": "product",
+    "src": "app/routes/product.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_logo-dqhES8Zi.js",
+      "_product-service-BkwnfBmn.js",
+      "_cart-store-Cz8axkd9.js"
+    ]
+  },
+  "app/routes/profile.tsx?__react-router-build-client-route": {
+    "file": "assets/profile-DmQUht-m.js",
+    "name": "profile",
+    "src": "app/routes/profile.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_auth-sevice-Iq6779Ns.js",
+      "_product-service-BkwnfBmn.js",
+      "_user-store-C1C9MW7l.js"
+    ]
+  },
+  "node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx": {
+    "file": "assets/entry.client-BWxjU3TI.js",
+    "name": "entry.client",
+    "src": "node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx",
+    "isEntry": true
+  }
+}

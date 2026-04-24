@@ -13,6 +13,12 @@ export default [
     // NUEVA RUTA: Detalle de categoría (con paginación)
     route("/category/:id", "routes/category.tsx"),
 
+    // NUEVA RUTA: Carrito de compras
+    route("/cart", "routes/cart.tsx"),
+
+    // NUEVA RUTA: Checkout (finalizar compra)
+    route("/checkout", "routes/checkout.tsx"),
+
     // --- PANEL DE ADMINISTRACIÓN ---
     route("/admin", "routes/admin/layout.tsx", [
         route("metrics", "routes/admin/metrics.tsx"),

@@ -1,4 +1,4 @@
-import type { OrderDTO } from "../dtos/OrderDTO";
+import type { OrderDTO, OrderRequestDTO } from "../dtos/OrderDTO";
 
 const BASE_URL = '/api/v1/orders';
 
@@ -12,6 +12,21 @@ export const orderService = {
     async getOrderById(id: number): Promise<OrderDTO> {
         const response = await fetch(`${BASE_URL}/${id}`);
         if (!response.ok) throw new Error("Order not found");
+        return response.json();
+    },
+
+    async createOrder(orderRequest: OrderRequestDTO): Promise<OrderDTO> {
+        const response = await fetch(`${BASE_URL}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderRequest)
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Failed to create order");
+        }
         return response.json();
     },
 

@@ -1,11 +1,14 @@
 import { Link, NavLink } from "react-router";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { useUserStore } from "../stores/user-store";
+import { useCartStore } from "../stores/cart-store";
 import logoImage from "../assets/images/logo.png";
 
 export default function Header() {
     // Leemos de Zustand si estamos logueados y nuestra información
     const { isLogged, isAdmin, removeCurrentUser } = useUserStore();
+    const { getTotalItems } = useCartStore();
+    const totalItems = getTotalItems();
 
     return (
         <Navbar expand="lg" sticky="top" className="custom-navbar">
@@ -25,8 +28,14 @@ export default function Header() {
                         <Nav.Link as={NavLink} to="/menu" className="d-flex align-items-center">
                             <i className="bi bi-book-half me-2"></i> Ver Carta
                         </Nav.Link>
-                        <Nav.Link as={NavLink} to="/cart" className="cart-icon d-flex align-items-center">
-                            <i className="bi bi-cart3 fs-5 me-1"></i> Pedido
+                        <Nav.Link as={NavLink} to="/cart" className="cart-icon d-flex align-items-center position-relative">
+                            <i className="bi bi-cart3 fs-5 me-1"></i>
+                            <span>Pedido</span>
+                            {totalItems > 0 && (
+                                <span className="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                                    {totalItems}
+                                </span>
+                            )}
                         </Nav.Link>
 
                         {/* Renderizado Condicional: Si NO está logueado */}
