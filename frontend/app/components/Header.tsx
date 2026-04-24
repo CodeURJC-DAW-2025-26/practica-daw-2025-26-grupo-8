@@ -2,13 +2,25 @@ import { Link, NavLink } from "react-router";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { useUserStore } from "../stores/user-store";
 import { useCartStore } from "../stores/cart-store";
+import { authService } from "../services/auth-sevice";
 import logoImage from "../assets/images/logo.png";
 
 export default function Header() {
     // Leemos de Zustand si estamos logueados y nuestra información
     const { isLogged, isAdmin, removeCurrentUser } = useUserStore();
-    const { getTotalItems } = useCartStore();
+    const { getTotalItems, clearCart } = useCartStore();
     const totalItems = getTotalItems();
+
+    const handleLogout = async () => {
+        try {
+            await authService.logout();
+        } catch (error) {
+            console.warn("No se pudo cerrar sesión en backend, limpiando sesión local igualmente", error);
+        } finally {
+            removeCurrentUser();
+            clearCart();
+        }
+    };
 
     return (
         <Navbar expand="lg" sticky="top" className="custom-navbar">
@@ -59,7 +71,7 @@ export default function Header() {
                                     <i className="bi bi-person-gear me-2"></i> Mi Perfil
                                 </Nav.Link>
                                 <Nav.Item>
-                                    <Button variant="outline-danger" onClick={removeCurrentUser} className="d-flex align-items-center">
+                                    <Button variant="outline-danger" onClick={handleLogout} className="d-flex align-items-center">
                                         <i className="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
                                     </Button>
                                 </Nav.Item>
