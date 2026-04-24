@@ -3,6 +3,7 @@ import { Link, useLoaderData } from "react-router";
 import { productService } from "../services/product-service";
 import type { ProductDTO } from "../dtos/ProductDTO";
 import logoImage from "../assets/images/logo.png";
+import { useCartStore } from "../stores/cart-store";
 
 // EL CLIENT LOADER: Se ejecuta antes de entrar a la pantalla
 export async function clientLoader() {
@@ -13,12 +14,14 @@ export async function clientLoader() {
 
 export default function Menu() {
     const initialData = useLoaderData<typeof clientLoader>();
+    const addToCart = useCartStore((state) => state.addToCart);
 
     // ESTADOS PARA PAGINACIÓN (Necesarios para el botón "Cargar más")
     const [products, setProducts] = useState<ProductDTO[]>(initialData.content);
     const [page, setPage] = useState(0);
     const [isLast, setIsLast] = useState(initialData.last);
     const [isLoading, setIsLoading] = useState(false);
+    const [addedProductId, setAddedProductId] = useState<number | null>(null);
 
     // ESTADO PARA FILTROS (Alérgenos)
     const [excludedAllergens, setExcludedAllergens] = useState<string[]>([]);
@@ -73,6 +76,19 @@ export default function Menu() {
         }
     };
 
+    const handleAddToCart = (product: ProductDTO) => {
+        addToCart({
+            productId: product.id,
+            title: product.title,
+            price: product.price,
+            quantity: 1,
+            hasImage: product.hasImage,
+        });
+
+        setAddedProductId(product.id);
+        setTimeout(() => setAddedProductId(null), 1500);
+    };
+
     return (
         <>
             <header className="bg-dark text-white py-5 text-center">
@@ -124,8 +140,12 @@ export default function Menu() {
                                     <p className="text-muted small">{p.shortDescription}</p>
                                     <div className="mt-auto d-flex justify-content-between align-items-center">
                                         <span className="fw-bold text-success">{p.price}€</span>
-                                        <button className="btn btn-sm btn-outline-primary rounded-pill">
-                                            Añadir
+                                        <button
+                                            type="button"
+                                            className={`btn btn-sm rounded-pill ${addedProductId === p.id ? "btn-success" : "btn-outline-primary"}`}
+                                            onClick={() => handleAddToCart(p)}
+                                        >
+                                            {addedProductId === p.id ? "Añadido" : "Añadir"}
                                         </button>
                                     </div>
                                 </div>

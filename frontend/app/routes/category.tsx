@@ -5,6 +5,7 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { categoryService } from "../services/category-service";
 import { productService } from "../services/product-service";
 import type { ProductDTO } from "../dtos/ProductDTO";
+import { useCartStore } from "../stores/cart-store";
 
 /**
  * CLIENT LOADER: Recibe 'params' para saber qué categoría cargar.
@@ -22,12 +23,27 @@ export async function clientLoader({ params }: { params: { id: string } }) {
 export default function CategoryPage() {
     const { category, initialProducts, initialLast } = useLoaderData<typeof clientLoader>();
     const { id } = useParams(); // Obtenemos el ID de la URL
+    const addToCart = useCartStore((state) => state.addToCart);
 
     // ESTADOS PARA PAGINACIÓN (Igual que en el ejemplo de los profesores)
     const [products, setProducts] = useState<ProductDTO[]>(initialProducts);
     const [page, setPage] = useState(0);
     const [isLast, setIsLast] = useState(initialLast);
     const [isLoading, setIsLoading] = useState(false);
+    const [addedProductId, setAddedProductId] = useState<number | null>(null);
+
+    const handleAddToCart = (product: ProductDTO) => {
+        addToCart({
+            productId: product.id,
+            title: product.title,
+            price: product.price,
+            quantity: 1,
+            hasImage: product.hasImage,
+        });
+
+        setAddedProductId(product.id);
+        setTimeout(() => setAddedProductId(null), 1500);
+    };
 
     const loadMore = async () => {
         setIsLoading(true);
@@ -79,8 +95,14 @@ export default function CategoryPage() {
                                     <Card.Text className="text-muted small">{p.shortDescription}</Card.Text>
                                     <div className="mt-auto d-flex justify-content-between align-items-center">
                                         <span className="fw-bold text-success fs-5">{p.price}€</span>
-                                        <Button variant="outline-primary" size="sm" className="rounded-pill">
-                                            <i className="bi bi-plus-lg"></i> Añadir
+                                        <Button
+                                            variant={addedProductId === p.id ? "success" : "outline-primary"}
+                                            size="sm"
+                                            className="rounded-pill"
+                                            onClick={() => handleAddToCart(p)}
+                                        >
+                                            <i className={`bi ${addedProductId === p.id ? "bi-check-lg" : "bi-plus-lg"}`}></i>{" "}
+                                            {addedProductId === p.id ? "Añadido" : "Añadir"}
                                         </Button>
                                     </div>
                                 </Card.Body>
