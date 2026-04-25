@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useLoaderData, useNavigate, useSearchParams } from "react-router";
-import { Alert, Modal } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router";
 import { categoryService } from "../services/category-service";
 import { productService } from "../services/product-service";
 import { authService } from "../services/auth-sevice";
@@ -8,7 +7,6 @@ import type { ProductDTO } from "../dtos/ProductDTO";
 import type { OrderDTO } from "../dtos/OrderDTO";
 import { useUserStore } from "../stores/user-store";
 import logoImage from "../assets/images/logo.png";
-import authImage from "../assets/images/inicio-sesion_resized.jpg";
 
 type TopProductMetric = {
     productId: number;
@@ -223,30 +221,8 @@ export async function clientLoader() {
 
 export default function Home() {
     const { categories, topProducts } = useLoaderData<typeof clientLoader>();
-    const { user, isAdmin, setCurrentUser } = useUserStore();
+    const { user, isAdmin } = useUserStore();
     const [personalizedProducts, setPersonalizedProducts] = useState<ProductDTO[]>([]);
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const navigate = useNavigate();
-
-    const [showAuthModal, setShowAuthModal] = useState(false);
-    const [authView, setAuthView] = useState<"login" | "register">("login");
-    const [loginError, setLoginError] = useState<string | null>(null);
-    const [registerError, setRegisterError] = useState<string | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const [loginForm, setLoginForm] = useState({ username: "", password: "" });
-    const [registerForm, setRegisterForm] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
-
-    const passwordMismatch = useMemo(
-        () => registerForm.confirmPassword.length > 0 && registerForm.password !== registerForm.confirmPassword,
-        [registerForm.password, registerForm.confirmPassword]
-    );
 
     useEffect(() => {
         let cancelled = false;
@@ -281,98 +257,6 @@ export default function Home() {
             cancelled = true;
         };
     }, [user?.id, isAdmin]);
-
-    useEffect(() => {
-        const error = searchParams.get("error");
-        const authRequired = searchParams.has("auth_required");
-        const auth = searchParams.get("auth");
-
-        if (!error && !authRequired && !auth) {
-            return;
-        }
-
-        if (auth === "register") {
-            setAuthView("register");
-        } else {
-            setAuthView("login");
-        }
-
-        if (error) {
-            setLoginError("Correo o contraseña incorrectos.");
-        } else if (authRequired) {
-            setLoginError("Tienes que iniciar sesión para acceder a esta página.");
-        }
-
-        setShowAuthModal(true);
-
-        const cleanParams = new URLSearchParams(searchParams);
-        cleanParams.delete("error");
-        cleanParams.delete("auth_required");
-        cleanParams.delete("auth");
-
-        setSearchParams(cleanParams, { replace: true });
-    }, [searchParams, setSearchParams]);
-
-    const switchAuthView = (next: "login" | "register") => {
-        setAuthView(next);
-        setLoginError(null);
-        setRegisterError(null);
-    };
-
-    const closeAuthModal = () => {
-        setShowAuthModal(false);
-        setLoginError(null);
-        setRegisterError(null);
-    };
-
-    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setIsSubmitting(true);
-        setLoginError(null);
-
-        try {
-            const loginResponse = await authService.login(loginForm.username, loginForm.password);
-
-            if (String(loginResponse?.status || "").toUpperCase() === "FAILURE") {
-                throw new Error(loginResponse?.error || "Credenciales inválidas");
-            }
-
-            const me = await authService.getMe();
-            setCurrentUser(me);
-            closeAuthModal();
-            if (me.roles?.includes("ADMIN")) {
-                navigate("/admin/metrics", { replace: true });
-            } else {
-                navigate("/", { replace: true });
-            }
-        } catch {
-            setLoginError("Correo o contraseña incorrectos.");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setRegisterError(null);
-
-        if (passwordMismatch) {
-            setRegisterError("Las contraseñas no coinciden.");
-            return;
-        }
-
-        setIsSubmitting(true);
-        try {
-            await authService.register(registerForm);
-            switchAuthView("login");
-            setLoginError("Registro completado. Ahora inicia sesión.");
-            setRegisterForm({ name: "", email: "", password: "", confirmPassword: "" });
-        } catch (error) {
-            setRegisterError(error instanceof Error ? error.message : "No se pudo completar el registro.");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
 
     return (
         <>
@@ -469,148 +353,6 @@ export default function Home() {
                     <Link to="/menu" className="btn btn-outline-light btn-cta-secondary">Ver Carta Completa</Link>
                 </div>
             </section>
-
-            <Modal show={showAuthModal} onHide={closeAuthModal} centered size="lg">
-                <Modal.Body className="p-0">
-                    <div className="row g-0">
-                        <div className="col-md-5 d-none d-md-block">
-                            <img
-                                src={authImage}
-                                alt="Login"
-                                className="img-fluid w-100 h-100"
-                                style={{ objectFit: "cover", minHeight: "450px" }}
-                            />
-                        </div>
-
-                        <div className="col-12 col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
-                            {authView === "login" && (
-                                <div className="fade-in-left">
-                                    <h2 className="fw-bold mb-4">¡Hola de nuevo!</h2>
-
-                                    {loginError && <Alert variant="warning" className="small py-2">{loginError}</Alert>}
-
-                                    <form onSubmit={handleLogin}>
-                                        <div className="mb-3">
-                                            <label className="form-label small text-muted">Correo</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                required
-                                                value={loginForm.username}
-                                                onChange={(e) => setLoginForm((prev) => ({ ...prev, username: e.target.value }))}
-                                            />
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label small text-muted">Contraseña</label>
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                required
-                                                value={loginForm.password}
-                                                onChange={(e) => setLoginForm((prev) => ({ ...prev, password: e.target.value }))}
-                                            />
-                                        </div>
-
-                                        <div className="d-grid mb-3">
-                                            <button type="submit" className="btn btn-primary py-2" disabled={isSubmitting}>
-                                                {isSubmitting ? "Entrando..." : "Entrar"}
-                                            </button>
-                                        </div>
-
-                                        <div className="text-center">
-                                            <p className="small text-muted mb-0">¿No tienes cuenta?</p>
-                                            <button
-                                                type="button"
-                                                className="btn btn-link p-0 fw-bold text-decoration-none"
-                                                onClick={() => switchAuthView("register")}
-                                            >
-                                                Regístrate aquí
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            )}
-
-                            {authView === "register" && (
-                                <div className="fade-in-right">
-                                    <h2 className="fw-bold mb-4">Crear Cuenta</h2>
-
-                                    {registerError && <Alert variant="danger" className="small py-2">{registerError}</Alert>}
-
-                                    <form onSubmit={handleRegister}>
-                                        <div className="mb-3">
-                                            <label className="form-label small text-muted">Nombre Completo</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Ej: Juan Pérez"
-                                                required
-                                                value={registerForm.name}
-                                                onChange={(e) => setRegisterForm((prev) => ({ ...prev, name: e.target.value }))}
-                                            />
-                                        </div>
-
-                                        <div className="mb-3">
-                                            <label className="form-label small text-muted">Correo Electrónico</label>
-                                            <input
-                                                type="email"
-                                                className="form-control"
-                                                placeholder="juan@ejemplo.com"
-                                                required
-                                                value={registerForm.email}
-                                                onChange={(e) => setRegisterForm((prev) => ({ ...prev, email: e.target.value }))}
-                                            />
-                                        </div>
-
-                                        <div className="mb-3">
-                                            <label className="form-label small text-muted">Contraseña</label>
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                required
-                                                minLength={4}
-                                                value={registerForm.password}
-                                                onChange={(e) => setRegisterForm((prev) => ({ ...prev, password: e.target.value }))}
-                                            />
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label small text-muted">Repetir Contraseña</label>
-                                            <input
-                                                type="password"
-                                                className={`form-control ${passwordMismatch ? "is-invalid" : ""}`}
-                                                required
-                                                minLength={4}
-                                                value={registerForm.confirmPassword}
-                                                onChange={(e) => setRegisterForm((prev) => ({ ...prev, confirmPassword: e.target.value }))}
-                                            />
-                                            <div className="invalid-feedback">Las contraseñas no coinciden.</div>
-                                        </div>
-
-                                        <div className="d-grid mb-3">
-                                            <button type="submit" className="btn btn-primary py-2" disabled={isSubmitting || passwordMismatch}>
-                                                {isSubmitting ? "Registrando..." : "Registrarse"}
-                                            </button>
-                                        </div>
-
-                                        <div className="text-center">
-                                            <p className="small text-muted mb-0">¿Ya tienes cuenta?</p>
-                                            <button
-                                                type="button"
-                                                className="btn btn-link p-0 fw-bold text-decoration-none"
-                                                onClick={() => switchAuthView("login")}
-                                            >
-                                                Inicia sesión
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </Modal.Body>
-            </Modal>
         </>
     );
 }

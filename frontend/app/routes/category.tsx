@@ -6,6 +6,8 @@ import { categoryService } from "../services/category-service";
 import { productService } from "../services/product-service";
 import type { ProductDTO } from "../dtos/ProductDTO";
 import { useCartStore } from "../stores/cart-store";
+import { useUserStore } from "../stores/user-store";
+import { useAuthModal } from "../contexts/AuthModalContext";
 
 /**
  * CLIENT LOADER: Recibe 'params' para saber qué categoría cargar.
@@ -24,6 +26,8 @@ export default function CategoryPage() {
     const { category, initialProducts, initialLast } = useLoaderData<typeof clientLoader>();
     const { id } = useParams(); // Obtenemos el ID de la URL
     const addToCart = useCartStore((state) => state.addToCart);
+    const { isLogged } = useUserStore();
+    const { openAuthModal } = useAuthModal();
 
     // ESTADOS PARA PAGINACIÓN (Igual que en el ejemplo de los profesores)
     const [products, setProducts] = useState<ProductDTO[]>(initialProducts);
@@ -31,6 +35,11 @@ export default function CategoryPage() {
     const [isLast, setIsLast] = useState(initialLast);
     const [isLoading, setIsLoading] = useState(false);
     const [addedProductId, setAddedProductId] = useState<number | null>(null);
+    if (!isLogged) {
+        openAuthModal("login");
+        return;
+    }
+
 
     const handleAddToCart = (product: ProductDTO) => {
         addToCart({

@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { useUserStore } from "../stores/user-store";
 import { useCartStore } from "../stores/cart-store";
+import { useAuthModal } from "../contexts/AuthModalContext";
 import { authService } from "../services/auth-sevice";
 import logoImage from "../assets/images/logo.png";
 
@@ -9,6 +10,7 @@ export default function Header() {
     // Leemos de Zustand si estamos logueados y nuestra información
     const { isLogged, isAdmin, removeCurrentUser } = useUserStore();
     const { getTotalItems, clearCart } = useCartStore();
+    const { openAuthModal } = useAuthModal();
     const totalItems = getTotalItems();
 
     const handleLogout = async () => {
@@ -53,9 +55,13 @@ export default function Header() {
                         {/* Renderizado Condicional: Si NO está logueado */}
                         {!isLogged && (
                             <Nav.Item>
-                                <Link to="/?auth=login" className="btn btn-primary btn-login d-flex align-items-center">
+                                <Button
+                                    variant="primary"
+                                    className="btn-login d-flex align-items-center"
+                                    onClick={() => openAuthModal("login")}
+                                >
                                     <i className="bi bi-person-circle me-2"></i> Iniciar Sesión
-                                </Link>
+                                </Button>
                             </Nav.Item>
                         )}
 

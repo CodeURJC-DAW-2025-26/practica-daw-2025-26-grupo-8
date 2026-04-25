@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import { productService } from "../services/product-service";
 import { useCartStore } from "../stores/cart-store";
+import { useUserStore } from "../stores/user-store";
+import { useAuthModal } from "../contexts/AuthModalContext";
 import logoImage from "../assets/images/logo.png";
 
 export async function clientLoader({ params }: any) {
@@ -21,6 +23,8 @@ export default function Product() {
     const { product, error } = useLoaderData<typeof clientLoader>();
     const navigate = useNavigate();
     const addToCart = useCartStore((state) => state.addToCart);
+    const { isLogged } = useUserStore();
+    const { openAuthModal } = useAuthModal();
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     if (error || !product) {
@@ -33,6 +37,11 @@ export default function Product() {
     }
 
     const handleAddToCart = () => {
+        if (!isLogged) {
+            openAuthModal("login");
+            return;
+        }
+
         addToCart({
             productId: product.id,
             title: product.title,

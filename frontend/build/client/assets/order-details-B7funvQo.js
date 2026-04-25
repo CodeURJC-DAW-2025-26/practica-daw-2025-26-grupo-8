@@ -1,10 +1,10 @@
-import { t as logo_default } from "./logo-dqhES8Zi.js";
-import { t as productService } from "./product-service-BkwnfBmn.js";
-import { t as orderService } from "./order-service-BKvTJaUG.js";
-import { t as adminUserService } from "./admin-user-service-CZCeC8sI.js";
+import { t as logo_default } from "./logo-DKHlijU7.js";
+import { t as productService } from "./product-service-B3WJV0b7.js";
+import { t as orderService } from "./order-service-4fYg0mHa.js";
+import { t as adminUserService } from "./admin-user-service-DuAlf0uA.js";
 import { Link, UNSAFE_withComponentProps, useLoaderData, useNavigate } from "react-router";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 //#region app/routes/admin/order-details.tsx
 async function clientLoader({ params }) {
 	try {

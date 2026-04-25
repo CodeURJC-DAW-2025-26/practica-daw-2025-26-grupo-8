@@ -1,9 +1,12 @@
-import { t as categoryService } from "./category-service-DucSZTVQ.js";
-import { t as productService } from "./product-service-BkwnfBmn.js";
+import { t as useUserStore } from "./user-store-C1C9MW7l.js";
+import { t as useCartStore } from "./cart-store-Cz8axkd9.js";
+import { n as useAuthModal } from "./AuthModalContext-BVEB1Lx-.js";
+import { t as categoryService } from "./category-service-uewXWR_v.js";
+import { t as productService } from "./product-service-B3WJV0b7.js";
 import { Link, UNSAFE_withComponentProps, useLoaderData, useParams } from "react-router";
+import { useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
-import { useState } from "react";
 //#region app/routes/category.tsx
 /**
 * CLIENT LOADER: Recibe 'params' para saber qué categoría cargar.
@@ -23,10 +26,29 @@ async function clientLoader({ params }) {
 var category_default = UNSAFE_withComponentProps(function CategoryPage() {
 	const { category, initialProducts, initialLast } = useLoaderData();
 	const { id } = useParams();
+	const addToCart = useCartStore((state) => state.addToCart);
+	const { isLogged } = useUserStore();
+	const { openAuthModal } = useAuthModal();
 	const [products, setProducts] = useState(initialProducts);
 	const [page, setPage] = useState(0);
 	const [isLast, setIsLast] = useState(initialLast);
 	const [isLoading, setIsLoading] = useState(false);
+	const [addedProductId, setAddedProductId] = useState(null);
+	if (!isLogged) {
+		openAuthModal("login");
+		return;
+	}
+	const handleAddToCart = (product) => {
+		addToCart({
+			productId: product.id,
+			title: product.title,
+			price: product.price,
+			quantity: 1,
+			hasImage: product.hasImage
+		});
+		setAddedProductId(product.id);
+		setTimeout(() => setAddedProductId(null), 1500);
+	};
 	const loadMore = async () => {
 		setIsLoading(true);
 		try {
@@ -94,10 +116,15 @@ var category_default = UNSAFE_withComponentProps(function CategoryPage() {
 									className: "fw-bold text-success fs-5",
 									children: [p.price, "€"]
 								}), /* @__PURE__ */ jsxs(Button, {
-									variant: "outline-primary",
+									variant: addedProductId === p.id ? "success" : "outline-primary",
 									size: "sm",
 									className: "rounded-pill",
-									children: [/* @__PURE__ */ jsx("i", { className: "bi bi-plus-lg" }), " Añadir"]
+									onClick: () => handleAddToCart(p),
+									children: [
+										/* @__PURE__ */ jsx("i", { className: `bi ${addedProductId === p.id ? "bi-check-lg" : "bi-plus-lg"}` }),
+										" ",
+										addedProductId === p.id ? "Añadido" : "Añadir"
+									]
 								})]
 							})
 						]

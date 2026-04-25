@@ -1,18 +1,25 @@
-import { t as logo_default } from "./logo-dqhES8Zi.js";
-import { t as productService } from "./product-service-BkwnfBmn.js";
+import { t as useUserStore } from "./user-store-C1C9MW7l.js";
+import { t as useCartStore } from "./cart-store-Cz8axkd9.js";
+import { n as useAuthModal } from "./AuthModalContext-BVEB1Lx-.js";
+import { t as logo_default } from "./logo-DKHlijU7.js";
+import { t as productService } from "./product-service-B3WJV0b7.js";
 import { Link, UNSAFE_withComponentProps, useLoaderData } from "react-router";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useMemo, useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 //#region app/routes/menu.tsx
 async function clientLoader() {
 	return await productService.getProducts(0, 4);
 }
 var menu_default = UNSAFE_withComponentProps(function Menu() {
 	const initialData = useLoaderData();
+	const addToCart = useCartStore((state) => state.addToCart);
+	const { isLogged } = useUserStore();
+	const { openAuthModal } = useAuthModal();
 	const [products, setProducts] = useState(initialData.content);
 	const [page, setPage] = useState(0);
 	const [isLast, setIsLast] = useState(initialData.last);
 	const [isLoading, setIsLoading] = useState(false);
+	const [addedProductId, setAddedProductId] = useState(null);
 	const [excludedAllergens, setExcludedAllergens] = useState([]);
 	const normalize = (val) => val.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 	const allergenOptions = [
@@ -75,6 +82,21 @@ var menu_default = UNSAFE_withComponentProps(function Menu() {
 		} finally {
 			setIsLoading(false);
 		}
+	};
+	if (!isLogged) {
+		openAuthModal("login");
+		return;
+	}
+	const handleAddToCart = (product) => {
+		addToCart({
+			productId: product.id,
+			title: product.title,
+			price: product.price,
+			quantity: 1,
+			hasImage: product.hasImage
+		});
+		setAddedProductId(product.id);
+		setTimeout(() => setAddedProductId(null), 1500);
 	};
 	return /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("header", {
 		className: "bg-dark text-white py-5 text-center",
@@ -140,8 +162,10 @@ var menu_default = UNSAFE_withComponentProps(function Menu() {
 										className: "fw-bold text-success",
 										children: [p.price, "€"]
 									}), /* @__PURE__ */ jsx("button", {
-										className: "btn btn-sm btn-outline-primary rounded-pill",
-										children: "Añadir"
+										type: "button",
+										className: `btn btn-sm rounded-pill ${addedProductId === p.id ? "btn-success" : "btn-outline-primary"}`,
+										onClick: () => handleAddToCart(p),
+										children: addedProductId === p.id ? "Añadido" : "Añadir"
 									})]
 								})
 							]

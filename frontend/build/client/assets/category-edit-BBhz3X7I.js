@@ -1,7 +1,7 @@
-import { t as categoryService } from "./category-service-DucSZTVQ.js";
+import { t as categoryService } from "./category-service-uewXWR_v.js";
 import { Link, UNSAFE_withComponentProps, useParams } from "react-router";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 //#region app/routes/admin/category-edit.tsx
 var category_edit_default = UNSAFE_withComponentProps(function AdminCategoryEdit() {
 	const { id } = useParams();

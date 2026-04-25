@@ -1,9 +1,9 @@
 import { t as useUserStore } from "./user-store-C1C9MW7l.js";
 import { t as useCartStore } from "./cart-store-Cz8axkd9.js";
-import { t as orderService } from "./order-service-BKvTJaUG.js";
+import { t as orderService } from "./order-service-4fYg0mHa.js";
 import { UNSAFE_withComponentProps, useNavigate } from "react-router";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 //#region app/routes/checkout.tsx
 var checkout_default = UNSAFE_withComponentProps(function Checkout() {
 	const navigate = useNavigate();

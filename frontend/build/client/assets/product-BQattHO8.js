@@ -1,9 +1,11 @@
+import { t as useUserStore } from "./user-store-C1C9MW7l.js";
 import { t as useCartStore } from "./cart-store-Cz8axkd9.js";
-import { t as logo_default } from "./logo-dqhES8Zi.js";
-import { t as productService } from "./product-service-BkwnfBmn.js";
+import { n as useAuthModal } from "./AuthModalContext-BVEB1Lx-.js";
+import { t as logo_default } from "./logo-DKHlijU7.js";
+import { t as productService } from "./product-service-B3WJV0b7.js";
 import { UNSAFE_withComponentProps, useLoaderData, useNavigate } from "react-router";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 //#region app/routes/product.tsx
 async function clientLoader({ params }) {
 	const id = Number(params.id);
@@ -27,12 +29,18 @@ var product_default = UNSAFE_withComponentProps(function Product() {
 	const { product, error } = useLoaderData();
 	const navigate = useNavigate();
 	const addToCart = useCartStore((state) => state.addToCart);
+	const { isLogged } = useUserStore();
+	const { openAuthModal } = useAuthModal();
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	if (error || !product) return /* @__PURE__ */ jsxs("div", {
 		className: "container mt-5 text-center",
 		children: [/* @__PURE__ */ jsx("h2", { children: "Error" }), /* @__PURE__ */ jsx("p", { children: error || "No se pudo cargar el producto" })]
 	});
 	const handleAddToCart = () => {
+		if (!isLogged) {
+			openAuthModal("login");
+			return;
+		}
 		addToCart({
 			productId: product.id,
 			title: product.title,

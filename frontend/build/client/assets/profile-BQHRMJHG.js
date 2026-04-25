@@ -1,10 +1,10 @@
 import { t as useUserStore } from "./user-store-C1C9MW7l.js";
-import { t as productService } from "./product-service-BkwnfBmn.js";
-import { t as authService } from "./auth-sevice-Iq6779Ns.js";
+import { t as authService } from "./auth-sevice-BIBssFFh.js";
+import { t as productService } from "./product-service-B3WJV0b7.js";
 import { Link, UNSAFE_withComponentProps, redirect, useLoaderData } from "react-router";
+import { useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
-import { useEffect, useState } from "react";
 //#region app/services/user-service.ts
 var userService = { 
 /**

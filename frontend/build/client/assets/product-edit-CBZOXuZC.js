@@ -1,8 +1,8 @@
-import { t as categoryService } from "./category-service-DucSZTVQ.js";
-import { t as productService } from "./product-service-BkwnfBmn.js";
+import { t as categoryService } from "./category-service-uewXWR_v.js";
+import { t as productService } from "./product-service-B3WJV0b7.js";
 import { Link, UNSAFE_withComponentProps, useParams } from "react-router";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 //#region app/routes/admin/product-edit.tsx
 var product_edit_default = UNSAFE_withComponentProps(function AdminProductEdit() {
 	const { id } = useParams();

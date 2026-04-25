@@ -1,6 +1,6 @@
 import { UNSAFE_withComponentProps, useLoaderData } from "react-router";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { BarElement, CategoryScale, Chart, Legend, LinearScale, Title, Tooltip } from "chart.js";
 import { Bar } from "react-chartjs-2";
 //#region app/services/metrics-service.ts

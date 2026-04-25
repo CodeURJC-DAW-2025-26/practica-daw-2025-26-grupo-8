@@ -4,6 +4,8 @@ import { productService } from "../services/product-service";
 import type { ProductDTO } from "../dtos/ProductDTO";
 import logoImage from "../assets/images/logo.png";
 import { useCartStore } from "../stores/cart-store";
+import { useUserStore } from "../stores/user-store";
+import { useAuthModal } from "../contexts/AuthModalContext";
 
 // EL CLIENT LOADER: Se ejecuta antes de entrar a la pantalla
 export async function clientLoader() {
@@ -15,6 +17,8 @@ export async function clientLoader() {
 export default function Menu() {
     const initialData = useLoaderData<typeof clientLoader>();
     const addToCart = useCartStore((state) => state.addToCart);
+    const { isLogged } = useUserStore();
+    const { openAuthModal } = useAuthModal();
 
     // ESTADOS PARA PAGINACIÓN (Necesarios para el botón "Cargar más")
     const [products, setProducts] = useState<ProductDTO[]>(initialData.content);
@@ -75,6 +79,11 @@ export default function Menu() {
             setIsLoading(false);
         }
     };
+    if (!isLogged) {
+        openAuthModal("login");
+        return;
+    }
+
 
     const handleAddToCart = (product: ProductDTO) => {
         addToCart({
