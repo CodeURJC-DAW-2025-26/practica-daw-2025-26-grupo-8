@@ -8,6 +8,7 @@ export const authService = {
     async login(username: string, password: string) {
         const response = await fetch(`${BASE_URL}/auth/login`, {
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
         });
@@ -17,21 +18,28 @@ export const authService = {
 
     // Obtener mi perfil (usando el token/cookie que ya tiene el navegador)
     async getMe(): Promise<UserDTO> {
-        const response = await fetch(`${BASE_URL}/users/me`);
+        const response = await fetch(`${BASE_URL}/users/me`, {
+            credentials: 'include',
+        });
         if (!response.ok) throw new Error("No autenticado");
         return response.json();
     },
 
     // Obtener mis pedidos
     async getMyOrders(): Promise<OrderDTO[]> {
-        const response = await fetch(`${BASE_URL}/users/me/orders`);
+        const response = await fetch(`${BASE_URL}/users/me/orders`, {
+            credentials: 'include',
+        });
         if (!response.ok) throw new Error("No autenticado");
         return response.json();
     },
 
     // Cerrar sesión
     async logout() {
-        const response = await fetch(`${BASE_URL}/auth/logout`, { method: 'POST' });
+        const response = await fetch(`${BASE_URL}/auth/logout`, {
+            method: 'POST',
+            credentials: 'include',
+        });
         if (!response.ok) throw new Error("Error al cerrar sesión");
     },
 
@@ -39,6 +47,7 @@ export const authService = {
     async register(userDto: UserRegisterDTO) {
         const response = await fetch(`${BASE_URL}/users/register`, {
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userDto),
         });

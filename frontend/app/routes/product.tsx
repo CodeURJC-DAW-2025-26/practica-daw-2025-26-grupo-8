@@ -122,14 +122,6 @@ export default function Product() {
                                     <i className="bi bi-cart-plus-fill fs-5"></i>
                                 </button>
 
-                                <button
-                                    type="button"
-                                    onClick={() => navigate("/cart")}
-                                    className="btn btn-outline-primary rounded-pill py-3 d-flex align-items-center justify-content-center gap-2"
-                                >
-                                    <i className="bi bi-cart-check fs-5"></i>
-                                    <span>Ver Carrito</span>
-                                </button>
                             </div>
                         </div>
                     </div>

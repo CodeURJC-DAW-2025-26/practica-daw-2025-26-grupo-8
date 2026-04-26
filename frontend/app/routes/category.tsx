@@ -35,13 +35,12 @@ export default function CategoryPage() {
     const [isLast, setIsLast] = useState(initialLast);
     const [isLoading, setIsLoading] = useState(false);
     const [addedProductId, setAddedProductId] = useState<number | null>(null);
-    if (!isLogged) {
-        openAuthModal("login");
-        return;
-    }
-
 
     const handleAddToCart = (product: ProductDTO) => {
+        if (!isLogged) {
+            openAuthModal("login");
+            return;
+        }
         addToCart({
             productId: product.id,
             title: product.title,

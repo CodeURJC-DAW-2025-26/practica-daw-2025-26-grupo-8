@@ -9,6 +9,7 @@ export const userService = {
     async updateProfile(data: UserUpdateDTO): Promise<UserDTO> {
         const response = await fetch(`/api/v1/users/me`, {
             method: 'PUT',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });

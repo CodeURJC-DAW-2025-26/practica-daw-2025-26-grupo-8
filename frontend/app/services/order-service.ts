@@ -21,6 +21,7 @@ export const orderService = {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify(orderRequest)
         });
         if (!response.ok) {

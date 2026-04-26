@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useCartStore } from "../stores/cart-store";
 import { useUserStore } from "../stores/user-store";
 import { orderService } from "../services/order-service";
@@ -7,15 +7,10 @@ import type { OrderRequestDTO } from "../dtos/OrderDTO";
 
 export default function Checkout() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { items, getTotalPrice, clearCart } = useCartStore();
     const { user, isLogged } = useUserStore();
-
-    const [formData, setFormData] = useState({
-        address: "",
-        city: "",
-        postalCode: "",
-        phoneNumber: "",
-    });
+    const addressData = location.state?.addressData;
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -41,14 +36,16 @@ export default function Checkout() {
             </div>
         );
     }
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+    
+    if (!addressData) {
+        return (
+            <div className="container section-padding">
+                <div className="alert alert-danger" role="alert">
+                    <p className="mb-0">No se ha proporcionado una dirección de envío. <a href="/cart" className="alert-link">Vuelve al carrito</a></p>
+                </div>
+            </div>
+        );
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -57,7 +54,7 @@ export default function Checkout() {
 
         try {
             // Validación básica
-            if (!formData.address || !formData.city || !formData.postalCode || !formData.phoneNumber) {
+            if (!addressData.address || !addressData.city || !addressData.postalCode || !addressData.phoneNumber) {
                 setError("Por favor, completa todos los campos");
                 setLoading(false);
                 return;
@@ -66,10 +63,10 @@ export default function Checkout() {
             // Crear la orden
             const orderRequest: OrderRequestDTO = {
                 productIds: items.map(item => item.productId),
-                address: formData.address,
-                city: formData.city,
-                postalCode: formData.postalCode,
-                phoneNumber: formData.phoneNumber,
+                address: addressData.address,
+                city: addressData.city,
+                postalCode: addressData.postalCode,
+                phoneNumber: addressData.phoneNumber,
             };
 
             const order = await orderService.createOrder(orderRequest);
@@ -108,78 +105,19 @@ export default function Checkout() {
                                 </div>
                             )}
 
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <label htmlFor="address" className="form-label fw-bold">
-                                        Dirección
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="address"
-                                        name="address"
-                                        className="form-control"
-                                        placeholder="Calle, número, piso..."
-                                        value={formData.address}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-md-6 mb-3">
-                                        <label htmlFor="city" className="form-label fw-bold">
-                                            Ciudad
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="city"
-                                            name="city"
-                                            className="form-control"
-                                            placeholder="Tu ciudad"
-                                            value={formData.city}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="col-md-6 mb-3">
-                                        <label htmlFor="postalCode" className="form-label fw-bold">
-                                            Código Postal
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="postalCode"
-                                            name="postalCode"
-                                            className="form-control"
-                                            placeholder="12345"
-                                            value={formData.postalCode}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="mb-4">
-                                    <label htmlFor="phoneNumber" className="form-label fw-bold">
-                                        Teléfono
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        id="phoneNumber"
-                                        name="phoneNumber"
-                                        className="form-control"
-                                        placeholder="+34 123 456 789"
-                                        value={formData.phoneNumber}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
+                            <div>
+                                <p><strong>Dirección:</strong> {addressData.address}</p>
+                                <p><strong>Ciudad:</strong> {addressData.city}</p>
+                                <p><strong>Código Postal:</strong> {addressData.postalCode}</p>
+                                <p><strong>Teléfono:</strong> {addressData.phoneNumber}</p>
+                            </div>
 
                                 <div className="d-grid gap-2">
                                     <button
                                         type="submit"
                                         className="btn btn-primary btn-custom rounded-pill py-3"
                                         disabled={loading}
+                                        onClick={handleSubmit}
                                     >
                                         {loading ? (
                                             <>
@@ -204,7 +142,6 @@ export default function Checkout() {
                                         Volver al Carrito
                                     </button>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
