@@ -7,9 +7,8 @@ import { useCartStore } from "../stores/cart-store";
 import { useUserStore } from "../stores/user-store";
 import { useAuthModal } from "../contexts/AuthModalContext";
 
-// EL CLIENT LOADER: Se ejecuta antes de entrar a la pantalla
+
 export async function clientLoader() {
-    // Pedimos la primera página (0) con 4 elementos
     const data = await productService.getProducts(0, 4);
     return data;
 }
@@ -79,13 +78,11 @@ export default function Menu() {
             setIsLoading(false);
         }
     };
-    if (!isLogged) {
-        openAuthModal("login");
-        return;
-    }
-
-
     const handleAddToCart = (product: ProductDTO) => {
+        if (!isLogged) {
+            openAuthModal("login");
+            return;
+        }
         addToCart({
             productId: product.id,
             title: product.title,
