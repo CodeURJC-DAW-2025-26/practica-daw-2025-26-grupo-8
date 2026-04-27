@@ -624,7 +624,7 @@ Encargado de la documentación e integración de la API REST, configuración de 
 
 Diagrama mostrando los componentes React, hooks personalizados, servicios y sus relaciones:
 
-![Diagrama de Componentes React](assets/images/ImagesPreparation/spa-classes-diagram.png)
+![Diagrama de Componentes React](images/diagrama-de-elementos.png)
 
 ### **Participación de Miembros en la Práctica 3**
 
