@@ -585,7 +585,7 @@ Encargado de la documentación e integración de la API REST, configuración de 
 ## 🛠 **Práctica 3: Implementación de la web con arquitectura SPA**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](URL_del_video)**
+📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=8j_47tAF_Ws)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Preparación del Entorno de Desarrollo**
@@ -642,17 +642,17 @@ Diagrama mostrando los componentes React, hooks personalizados, servicios y sus 
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Alejandro Rico González]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+Alejandro Rico González ha asumido la mayor parte del desarrollo del frontend de la SPA en todas las páginas que no son de administrador. Su trabajo ha abarcado la base del proyecto React/Vite, el layout compartido, la lógica de visibilidad para usuarios autenticados y no autenticados, y la implementación de las vistas públicas principales: home, menú, carrito, categoría y perfil, además de ajustes de rutas, estilos y estado global.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [configurar vite con proxy a api rest y crear estructura base (frontend, rutas y DTOs)](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/7fb4706)  | [frontend/vite.config.ts](frontend/vite.config.ts)<br>[frontend/app/routes.ts](frontend/app/routes.ts)<br>[frontend/app/dtos/ProductDTO.ts](frontend/app/dtos/ProductDTO.ts)   |
+|2| [footer y header funcionando y nuevo componente isadmin para mostrar el panel de admin solo a los usuarios con permisos de admin. Además, se ha añadido un nuevo campo "isAdmin" al store de usuario para gestionar esta funcionalidad.](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/271f5a7)  | [frontend/app/components/Header.tsx](frontend/app/components/Header.tsx)<br>[frontend/app/components/Footer.tsx](frontend/app/components/Footer.tsx)<br>[frontend/app/stores/user-store.tsx](frontend/app/stores/user-store.tsx)   |
+|3| [Vista de home con nuevas imágenes, estilos y rutas actualizadas. Se han añadido nuevas categorías y se ha mejorado la navegación. También se ha hecho la lógica de autenticación para mostrar el botón de login solo a usuarios no autenticados. Se han corregido rutas de imágenes y se ha añadido un nuevo endpoint para métricas en el backend.](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/8382c39)  | [frontend/app/routes/home.tsx](frontend/app/routes/home.tsx)<br>[frontend/app/assets/styles.css](frontend/app/assets/styles.css)<br>[frontend/app/routes.ts](frontend/app/routes.ts)   |
+|4| [pagina de menu con paginacion y filtros de alergenos terminada y funcional](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/5a787c8)  | [frontend/app/routes/menu.tsx](frontend/app/routes/menu.tsx)<br>[frontend/app/services/product-service.ts](frontend/app/services/product-service.ts)<br>[frontend/app/stores/cart-store.tsx](frontend/app/stores/cart-store.tsx)   |
+|5| [arreglada toda la logica del carrito](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d77e028)  | [frontend/app/routes/cart.tsx](frontend/app/routes/cart.tsx)<br>[frontend/app/stores/cart-store.tsx](frontend/app/stores/cart-store.tsx)<br>[frontend/app/services/order-service.ts](frontend/app/services/order-service.ts)   |
 
 ---
 
