@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SpaRedirectController {
-    // Redirige cualquier ruta dentro de /new/ que no tenga extensión
-    // (evitando pisar archivos estáticos) al index.html de React.
-    @GetMapping(value = "/new/{path:[^\\.]*}")
+
+    // Añadimos "/new" y "/new/" explícitamente a la lista de valores
+    @GetMapping(value = { "/new", "/new/", "/new/{path:[^\\.]*}" })
     public String forwardToSpa() {
         return "forward:/new/index.html";
     }
