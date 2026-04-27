@@ -597,7 +597,18 @@ Encargado de la documentación e integración de la API REST, configuración de 
 
 #### **Pasos para configurar el entorno de desarrollo**
 
-1. **Instalar Node.js y npm**
+1. **Asegurarse de que el backend esté corriendo**
+   
+   **Opción A - Con Docker Compose:**
+   ```bash
+   docker compose up -d
+   ```
+   
+   **Opción B - Ejecutar manualmente:**
+   - Levantar MySQL en puerto 3306
+   - Ejecutar la aplicación Spring Boot (puerto 8443)
+   
+2. **Instalar Node.js y npm**
    
    Descarga e instala Node.js desde [https://nodejs.org/](https://nodejs.org/)
    
@@ -607,18 +618,31 @@ Encargado de la documentación e integración de la API REST, configuración de 
    npm --version
    ```
 
-2. **Clonar el repositorio** (si no lo has hecho ya)
+3. **Clonar el repositorio** (si no lo has hecho ya)
    ```bash
    git clone https://github.com/[usuario]/[nombre-repositorio].git
    cd [nombre-repositorio]
    ```
 
-3. **Navegar a la carpeta del proyecto React**
+4. **Navegar a la carpeta del proyecto React**
    ```bash
    cd frontend
    ```
 
-4. **AQUÍ LOS SIGUIENTES PASOS**
+5. **Instalar las dependencias del proyecto**
+   ```bash
+   npm install
+   ```
+
+6. **Iniciar el servidor de desarrollo**
+   ```bash
+   npm run dev
+   ```
+   > El servidor se iniciará en `http://localhost:5173`.
+
+7. **Verificar que la aplicación funciona**
+   
+   Abre tu navegador y ve a `http://localhost:5173`. Deberías ver la aplicación SPA de Aparizzio funcionando.
 
 ### **Diagrama de Clases y Templates de la SPA**
 
