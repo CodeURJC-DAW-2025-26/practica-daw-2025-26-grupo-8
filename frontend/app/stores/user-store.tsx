@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { UserDTO } from "../dtos/UserDTO";
 
-// Definimos qué datos va a guardar nuestro almacén
+// Defines the data stored in the user state.
 interface UserState {
     user: UserDTO | null;
     isLogged: boolean;
@@ -11,6 +11,7 @@ interface UserState {
     removeCurrentUser: () => void;
 }
 
+// Zustand store for user authentication and role management, with persistence in localStorage.
 export const useUserStore = create<UserState>()(
     persist(
         (set) => ({

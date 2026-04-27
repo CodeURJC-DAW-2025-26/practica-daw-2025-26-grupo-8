@@ -12,10 +12,10 @@ import {
 } from "react-router";
 import { Alert, Modal } from "react-bootstrap";
 
-// Importamos los tipos autogenerados por React Router
+// React Router can generate route types if needed.
 // import type { Route } from "./+types/root";
 
-// 1. Importaciones directas de CSS (La forma que le gusta a Vite)
+// Direct CSS imports for Vite.
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/styles.css";
@@ -27,12 +27,12 @@ import { authService } from "./services/auth-sevice";
 import { useUserStore } from "./stores/user-store";
 import authImage from "./assets/images/inicio-sesion_resized.jpg";
 
-// 2. Usamos 'links' solo para inyectar recursos externos de Google
+// Injects external Google Fonts.
 export const links = () => [
     { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap" },
 ];
 
-// Componente para el modal de autenticación
+// Authentication modal (login/register).
 function AuthModal() {
     const { showAuthModal, authView, closeAuthModal, switchAuthView } = useAuthModal();
     const { setCurrentUser } = useUserStore();
@@ -56,7 +56,7 @@ function AuthModal() {
         [registerForm.password, registerForm.confirmPassword]
     );
 
-    // Detectar parámetros de query para abrir el modal
+    // Reads query params and opens the correct auth view.
     useEffect(() => {
         const error = searchParams.get("error");
         const authRequired = searchParams.has("auth_required");
@@ -91,6 +91,7 @@ function AuthModal() {
         setIsSubmitting(true);
         setLoginError(null);
 
+        // Attempt to log in the user and handle success or failure.
         try {
             const loginResponse = await authService.login(loginForm.username, loginForm.password);
 
@@ -113,6 +114,7 @@ function AuthModal() {
         }
     };
 
+    // Handles user registration and switches to login view on success.
     const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setRegisterError(null);
@@ -139,6 +141,7 @@ function AuthModal() {
         <Modal show={showAuthModal} onHide={closeAuthModal} centered size="lg">
             <Modal.Body className="p-0">
                 <div className="row g-0">
+                    {/* Left image panel (desktop only). */}
                     <div className="col-md-5 d-none d-md-block">
                         <img
                             src={authImage}
@@ -148,7 +151,9 @@ function AuthModal() {
                         />
                     </div>
 
+                    {/* Right panel with login/register forms. */}
                     <div className="col-12 col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
+                        {/* Login form. */}
                         {authView === "login" && (
                             <div className="fade-in-left">
                                 <h2 className="fw-bold mb-4">¡Hola de nuevo!</h2>
@@ -198,6 +203,7 @@ function AuthModal() {
                             </div>
                         )}
 
+                        {/* Register form. */}
                         {authView === "register" && (
                             <div className="fade-in-right">
                                 <h2 className="fw-bold mb-4">Crear Cuenta</h2>
@@ -280,13 +286,15 @@ function AuthModal() {
     );
 }
 
-// 3. El Layout: El chasis exacto del profesor, pero con tus componentes
+// Root app layout.
 export function Layout({ children }: { children: React.ReactNode }) {
     const location = useLocation();
     const isAdminRoute = location.pathname.startsWith('/admin');
 
     return (
+        // Full HTML document shell used by React Router.
         <html lang="es">
+            {/* Document head metadata and linked resources. */}
             <head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -294,6 +302,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Meta />
                 <Links />
             </head>
+            {/* Body layout with header/main/footer and global modal. */}
             <body className="d-flex flex-column min-vh-100">
                 <AuthModalProvider>
                     {!isAdminRoute && <Header />}
@@ -313,12 +322,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
     );
 }
 
-// 4. La App principal
+// Main route outlet.
 export default function App() {
     return <Outlet />;
 }
 
-// 5. El capturador de errores del profesor (Evita el pantallazo en blanco si algo falla)
+// Route-level error boundary.
 export function ErrorBoundary({ error }: any) {
     let message = "¡Ups!";
     let details = "Ha ocurrido un error inesperado.";

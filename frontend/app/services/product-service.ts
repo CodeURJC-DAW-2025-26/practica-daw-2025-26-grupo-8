@@ -4,12 +4,12 @@ const BASE_URL = '/api/v1/products';
 
 export const productService = {
     /**
-     * Obtiene productos paginados.
-     * @param page Número de página (empieza en 0)
-     * @param size Cantidad de elementos por página (fijado a 4)
+     * Gets paginated products.
+     * @param page Page index (starts at 0)
+     * @param size Number of items per page (defaults to 4)
      */
     async getProducts(page: number = 0, size: number = 4, categoryId?: number): Promise<{ content: ProductDTO[], last: boolean }> {
-        // Si se especifica una categoría, usa el endpoint de categorías
+        // If a category is provided, use the category products endpoint.
         let url = categoryId
             ? `/api/v1/categories/${categoryId}/products?page=${page}&size=${size}`
             : `/api/v1/products/?page=${page}&size=${size}`;
@@ -20,7 +20,7 @@ export const productService = {
         const data = await response.json();
         const content = Array.isArray(data.content) ? data.content : [];
 
-        // Compatibilidad: si el backend no devuelve `last`, lo inferimos por tamaño de página
+        // Compatibility: infer `last` if the backend does not return it.
         const last = typeof data.last === "boolean"
             ? data.last
             : content.length < size;
@@ -31,10 +31,11 @@ export const productService = {
         };
     },
 
+    // Gets all products without pagination (admin use case).
     async getAllProductsAdmin(): Promise<ProductDTO[]> {
         const response = await fetch(`/api/v1/products/?page=0&size=1000`);
         if (!response.ok) throw new Error("Error al cargar productos");
-        
+
         const data = await response.json();
         return Array.isArray(data.content) ? data.content : [];
     },
@@ -45,6 +46,7 @@ export const productService = {
         return response.json();
     },
 
+    // Creates a new product. If an image file is provided, it will be uploaded after the product is created.
     async createProduct(product: Partial<ProductDTO>, imageFile?: File): Promise<ProductDTO> {
         const response = await fetch(`${BASE_URL}/`, {
             method: 'POST',
@@ -53,11 +55,12 @@ export const productService = {
             },
             body: JSON.stringify(product)
         });
-        
+
         if (!response.ok) {
             throw new Error("Error al crear producto");
         }
-        
+
+        // Create the product first, then upload image if provided.
         const createdProduct = await response.json();
 
         if (imageFile) {
@@ -67,6 +70,7 @@ export const productService = {
         return createdProduct;
     },
 
+    // Updates a product by id. If an image file is provided, it will be uploaded after the product is updated.
     async updateProduct(id: number, product: Partial<ProductDTO>, imageFile?: File | null): Promise<ProductDTO> {
         const response = await fetch(`${BASE_URL}/${id}`, {
             method: 'PUT',
@@ -75,11 +79,12 @@ export const productService = {
             },
             body: JSON.stringify(product)
         });
-        
+
         if (!response.ok) {
             throw new Error("Error al actualizar producto");
         }
-        
+
+        // Update the product first, then upload image if provided.
         const updatedProduct = await response.json();
 
         if (imageFile) {
@@ -89,16 +94,18 @@ export const productService = {
         return updatedProduct;
     },
 
+    // Deletes a product by id.
     async deleteProduct(id: number): Promise<void> {
         const response = await fetch(`${BASE_URL}/${id}`, {
             method: 'DELETE'
         });
-        
+
         if (!response.ok) {
             throw new Error("Error al eliminar producto");
         }
     },
 
+    // Uploads an image for a specific product.
     async uploadImage(productId: number, imageFile: File): Promise<void> {
         const formData = new FormData();
         formData.append('imageFile', imageFile);

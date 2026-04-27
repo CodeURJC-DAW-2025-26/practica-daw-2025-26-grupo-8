@@ -6,6 +6,7 @@ import type { CategoryDTO } from "../../dtos/CategoryDTO";
 import type { ProductDTO } from "../../dtos/ProductDTO";
 
 export default function AdminCategories() {
+    // Main data used by tables and forms.
     const [categories, setCategories] = useState<CategoryDTO[]>([]);
     const [products, setProducts] = useState<ProductDTO[]>([]);
     const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ export default function AdminCategories() {
     const [productImage, setProductImage] = useState<File | null>(null);
     const [showAllergens, setShowAllergens] = useState(false);
 
+    // Loads categories and products together to keep the page in sync.
     const fetchAll = async () => {
         try {
             setLoading(true);
@@ -53,6 +55,7 @@ export default function AdminCategories() {
         fetchAll();
     }, []);
 
+    // Creates a category, resets the form, and refreshes data.
     const handleCategorySubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setErrorMessage("");
@@ -73,6 +76,7 @@ export default function AdminCategories() {
         }
     };
 
+    // Creates a product, resets the form, and refreshes data.
     const handleProductSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setErrorMessage("");
@@ -104,6 +108,7 @@ export default function AdminCategories() {
         }
     };
 
+    // Adds or removes one allergy from the current product selection.
     const toggleAllergy = (allergy: string) => {
         setProductAllergies(prev =>
             prev.includes(allergy)
@@ -112,12 +117,14 @@ export default function AdminCategories() {
         );
     };
 
+    // Opens the confirmation modal and stores the selected item.
     const confirmDelete = (type: "category" | "product", id: number, title: string) => {
         setDeleteType(type);
         setItemToDelete({ id, title });
         setShowModal(true);
     };
 
+    // Deletes category/product after confirmation, then refreshes data.
     const handleDelete = async () => {
         if (!itemToDelete || !deleteType) return;
         setErrorMessage("");
@@ -138,10 +145,12 @@ export default function AdminCategories() {
         }
     };
 
-    const filteredProducts = products.filter(p => 
+    // Client-side product search by title.
+    const filteredProducts = products.filter(p =>
         p.title.toLowerCase().includes(productFilter.toLowerCase())
     );
 
+    // Simple loading state while initial data is being fetched.
     if (loading) return <div className="text-center mt-5">Cargando...</div>;
 
     return (
@@ -232,7 +241,7 @@ export default function AdminCategories() {
                                     <label className="form-label small text-muted">Alérgenos</label>
                                     <button
                                         className="btn btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center bg-white"
-                                        type="button" 
+                                        type="button"
                                         onClick={() => setShowAllergens(!showAllergens)}>
                                         <span className="text-muted">Seleccionar alérgenos...</span>
                                         <i className={`bi bi-chevron-${showAllergens ? 'up' : 'down'}`}></i>

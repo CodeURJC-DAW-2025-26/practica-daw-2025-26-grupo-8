@@ -1,25 +1,15 @@
 import { type RouteConfig, route } from "@react-router/dev/routes";
 
 export default [
-    // La ruta de inicio (que hicimos en la fase 4)
+    // Public pages.
     route("/", "routes/home.tsx"),
-
-    // NUEVA RUTA: La carta de pizzas
     route("/menu", "routes/menu.tsx"),
-
-    // NUEVA RUTA: Detalle de producto
     route("/product/:id", "routes/product.tsx"),
-
-    // NUEVA RUTA: Detalle de categoría (con paginación)
     route("/category/:id", "routes/category.tsx"),
-
-    // NUEVA RUTA: Carrito de compras
     route("/cart", "routes/cart.tsx"),
-
-    // NUEVA RUTA: Checkout (finalizar compra)
     route("/checkout", "routes/checkout.tsx"),
 
-    // --- PANEL DE ADMINISTRACIÓN ---
+    // Admin panel routes.
     route("/admin", "routes/admin/layout.tsx", [
         route("metrics", "routes/admin/metrics.tsx"),
         route("users", "routes/admin/users.tsx"),
@@ -30,5 +20,6 @@ export default [
         route("products/:id/edit", "routes/admin/product-edit.tsx"),
     ]),
 
+    // User profile page.
     route("profile", "routes/profile.tsx"),
 ] satisfies RouteConfig;

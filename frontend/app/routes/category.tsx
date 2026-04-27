@@ -10,8 +10,8 @@ import { useUserStore } from "../stores/user-store";
 import { useAuthModal } from "../contexts/AuthModalContext";
 
 /**
- * CLIENT LOADER: Recibe 'params' para saber qué categoría cargar.
- * Cargamos la categoría y la primera página de sus productos.
+ * Client loader: receives the route params to know which category to load.
+ * It loads the category and the first page of products.
  */
 export async function clientLoader({ params }: { params: { id: string } }) {
     const categoryId = Number(params.id);
@@ -24,12 +24,12 @@ export async function clientLoader({ params }: { params: { id: string } }) {
 
 export default function CategoryPage() {
     const { category, initialProducts, initialLast } = useLoaderData<typeof clientLoader>();
-    const { id } = useParams(); // Obtenemos el ID de la URL
+    const { id } = useParams(); // Get the category ID from the URL.
     const addToCart = useCartStore((state) => state.addToCart);
     const { isLogged } = useUserStore();
     const { openAuthModal } = useAuthModal();
 
-    // ESTADOS PARA PAGINACIÓN (Igual que en el ejemplo de los profesores)
+    // Pagination state.
     const [products, setProducts] = useState<ProductDTO[]>(initialProducts);
     const [page, setPage] = useState(0);
     const [isLast, setIsLast] = useState(initialLast);
@@ -70,7 +70,7 @@ export default function CategoryPage() {
 
     return (
         <>
-            {/* CABECERA DE CATEGORÍA (Copiado de category.html) */}
+            {/* Category header. */}
             <header className="category-header d-flex align-items-center justify-content-center text-white text-center py-5"
                 style={{
                     backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${category.hasImage ? `/api/v1/categories/${category.id}/image` : '/assets/images/banner-carta.jpg'})`,
@@ -84,8 +84,8 @@ export default function CategoryPage() {
                 </div>
             </header>
 
+            {/* Product grid. */}
             <section className="container mt-5 mb-5">
-                {/* GRID DE PRODUCTOS */}
                 <Row xs={1} md={2} lg={4} className="g-4">
                     {products.map((p) => (
                         <Col key={p.id}>
@@ -119,7 +119,7 @@ export default function CategoryPage() {
                     ))}
                 </Row>
 
-                {/* BOTÓN MÁS RESULTADOS (Copiado de category.html) */}
+                {/* Load more button. */}
                 {!isLast && (
                     <div className="text-center mt-5">
                         <Button
@@ -134,6 +134,7 @@ export default function CategoryPage() {
                     </div>
                 )}
 
+                {/* Link to the full menu. */}
                 <div className="text-center mt-4">
                     <Link to="/menu" className="btn btn-link text-secondary text-decoration-none">
                         <i className="bi bi-grid-3x3-gap-fill me-1"></i> Ver la Carta Completa

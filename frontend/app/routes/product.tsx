@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useLoaderData, } from "react-router";
+import { useLoaderData } from "react-router";
 import { productService } from "../services/product-service";
 import { useCartStore } from "../stores/cart-store";
 import { useUserStore } from "../stores/user-store";
 import { useAuthModal } from "../contexts/AuthModalContext";
 import logoImage from "../assets/images/logo.png";
 
+// Loads a single product using the route id.
 export async function clientLoader({ params }: any) {
     const id = Number(params.id);
     if (isNaN(id)) {
@@ -26,6 +27,7 @@ export default function Product() {
     const { openAuthModal } = useAuthModal();
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
+    // Fallback UI when product loading fails.
     if (error || !product) {
         return (
             <div className="container mt-5 text-center">
@@ -35,6 +37,7 @@ export default function Product() {
         );
     }
 
+    // Requires login to add products to the cart.
     const handleAddToCart = () => {
         if (!isLogged) {
             openAuthModal("login");
@@ -54,8 +57,10 @@ export default function Product() {
 
     return (
         <>
+            {/* Product detail layout: image on the left, information/actions on the right. */}
             <section className="section-padding container mt-5 mb-5">
                 <div className="row align-items-center g-5">
+                    {/* Product image block. */}
                     <div className="col-md-6">
                         <div className="card border-0 shadow-lg rounded-4 overflow-hidden">
                             {product.hasImage ? (
@@ -75,6 +80,7 @@ export default function Product() {
                         </div>
                     </div>
 
+                    {/* Product information and add-to-cart action. */}
                     <div className="col-md-6">
                         <div className="ps-md-4">
                             <span className="badge bg-dark text-white mb-3 px-3 py-2 fs-6 rounded-pill">
@@ -104,6 +110,7 @@ export default function Product() {
                                 )}
                             </div>
 
+                            {/* Temporary success message after adding to cart. */}
                             {showSuccessMessage && (
                                 <div className="alert alert-success alert-dismissible fade show mb-3" role="alert">
                                     <i className="bi bi-check-circle me-2"></i>
@@ -111,6 +118,7 @@ export default function Product() {
                                 </div>
                             )}
 
+                            {/* Main add-to-cart button. */}
                             <div className="d-grid gap-3 d-md-flex justify-content-md-start">
                                 <button
                                     type="button"

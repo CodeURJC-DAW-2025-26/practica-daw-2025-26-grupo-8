@@ -4,6 +4,7 @@ import { adminUserService } from "../../services/admin-user-service";
 import type { OrderDTO } from "../../dtos/OrderDTO";
 import type { UserDTO } from "../../dtos/UserDTO";
 
+// Loads orders and users for the admin orders page.
 export async function clientLoader() {
     try {
         const [orders, users] = await Promise.all([
@@ -23,7 +24,7 @@ export default function AdminOrders() {
     const flashMessage = location.state?.message;
     const isWarning = location.state?.type === "warning";
 
-    // Helper para obtener el nombre del usuario dado su email
+    // Returns the user name from the order email.
     const getUserName = (email: string) => {
         if (!email) return "Invitado";
         const user = users.find(u => u.email === email);
@@ -32,6 +33,7 @@ export default function AdminOrders() {
 
     return (
         <>
+            {/* Optional flash message from previous actions. */}
             {flashMessage && (
                 <div className={`alert ${isWarning ? 'alert-warning' : 'alert-success'} alert-dismissible fade show mt-3 shadow-sm`} role="alert">
                     <i className={`bi ${isWarning ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill'} me-2`}></i> {flashMessage}
@@ -39,10 +41,12 @@ export default function AdminOrders() {
                 </div>
             )}
 
+            {/* Page title. */}
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
                 <h1 className="h2 title-font text-dark">Gestión de Pedidos</h1>
             </div>
 
+            {/* Orders table with a fallback empty state. */}
             <div className="card shadow-sm border-0">
                 <div className="card-body p-0">
                     <div className="table-responsive">

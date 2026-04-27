@@ -1,10 +1,9 @@
-// frontend/app/services/user-service.ts
 import type { UserDTO, UserUpdateDTO } from "../dtos/UserDTO";
 
 export const userService = {
     /**
-     * Envía los datos actualizados del perfil al backend.
-     * Según el Tema 3, usamos fetch nativo.
+    * Sends updated profile data to the backend.
+    * Uses the native fetch API.
      */
     async updateProfile(data: UserUpdateDTO): Promise<UserDTO> {
         const response = await fetch(`/api/v1/users/me`, {

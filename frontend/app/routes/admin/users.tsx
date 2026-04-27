@@ -17,6 +17,7 @@ export default function AdminUsers() {
     const { users: initialUsers, error: loadError } = useLoaderData<typeof clientLoader>();
     // const navigate = useNavigate();
 
+    // Holds the user list and the form/modal state.
     const [users, setUsers] = useState<UserDTO[]>(initialUsers);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState(loadError || "");
@@ -31,6 +32,7 @@ export default function AdminUsers() {
 
     const [deleteModalUser, setDeleteModalUser] = useState<UserDTO | null>(null);
 
+    // Creates a new user and adds it to the table.
     const handleCreateUser = async (e: React.FormEvent) => {
         e.preventDefault();
         setSuccessMessage("");
@@ -52,6 +54,7 @@ export default function AdminUsers() {
         }
     };
 
+    // Deletes the selected user from the list.
     const handleDelete = async () => {
         if (!deleteModalUser) return;
         try {
@@ -65,6 +68,7 @@ export default function AdminUsers() {
         }
     };
 
+    // Updates the selected user's password.
     const handleChangePassword = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!passwordModalUser) return;
@@ -82,6 +86,7 @@ export default function AdminUsers() {
 
     return (
         <>
+            {/* Feedback messages shown after create, update, or delete actions. */}
             {successMessage && (
                 <div className="alert alert-success alert-dismissible fade show mt-3 shadow-sm" role="alert">
                     <i className="bi bi-check-circle-fill me-2"></i> {successMessage}
@@ -95,10 +100,12 @@ export default function AdminUsers() {
                 </div>
             )}
 
+            {/* Page title. */}
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
                 <h1 className="h2 title-font text-dark">Gestión de Usuarios</h1>
             </div>
 
+            {/* New user form. */}
             <div className="card shadow-sm mb-5 border-0">
                 <div className="card-header bg-dark text-white">
                     <h5 className="mb-0 fw-bold"><i className="bi bi-person-plus-fill me-2"></i> Crear Nuevo Usuario</h5>
@@ -140,6 +147,7 @@ export default function AdminUsers() {
                 </div>
             </div>
 
+            {/* Users table. */}
             <div className="card shadow-sm mb-5 border-0">
                 <div className="card-header bg-white py-3 d-flex justify-content-between align-items-center">
                     <h5 className="mb-0 fw-bold text-dark"><i className="bi bi-people me-2"></i> Lista de Usuarios</h5>
@@ -191,7 +199,7 @@ export default function AdminUsers() {
                 </div>
             </div>
 
-            {/* Password Modal */}
+            {/* Password change modal. */}
             <Modal show={!!passwordModalUser} onHide={() => setPasswordModalUser(null)}>
                 <form onSubmit={handleChangePassword}>
                     <Modal.Header className="bg-dark text-white" closeButton closeVariant="white">
@@ -212,7 +220,7 @@ export default function AdminUsers() {
                 </form>
             </Modal>
 
-            {/* Delete Modal */}
+            {/* Delete confirmation modal. */}
             <Modal show={!!deleteModalUser} onHide={() => setDeleteModalUser(null)} centered>
                 <Modal.Header className="bg-danger text-white" closeButton closeVariant="white">
                     <Modal.Title><i className="bi bi-exclamation-triangle-fill me-2"></i> Confirmar Eliminación</Modal.Title>

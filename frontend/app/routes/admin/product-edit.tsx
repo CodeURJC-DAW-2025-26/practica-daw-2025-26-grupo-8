@@ -7,7 +7,7 @@ import type { CategoryDTO } from "../../dtos/CategoryDTO";
 
 export default function AdminProductEdit() {
     const { id } = useParams<{ id: string }>();
-    
+
     const [product, setProduct] = useState<ProductDTO | null>(null);
     const [categories, setCategories] = useState<CategoryDTO[]>([]);
     const [loading, setLoading] = useState(true);
@@ -24,37 +24,37 @@ export default function AdminProductEdit() {
 
     useEffect(() => {
         if (!id) return;
-        
+
         Promise.all([
             productService.getProductById(parseInt(id)),
             categoryService.getCategories()
         ])
-        .then(([prod, cats]) => {
-            setProduct(prod);
-            setCategories(cats);
-            
-            setTitle(prod.title);
-            setCategoryId(prod.categoryId?.toString() || "");
-            setPrice(prod.price.toString());
-            setShortDescription(prod.shortDescription || "");
-            setDescription(prod.description || "");
-            setAllergies(prod.allergies || []);
-            
-            setLoading(false);
-        })
-        .catch(err => {
-            setError("Error al cargar producto o categorías: " + err.message);
-            setLoading(false);
-        });
+            .then(([prod, cats]) => {
+                setProduct(prod);
+                setCategories(cats);
+
+                setTitle(prod.title);
+                setCategoryId(prod.categoryId?.toString() || "");
+                setPrice(prod.price.toString());
+                setShortDescription(prod.shortDescription || "");
+                setDescription(prod.description || "");
+                setAllergies(prod.allergies || []);
+
+                setLoading(false);
+            })
+            .catch(err => {
+                setError("Error al cargar producto o categorías: " + err.message);
+                setLoading(false);
+            });
     }, [id]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!id) return;
-        
+
         setError("");
         setSuccess("");
-        
+
         try {
             await productService.updateProduct(
                 parseInt(id),
@@ -68,18 +68,18 @@ export default function AdminProductEdit() {
                 },
                 imageFile
             );
-            
-            // Reload the product to get updated image state
+
+            // Reload the product so the new image state is visible.
             const updated = await productService.getProductById(parseInt(id));
             setProduct(updated);
             setImageFile(null);
-            
-            // Reset file input
+
+            // Clear the file input after saving.
             const fileInput = document.getElementById('productImageInput') as HTMLInputElement;
             if (fileInput) fileInput.value = '';
-            
+
             setSuccess("Cambios guardados con éxito.");
-            
+
         } catch (err: any) {
             setError("Error al actualizar producto: " + err.message);
         }
@@ -98,6 +98,7 @@ export default function AdminProductEdit() {
 
     return (
         <>
+            {/* Status messages shown after loading or saving. */}
             {success && (
                 <div className="alert alert-success alert-dismissible fade show mt-3 shadow-sm" role="alert">
                     <i className="bi bi-check-circle-fill me-2"></i> {success}
@@ -112,6 +113,7 @@ export default function AdminProductEdit() {
                 </div>
             )}
 
+            {/* Page header with back navigation. */}
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
                 <h1 className="h2 title-font text-dark">Edit Product</h1>
                 <Link to="/admin/categories" className="btn btn-outline-secondary">
@@ -119,17 +121,20 @@ export default function AdminProductEdit() {
                 </Link>
             </div>
 
+            {/* Main edit form. */}
             <div className="card shadow-sm border-0 mx-auto mb-5" style={{ maxWidth: "800px" }}>
                 <div className="card-header bg-dark text-white">
                     <h5 className="mb-0 fw-bold"><i className="bi bi-pencil-square me-2"></i> Editing: {product?.title}</h5>
                 </div>
                 <div className="card-body p-4">
                     <form onSubmit={handleSubmit} className="row g-3">
+                        {/* Product name field. */}
                         <div className="col-md-6">
                             <label className="form-label small text-muted">Product Name</label>
                             <input type="text" className="form-control" value={title} onChange={e => setTitle(e.target.value)} required />
                         </div>
 
+                        {/* Category selector. */}
                         <div className="col-md-6">
                             <label className="form-label small text-muted">Category</label>
                             <select className="form-select" value={categoryId} onChange={e => setCategoryId(e.target.value)} required>
@@ -140,11 +145,13 @@ export default function AdminProductEdit() {
                             </select>
                         </div>
 
+                        {/* Price field. */}
                         <div className="col-md-6">
                             <label className="form-label small text-muted">Price (€)</label>
                             <input type="number" step="0.01" className="form-control" value={price} onChange={e => setPrice(e.target.value)} required />
                         </div>
 
+                        {/* Optional image upload and current preview. */}
                         <div className="col-md-6">
                             <label className="form-label small text-muted">New Image (Optional)</label>
                             {product?.hasImage ? (
@@ -160,6 +167,7 @@ export default function AdminProductEdit() {
                                 onChange={e => setImageFile(e.target.files ? e.target.files[0] : null)} />
                         </div>
 
+                        {/* Allergens selection. */}
                         <div className="col-12 mt-3">
                             <label className="form-label small text-muted">Allergens</label>
                             <div className="card card-body bg-light border-0 small">
@@ -181,16 +189,19 @@ export default function AdminProductEdit() {
                             </div>
                         </div>
 
+                        {/* Short description field. */}
                         <div className="col-12">
                             <label className="form-label small text-muted">Short Description</label>
                             <input type="text" className="form-control" value={shortDescription} onChange={e => setShortDescription(e.target.value)} required />
                         </div>
 
+                        {/* Detailed description field. */}
                         <div className="col-12">
                             <label className="form-label small text-muted">Detailed Description</label>
                             <textarea className="form-control" rows={3} value={description} onChange={e => setDescription(e.target.value)}></textarea>
                         </div>
 
+                        {/* Save button. */}
                         <div className="col-12 text-end mt-4">
                             <button type="submit" className="btn btn-primary btn-custom px-5">Save Product Changes</button>
                         </div>

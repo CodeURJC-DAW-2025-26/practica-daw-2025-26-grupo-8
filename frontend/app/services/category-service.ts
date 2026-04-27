@@ -4,8 +4,8 @@ const BASE_URL = '/api/v1/categories';
 
 export const categoryService = {
     /**
-     * Obtiene todas las categorías de la pizzería.
-     * Usamos fetch nativo según el Tema 3.
+    * Gets all categories from the API.
+    * Uses the native fetch API.
      */
     async getCategories(): Promise<CategoryDTO[]> {
         const response = await fetch(`${BASE_URL}/`);
@@ -31,11 +31,12 @@ export const categoryService = {
             },
             body: JSON.stringify(category)
         });
-        
+
         if (!response.ok) {
             throw new Error("Error al crear categoría");
         }
-        
+
+        // Create the category first, then upload the image if provided.
         const createdCategory = await response.json();
 
         if (imageFile) {
@@ -53,11 +54,12 @@ export const categoryService = {
             },
             body: JSON.stringify(category)
         });
-        
+
         if (!response.ok) {
             throw new Error("Error al actualizar categoría");
         }
-        
+
+        // Update the category first, then upload the new image if provided.
         const updatedCategory = await response.json();
 
         if (imageFile) {
@@ -71,7 +73,7 @@ export const categoryService = {
         const response = await fetch(`${BASE_URL}/${id}`, {
             method: 'DELETE'
         });
-        
+
         if (!response.ok) {
             throw new Error("Error al eliminar categoría");
         }
