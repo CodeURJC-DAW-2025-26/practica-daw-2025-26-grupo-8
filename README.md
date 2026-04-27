@@ -628,14 +628,14 @@ Diagrama mostrando los componentes React, hooks personalizados, servicios y sus 
 
 ### **Participación de Miembros en la Práctica 3**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - Mario Aparisi Castro**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
+|1| [funcionamiento carrito y pedidos con react](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/1a207a8aa3bd730da2417aa5afd7a8bf32d0e0c2)  | [Archivo1](URL_archivo_1)   |
+|2| [arreglo pedidos con react ( modal, forms y envio de pedido y correos](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/c74512cec820ebc6c585a288c77d7a9f258f5ae2)  | [Archivo2](URL_archivo_2)   |
 |3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
 |4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
 |5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
