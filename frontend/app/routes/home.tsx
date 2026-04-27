@@ -21,10 +21,12 @@ type LoaderData = {
 
 const LIMIT = 5;
 
+// Normalizes text so comparisons ignore accents and case.
 function normalize(value: string): string {
     return value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 }
 
+// Maps product categories into broad groups used for recommendation priority.
 function resolveCategoryKey(product: ProductDTO): string {
     const category = normalize(product.categoryTitle || "");
 
@@ -41,6 +43,7 @@ function resolveCategoryKey(product: ProductDTO): string {
     return "OTHER";
 }
 
+// Returns unique products from the latest order, preserving order appearance.
 function distinctFromLatestOrder(order: OrderDTO, catalogByTitle: Map<string, ProductDTO>): ProductDTO[] {
     const seen = new Set<number>();
     const result: ProductDTO[] = [];
@@ -58,6 +61,7 @@ function distinctFromLatestOrder(order: OrderDTO, catalogByTitle: Map<string, Pr
     return result;
 }
 
+// Counts how many times each product appears across the provided orders.
 function countPoints(orders: OrderDTO[], catalogByTitle: Map<string, ProductDTO>): Map<number, number> {
     const points = new Map<number, number>();
 
@@ -75,6 +79,7 @@ function countPoints(orders: OrderDTO[], catalogByTitle: Map<string, ProductDTO>
     return points;
 }
 
+// Defines category priority based on what appears in the latest order.
 function fillPriority(latestProducts: ProductDTO[]): string[] {
     const hasPizza = latestProducts.some((p) => resolveCategoryKey(p) === "PIZZA");
     const hasStarter = latestProducts.some((p) => resolveCategoryKey(p) === "STARTER");
@@ -93,6 +98,7 @@ function fillPriority(latestProducts: ProductDTO[]): string[] {
     return priority;
 }
 
+// Builds up to LIMIT recommendations using latest order first, then history.
 function buildRecommendations(orders: OrderDTO[], catalog: ProductDTO[]): ProductDTO[] {
     if (!orders.length || !catalog.length) {
         return [];
@@ -176,6 +182,7 @@ function buildRecommendations(orders: OrderDTO[], catalog: ProductDTO[]): Produc
     return recommendations.slice(0, LIMIT);
 }
 
+// Loads the current top-selling products from metrics and resolves full product data.
 async function loadTopProducts(): Promise<ProductDTO[]> {
     try {
         const metricsResponse = await fetch("/api/v1/metrics/");
@@ -207,8 +214,7 @@ async function loadTopProducts(): Promise<ProductDTO[]> {
 }
 
 /**
- * CLIENT LOADER: Obligatorio por rúbrica (Punto 21).
- * Carga los datos ANTES de que el usuario vea la página.
+ * Client loader: preloads categories and top products before rendering.
  */
 export async function clientLoader() {
     const [categories, topProducts] = await Promise.all([
@@ -227,6 +233,7 @@ export default function Home() {
     useEffect(() => {
         let cancelled = false;
 
+        // Loads personalized recommendations for logged-in non-admin users.
         async function loadPersonalized() {
             if (!user || isAdmin) {
                 if (!cancelled) {
@@ -260,6 +267,7 @@ export default function Home() {
 
     return (
         <>
+            {/* Hero section. */}
             <header className="hero-section d-flex align-items-center justify-content-center text-center">
                 <div className="container text-white">
                     <h1 className="display-3 mb-2">La auténtica pizza italiana</h1>
@@ -268,6 +276,7 @@ export default function Home() {
                 </div>
             </header>
 
+            {/* Top sold products section. */}
             <section className="section-padding container">
                 <h2 className="section-title text-center">!! Los 5 Más Vendidos !!</h2>
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-4 justify-content-center">
@@ -298,6 +307,7 @@ export default function Home() {
                         <hr className="text-muted opacity-25 my-3" style={{ borderWidth: "2px" }} />
                     </div>
 
+                    {/* Personalized recommendations section. */}
                     <section className="section-padding container pt-5">
                         <div className="text-center mb-5">
                             <h2 className="section-title" style={{ marginBottom: 0 }}>Recomendadas según tus gustos</h2>
@@ -327,6 +337,7 @@ export default function Home() {
                 </>
             )}
 
+            {/* Category cards section. */}
             <section className="section-padding bg-light">
                 <div className="container">
                     <h2 className="section-title text-center">Nuestras Categorías</h2>
@@ -346,6 +357,7 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Final call-to-action to open the full menu. */}
             <section className="full-menu-cta text-center text-white">
                 <div className="container">
                     <h2 className="mb-3">¿No sabes qué elegir?</h2>

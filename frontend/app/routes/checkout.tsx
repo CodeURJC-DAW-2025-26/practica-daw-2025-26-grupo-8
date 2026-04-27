@@ -15,7 +15,7 @@ export default function Checkout() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Si el carrito está vacío, redirige al carrito
+    // If the cart is empty, show a quick link back to the menu.
     if (items.length === 0) {
         return (
             <div className="container section-padding">
@@ -26,7 +26,7 @@ export default function Checkout() {
         );
     }
 
-    // Si no está autenticado, redirige a login (esto se podría manejar con un componente de protección de ruta)
+    // If the user is not authenticated, block checkout.
     if (!isLogged) {
         return (
             <div className="container section-padding">
@@ -36,7 +36,8 @@ export default function Checkout() {
             </div>
         );
     }
-    
+
+    // If checkout data is missing, send the user back to cart flow.
     if (!addressData) {
         return (
             <div className="container section-padding">
@@ -53,14 +54,14 @@ export default function Checkout() {
         setError(null);
 
         try {
-            // Validación básica
+            // Basic address validation.
             if (!addressData.address || !addressData.city || !addressData.postalCode || !addressData.phoneNumber) {
                 setError("Por favor, completa todos los campos");
                 setLoading(false);
                 return;
             }
 
-            // Crear la orden
+            // Build the order payload from cart items and shipping data.
             const orderRequest: OrderRequestDTO = {
                 productIds: items.map(item => item.productId),
                 address: addressData.address,
@@ -71,10 +72,10 @@ export default function Checkout() {
 
             const order = await orderService.createOrder(orderRequest);
 
-            // Limpiar el carrito después de crear la orden
+            // Clear the cart after a successful order.
             clearCart();
 
-            // Redirigir a la página de éxito o perfil
+            // Redirect to profile with the created order id.
             navigate(`/profile?orderId=${order.id}&success=true`);
         } catch (err: any) {
             setError(err.message || "Error al crear la orden. Por favor, intenta de nuevo.");
@@ -87,8 +88,9 @@ export default function Checkout() {
         <div className="container section-padding">
             <h2 className="title-font fw-bold mb-5">Finalizar Compra</h2>
 
+            {/* Checkout layout: delivery info on the left, order summary on the right. */}
             <div className="row g-5">
-                {/* Formulario de dirección */}
+                {/* Delivery information and checkout actions. */}
                 <div className="col-lg-8">
                     <div className="card shadow-sm border-0 rounded-4">
                         <div className="card-body p-4">
@@ -112,41 +114,41 @@ export default function Checkout() {
                                 <p><strong>Teléfono:</strong> {addressData.phoneNumber}</p>
                             </div>
 
-                                <div className="d-grid gap-2">
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary btn-custom rounded-pill py-3"
-                                        disabled={loading}
-                                        onClick={handleSubmit}
-                                    >
-                                        {loading ? (
-                                            <>
-                                                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                                Procesando...
-                                            </>
-                                        ) : (
-                                            <>
-                                                <i className="bi bi-check-circle me-2"></i>
-                                                Confirmar Pedido
-                                            </>
-                                        )}
-                                    </button>
+                            <div className="d-grid gap-2">
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary btn-custom rounded-pill py-3"
+                                    disabled={loading}
+                                    onClick={handleSubmit}
+                                >
+                                    {loading ? (
+                                        <>
+                                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                            Procesando...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <i className="bi bi-check-circle me-2"></i>
+                                            Confirmar Pedido
+                                        </>
+                                    )}
+                                </button>
 
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-secondary rounded-pill py-3"
-                                        onClick={() => navigate("/cart")}
-                                        disabled={loading}
-                                    >
-                                        <i className="bi bi-arrow-left me-2"></i>
-                                        Volver al Carrito
-                                    </button>
-                                </div>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-secondary rounded-pill py-3"
+                                    onClick={() => navigate("/cart")}
+                                    disabled={loading}
+                                >
+                                    <i className="bi bi-arrow-left me-2"></i>
+                                    Volver al Carrito
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Resumen del pedido */}
+                {/* Order summary card. */}
                 <div className="col-lg-4">
                     <div className="card shadow-sm border-0 rounded-4 sticky-top">
                         <div className="card-body p-4">

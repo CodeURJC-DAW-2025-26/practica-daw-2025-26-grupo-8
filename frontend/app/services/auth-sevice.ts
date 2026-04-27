@@ -4,7 +4,7 @@ import type { OrderDTO } from "../dtos/OrderDTO";
 const BASE_URL = '/api/v1';
 
 export const authService = {
-    // Hacer login
+    // Signs in with username and password.
     async login(username: string, password: string) {
         const response = await fetch(`${BASE_URL}/auth/login`, {
             method: 'POST',
@@ -16,7 +16,7 @@ export const authService = {
         return response.json();
     },
 
-    // Obtener mi perfil (usando el token/cookie que ya tiene el navegador)
+    // Gets the current authenticated user profile.
     async getMe(): Promise<UserDTO> {
         const response = await fetch(`${BASE_URL}/users/me`, {
             credentials: 'include',
@@ -25,7 +25,7 @@ export const authService = {
         return response.json();
     },
 
-    // Obtener mis pedidos
+    // Gets the current user's orders.
     async getMyOrders(): Promise<OrderDTO[]> {
         const response = await fetch(`${BASE_URL}/users/me/orders`, {
             credentials: 'include',
@@ -34,7 +34,7 @@ export const authService = {
         return response.json();
     },
 
-    // Cerrar sesión
+    // Signs out the current user.
     async logout() {
         const response = await fetch(`${BASE_URL}/auth/logout`, {
             method: 'POST',
@@ -43,7 +43,7 @@ export const authService = {
         if (!response.ok) throw new Error("Error al cerrar sesión");
     },
 
-    // Registrar un usuario
+    // Registers a new user account.
     async register(userDto: UserRegisterDTO) {
         const response = await fetch(`${BASE_URL}/users/register`, {
             method: 'POST',

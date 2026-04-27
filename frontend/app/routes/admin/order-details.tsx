@@ -10,16 +10,16 @@ export async function clientLoader({ params }: any) {
     try {
         const [order, productData, users] = await Promise.all([
             orderService.getOrderById(Number(params.id)),
-            productService.getProducts(0, 1000), // Obtenemos un catálogo grande para buscar los productos
+            productService.getProducts(0, 1000),
             adminUserService.getAllUsers()
         ]);
 
-        // Mapear los nombres de productos a objetos completos
+        // Map the product names to full product objects.
         const allProducts = productData.content;
         const mappedProducts: ProductDTO[] = [];
         let totalPrice = 0;
 
-        // Iterar sobre los títulos que devuelve el backend
+        // Loop through the titles returned by the backend.
         if (order.productTitles && order.productTitles.length > 0) {
             order.productTitles.forEach(title => {
                 const p = allProducts.find(product => product.title === title);
@@ -29,9 +29,8 @@ export async function clientLoader({ params }: any) {
                 }
             });
         }
-
-        // Obtener datos del cliente
-        const clientName = order.userEmail 
+        // Get the customer name.
+        const clientName = order.userEmail
             ? users.find(u => u.email === order.userEmail)?.name || "Invitado"
             : "Invitado";
 
@@ -53,9 +52,9 @@ export default function AdminOrderDetails() {
             setIsDeleting(true);
             await orderService.deleteOrder(order.id);
             navigate("/admin/orders", {
-                state: { 
-                    message: `El pedido #ORD-${order.id} ha sido eliminado del sistema de forma permanente.`, 
-                    type: "warning" 
+                state: {
+                    message: `El pedido #ORD-${order.id} ha sido eliminado del sistema de forma permanente.`,
+                    type: "warning"
                 }
             });
         } catch (error) {
@@ -68,6 +67,7 @@ export default function AdminOrderDetails() {
 
     return (
         <>
+            {/* Page header with back navigation and delete action. */}
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
                 <h1 className="h2 title-font text-dark">Detalle del Pedido #ORD-{order.id}</h1>
 
@@ -76,9 +76,9 @@ export default function AdminOrderDetails() {
                         <i className="bi bi-arrow-left"></i> Volver a Pedidos
                     </Link>
 
-                    <button 
-                        type="button" 
-                        className="btn btn-sm btn-outline-danger" 
+                    <button
+                        type="button"
+                        className="btn btn-sm btn-outline-danger"
                         onClick={() => setShowDeleteModal(true)}
                         title="Borrar"
                     >
@@ -87,7 +87,9 @@ export default function AdminOrderDetails() {
                 </div>
             </div>
 
+            {/* Main order information cards. */}
             <div className="row g-4 mb-5">
+                {/* Client details. */}
                 <div className="col-md-4">
                     <div className="card shadow-sm border-0 h-100">
                         <div className="card-header bg-dark text-white">
@@ -101,6 +103,7 @@ export default function AdminOrderDetails() {
                     </div>
                 </div>
 
+                {/* Shipping address. */}
                 <div className="col-md-8">
                     <div className="card shadow-sm border-0 h-100">
                         <div className="card-header bg-dark text-white">
@@ -114,6 +117,7 @@ export default function AdminOrderDetails() {
                     </div>
                 </div>
 
+                {/* Product list and total price. */}
                 <div className="col-12">
                     <div className="card shadow-sm border-0">
                         <div className="card-header bg-white py-3">
@@ -158,7 +162,7 @@ export default function AdminOrderDetails() {
                 </div>
             </div>
 
-            {/* CONFIRMATION MODAL */}
+            {/* Delete confirmation modal. */}
             {showDeleteModal && (
                 <>
                     <div className="modal-backdrop fade show"></div>

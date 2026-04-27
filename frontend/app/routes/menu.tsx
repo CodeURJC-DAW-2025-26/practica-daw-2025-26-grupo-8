@@ -19,14 +19,14 @@ export default function Menu() {
     const { isLogged } = useUserStore();
     const { openAuthModal } = useAuthModal();
 
-    // ESTADOS PARA PAGINACIÓN (Necesarios para el botón "Cargar más")
+    // Pagination state (used by the "Load more" button).
     const [products, setProducts] = useState<ProductDTO[]>(initialData.content);
     const [page, setPage] = useState(0);
     const [isLast, setIsLast] = useState(initialData.last);
     const [isLoading, setIsLoading] = useState(false);
     const [addedProductId, setAddedProductId] = useState<number | null>(null);
 
-    // ESTADO PARA FILTROS (Alérgenos)
+    // Active allergen filters.
     const [excludedAllergens, setExcludedAllergens] = useState<string[]>([]);
 
     const normalize = (val: string) =>
@@ -52,7 +52,7 @@ export default function Menu() {
         );
     };
 
-    // Lógica de filtrado sobre los productos cargados actualmente
+    // Filters only the products currently loaded in memory.
     const filteredProducts = useMemo(() => {
         if (excludedAllergens.length === 0) return products;
         return products.filter(p => {
@@ -61,14 +61,14 @@ export default function Menu() {
         });
     }, [products, excludedAllergens]);
 
-    // FUNCIÓN CARGAR MÁS: Pide los siguientes 4 productos
+    // Requests the next page of products.
     const loadMoreProducts = async () => {
         setIsLoading(true);
         try {
             const nextPage = page + 1;
             const newData = await productService.getProducts(nextPage, 4);
 
-            // Concatenamos los nuevos productos a los anteriores
+            // Appends newly fetched products to the current list.
             setProducts(prev => [...prev, ...newData.content]);
             setPage(nextPage);
             setIsLast(newData.last);
@@ -97,6 +97,7 @@ export default function Menu() {
 
     return (
         <>
+            {/* Page header. */}
             <header className="bg-dark text-white py-5 text-center">
                 <div className="container">
                     <h1 className="display-4">Nuestra Carta</h1>
@@ -105,7 +106,7 @@ export default function Menu() {
             </header>
 
             <section className="container mt-5 mb-5">
-                {/* FILTROS */}
+                {/* Allergen filters. */}
                 <div className="d-flex justify-content-center flex-wrap gap-2 mb-4" id="allergenFilters">
                     <button
                         type="button"
@@ -128,7 +129,7 @@ export default function Menu() {
                     ))}
                 </div>
 
-                {/* GRID DE PRODUCTOS */}
+                {/* Product grid. */}
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                     {filteredProducts.map((p) => (
                         <div className="col" key={p.id}>
@@ -160,7 +161,7 @@ export default function Menu() {
                     ))}
                 </div>
 
-                {/* CONTENEDOR DEL BOTÓN (Estética calcada del backend original) */}
+                {/* Load more button container. */}
                 {!isLast && (
                     <div className="text-center mt-5">
                         <button

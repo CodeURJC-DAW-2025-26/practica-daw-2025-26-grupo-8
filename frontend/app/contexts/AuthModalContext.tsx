@@ -12,6 +12,7 @@ interface AuthModalContextType {
 
 const AuthModalContext = createContext<AuthModalContextType | undefined>(undefined);
 
+// Provides auth modal state and actions to child components
 export function AuthModalProvider({ children }: { children: React.ReactNode }) {
     const [showAuthModal, setShowAuthModal] = useState(false);
     const [authView, setAuthView] = useState<AuthView>("login");
@@ -36,6 +37,7 @@ export function AuthModalProvider({ children }: { children: React.ReactNode }) {
     );
 }
 
+// Safe hook to consume auth modal context
 export function useAuthModal() {
     const context = useContext(AuthModalContext);
     if (!context) {

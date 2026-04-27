@@ -9,6 +9,7 @@ import type { OrderRequestDTO } from "../dtos/OrderDTO";
 export default function Cart() {
     const navigate = useNavigate();
     const { items, updateQuantity, getTotalPrice, clearCart } = useCartStore();
+    // This page shows the cart, collects the shipping data, and submits the order.
     const isCartEmpty = items.length === 0;
     const displayedItems = items.flatMap((item) =>
         Array.from({ length: item.quantity }, (_, index) => ({
@@ -67,15 +68,19 @@ export default function Cart() {
 
     return (
         <div className="container section-padding">
+            {/* Page title. */}
             <h1 className="title-font text-center mb-5 display-5">Finalizar Pedido</h1>
 
+            {/* Error message shown when checkout fails. */}
             {error && (
                 <div className="alert alert-danger mb-4" role="alert">
                     {error}
                 </div>
             )}
 
+            {/* Main checkout layout with items on the left and the form on the right. */}
             <div className="row g-5">
+                {/* Cart items list. */}
                 <div className="col-lg-8">
                     <div className="card shadow-sm border-0 rounded-4 mb-4">
                         <div className="card-body p-4">
@@ -115,8 +120,10 @@ export default function Cart() {
                     </div>
                 </div>
 
+                {/* Shipping form and order summary. */}
                 <div className="col-lg-4">
                     <form onSubmit={handleCheckout}>
+                        {/* Shipping address section. */}
                         <div className="card shadow-sm border-0 rounded-4 mb-4">
                             <div className="card-body p-4">
                                 <h4 className="mb-3 fw-bold title-font text-primary-custom">Dirección de Envío</h4>
@@ -144,6 +151,7 @@ export default function Cart() {
                             </div>
                         </div>
 
+                        {/* Order summary and submit button. */}
                         <div className="card shadow border-0 rounded-4 bg-white">
                             <div className="card-body p-4">
                                 <h4 className="mb-4 fw-bold">Resumen</h4>

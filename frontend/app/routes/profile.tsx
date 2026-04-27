@@ -9,8 +9,8 @@ import { productService } from "../services/product-service";
 import type { OrderDTO } from "../dtos/OrderDTO";
 
 /**
- * CLIENT LOADER: Solo protege la página, devuelve el usuario inmediatamente.
- * Los pedidos se cargan en segundo plano con useEffect para evitar delay.
+ * Client loader: only protects the page and returns the current user.
+ * Orders are loaded in the background with useEffect to avoid initial delay.
  */
 export async function clientLoader() {
     const user = useUserStore.getState().user;
@@ -24,7 +24,7 @@ export default function Profile() {
     const { user } = useLoaderData<typeof clientLoader>();
     const setCurrentUser = useUserStore((state) => state.setCurrentUser);
 
-    // Estado para las órdenes (cargadas en background)
+    // Order state loaded in the background.
     const [orders, setOrders] = useState<OrderDTO[]>([]);
     const [pricesByTitle, setPricesByTitle] = useState<Map<string, number>>(new Map());
     const [loadingOrders, setLoadingOrders] = useState(true);
@@ -37,7 +37,7 @@ export default function Profile() {
     });
     const [status, setStatus] = useState<{ type: 'success' | 'danger', msg: string } | null>(null);
 
-    // Cargar pedidos en background (no bloquea la renderización)
+    // Loads orders and a product price map without blocking initial render.
     useEffect(() => {
         const loadOrders = async () => {
             try {
@@ -63,7 +63,7 @@ export default function Profile() {
         };
 
         loadOrders();
-    }, []); // Solo ejecuta una vez al montar el componente
+    }, []); // Runs only once when the component mounts.
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -88,6 +88,7 @@ export default function Profile() {
 
     return (
         <Container className="section-padding mt-4 mb-5">
+            {/* Page title and optional status message. */}
             <h2 className="section-title text-center mb-5">Mi Perfil</h2>
 
             {status && (
@@ -102,6 +103,7 @@ export default function Profile() {
             )}
 
             <Row className="g-5">
+                {/* Profile edit form. */}
                 <Col md={6}>
                     <Card className="shadow-sm h-100">
                         <Card.Header className="bg-primary text-white">
@@ -165,6 +167,7 @@ export default function Profile() {
                     </Card>
                 </Col>
 
+                {/* Orders panel (loading, empty state, or list). */}
                 <Col md={6}>
                     <Card className="shadow-sm h-100">
                         <Card.Header className="bg-dark text-white">

@@ -1,4 +1,3 @@
-// frontend/app/dtos/CategoryDTO.ts
 export interface CategoryDTO {
     id: number;
     title: string;

@@ -4,8 +4,10 @@ import { useUserStore } from "../../stores/user-store";
 export default function AdminLayout() {
     const { user, isAdmin } = useUserStore();
 
+    // Block access if the user is not logged in or not an admin.
     if (!user || !isAdmin) {
         return (
+            // Simple access denied page.
             <div className="container mt-5 text-center">
                 <h2>Acceso Denegado</h2>
                 <p>No tienes permisos para ver esta página.</p>
@@ -15,8 +17,10 @@ export default function AdminLayout() {
     }
 
     return (
+        // Admin layout with a left sidebar and a main content area.
         <div className="container-fluid">
             <div className="row min-vh-100">
+                {/* Sidebar navigation for admin sections. */}
                 <nav className="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse p-0">
                     <div className="position-sticky pt-3 text-white">
                         <NavLink to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none px-3">
@@ -48,6 +52,7 @@ export default function AdminLayout() {
                     </div>
                 </nav>
 
+                {/* Main area where the selected admin page is rendered. */}
                 <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light py-4" style={{ minHeight: "100vh" }}>
                     <Outlet />
                 </main>

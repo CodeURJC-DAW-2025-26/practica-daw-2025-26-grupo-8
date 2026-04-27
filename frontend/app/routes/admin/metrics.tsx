@@ -21,6 +21,7 @@ ChartJS.register(
     Legend
 );
 
+// Loads the dashboard metrics before the page renders.
 export async function clientLoader() {
     try {
         const metrics = await metricsService.getDashboardMetrics();
@@ -43,9 +44,10 @@ export default function AdminMetrics() {
     const loaderData = useLoaderData<typeof clientLoader>();
     const [metrics, setMetrics] = useState<DashboardMetrics | null>(loaderData.metrics);
 
+    // Refreshes the top products every few seconds so the chart stays current.
     useEffect(() => {
         let interval: ReturnType<typeof setInterval>;
-        
+
         async function fetchTopProducts() {
             try {
                 const topProducts = await metricsService.getTopSoldProducts();
@@ -63,6 +65,7 @@ export default function AdminMetrics() {
         return <div className="alert alert-danger">Error cargando las métricas del dashboard.</div>;
     }
 
+    // Prepares the chart data from the metrics response.
     const chartData = {
         labels: metrics.topSoldProducts.map(p => p.name),
         datasets: [{
@@ -75,6 +78,7 @@ export default function AdminMetrics() {
         }]
     };
 
+    // Configures the chart appearance and tooltip behavior.
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -108,10 +112,12 @@ export default function AdminMetrics() {
 
     return (
         <>
+            {/* Page title. */}
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2 title-font text-dark">Métricas de Ventas</h1>
             </div>
 
+            {/* Summary cards with the main dashboard numbers. */}
             <div className="row g-4 mb-4">
                 <div className="col-md-4">
                     <div className="card text-white bg-primary h-100 shadow-sm">
@@ -139,6 +145,7 @@ export default function AdminMetrics() {
                 </div>
             </div>
 
+            {/* Sales chart section. */}
             <div className="card shadow-sm">
                 <div className="card-header bg-white">
                     <h5 className="mb-0"><i className="bi bi-bar-chart-fill text-danger"></i> Productos Más Vendidos</h5>

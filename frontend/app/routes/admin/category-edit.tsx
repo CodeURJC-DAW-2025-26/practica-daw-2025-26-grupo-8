@@ -5,7 +5,8 @@ import type { CategoryDTO } from "../../dtos/CategoryDTO";
 
 export default function AdminCategoryEdit() {
     const { id } = useParams<{ id: string }>();
-    
+
+    // Stores the category being edited and the form feedback.
     const [category, setCategory] = useState<CategoryDTO | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -15,9 +16,10 @@ export default function AdminCategoryEdit() {
     const [description, setDescription] = useState("");
     const [imageFile, setImageFile] = useState<File | null>(null);
 
+    // Loads the category data once the route id is available.
     useEffect(() => {
         if (!id) return;
-        
+
         categoryService.getCategoryById(parseInt(id))
             .then(cat => {
                 setCategory(cat);
@@ -31,32 +33,33 @@ export default function AdminCategoryEdit() {
             });
     }, [id]);
 
+    // Saves the edited category and refreshes the current image state.
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!id) return;
-        
+
         setError("");
         setSuccess("");
-        
+
         try {
             await categoryService.updateCategory(
                 parseInt(id),
                 { title, description },
                 imageFile
             );
-            
-            // Reload the category to get updated image state
+
+            // Reload the category so the view reflects any new image.
             const updated = await categoryService.getCategoryById(parseInt(id));
             setCategory(updated);
             setImageFile(null);
-            
-            // Reset file input
+
+            // Clear the file input so the same image can be chosen again if needed.
             const fileInput = document.getElementById('categoryImageInput') as HTMLInputElement;
             if (fileInput) fileInput.value = '';
-            
+
             setSuccess("Cambios guardados con éxito.");
-            
-            // Optional: navigate back to categories after a delay
+
+            // Optional: go back to the list after saving.
             // setTimeout(() => navigate("/admin/categories"), 2000);
         } catch (err: any) {
             setError("Error al actualizar categoría: " + err.message);
@@ -68,6 +71,7 @@ export default function AdminCategoryEdit() {
 
     return (
         <>
+            {/* Feedback messages shown after load or save actions. */}
             {success && (
                 <div className="alert alert-success alert-dismissible fade show mt-3 shadow-sm" role="alert">
                     <i className="bi bi-check-circle-fill me-2"></i> {success}
@@ -82,6 +86,7 @@ export default function AdminCategoryEdit() {
                 </div>
             )}
 
+            {/* Page title and back button. */}
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
                 <h1 className="h2 title-font text-dark">Edit Category</h1>
                 <Link to="/admin/categories" className="btn btn-outline-secondary">
@@ -89,17 +94,20 @@ export default function AdminCategoryEdit() {
                 </Link>
             </div>
 
+            {/* Main edit form. */}
             <div className="card shadow-sm border-0 mx-auto mb-5" style={{ maxWidth: "800px" }}>
                 <div className="card-header bg-dark text-white">
                     <h5 className="mb-0 fw-bold"><i className="bi bi-pencil-square me-2"></i> Editing: {category?.title}</h5>
                 </div>
                 <div className="card-body p-4">
                     <form onSubmit={handleSubmit} className="row g-3">
+                        {/* Category name field. */}
                         <div className="col-12">
                             <label className="form-label small text-muted">Category Name</label>
                             <input type="text" className="form-control" value={title} onChange={e => setTitle(e.target.value)} required />
                         </div>
 
+                        {/* Optional image upload and current image preview. */}
                         <div className="col-12">
                             <label className="form-label small text-muted">New Background Image (Optional)</label>
                             {category?.hasImage && (
@@ -113,11 +121,13 @@ export default function AdminCategoryEdit() {
                                 onChange={e => setImageFile(e.target.files ? e.target.files[0] : null)} />
                         </div>
 
+                        {/* Category description field. */}
                         <div className="col-12">
                             <label className="form-label small text-muted">Description</label>
                             <textarea className="form-control" rows={3} value={description} onChange={e => setDescription(e.target.value)} required></textarea>
                         </div>
 
+                        {/* Save button for the form. */}
                         <div className="col-12 text-end mt-4">
                             <button type="submit" className="btn btn-primary btn-custom px-5">Save Category Changes</button>
                         </div>
