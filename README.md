@@ -565,7 +565,6 @@ Implementación de la API REST, seguridad con JWT y configuración de Docker.
 |3| [Add Category and Product REST controllers with CRUD operations](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/e0be3af) | [CategoryRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e0be3af/backend/src/main/java/com/aparizzio/pizzeria/controller/CategoryRestController.java) |
 |4| [Set up docker compose to work with dockerhub image](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/3d94d5f) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/3d94d5f/docker-compose.yml) |
 |5| [Docker build and publish scripts and env addition to docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d720e07) | [create_image.sh](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d720e07/create_image.sh) |
-
 ---
 
 #### **Alumno 4 - David Esteban Bernardo**
@@ -682,15 +681,15 @@ Alejandro Rico González ha asumido la mayor parte del desarrollo del frontend d
 
 #### **Alumno 3 - Gaizka Aranbarri Berasaluze**
 
-Implementación de la API REST, seguridad con JWT y configuración de Docker.
+Encargado principalmente del panel de administración (métricas, usuarios, pedidos, categorías), edición y detalle de productos/pedidos, rutas, servicios y stores.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Implement JWT authentication with login, refresh, and logout endpoints](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/69107d9) | [AuthRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/69107d9/backend/src/main/java/com/aparizzio/pizzeria/controller/AuthRestController.java) |
-|2| [Update REST controller endpoints to include versioning in the URL](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/6efbb59) | [ProductRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/6efbb59/backend/src/main/java/com/aparizzio/pizzeria/controller/ProductRestController.java) |
-|3| [Add Category and Product REST controllers with CRUD operations](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/e0be3af) | [CategoryRestController.java](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e0be3af/backend/src/main/java/com/aparizzio/pizzeria/controller/CategoryRestController.java) |
-|4| [Set up docker compose to work with dockerhub image](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/3d94d5f) | [docker-compose.yml](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/3d94d5f/docker-compose.yml) |
-|5| [Docker build and publish scripts and env addition to docker compose](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/d720e07) | [create_image.sh](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/d720e07/create_image.sh) |
+|1| [Add admin panel with metrics, users, orders, and categories management](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/e89e889) | [frontend/app/routes/admin/metrics.tsx](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e89e889/frontend/app/routes/admin/metrics.tsx), [frontend/app/components/Header.tsx](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/e89e889/frontend/app/components/Header.tsx) |
+|2| [feat: add category and product edit functionality](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/9108670) | [frontend/app/routes/admin/product-edit.tsx](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/9108670/frontend/app/routes/admin/product-edit.tsx), [frontend/app/services/product-service.ts](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/9108670/frontend/app/services/product-service.ts) |
+|3| [feat: add order details page and update routing for orders](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/26e06d9) | [frontend/app/routes/admin/order-details.tsx](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/26e06d9/frontend/app/routes/admin/order-details.tsx), [frontend/app/services/order-service.ts](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/26e06d9/frontend/app/services/order-service.ts) |
+|4| [Add product detail route and component with loader functionality](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/ab24214) | [frontend/app/routes/product.tsx](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/ab24214/frontend/app/routes/product.tsx) |
+|5| [Add initial service and store implementations for authentication and product management](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/commit/92ebd70) | [frontend/app/routes/menu.tsx](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/92ebd70/frontend/app/routes/menu.tsx), [frontend/app/services/product-service.ts](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/92ebd70/frontend/app/services/product-service.ts), [frontend/app/stores/user-store.tsx](https://github.com/CodeURJC-DAW-2025-26/practica-daw-2025-26-grupo-8/blob/92ebd70/frontend/app/stores/user-store.tsx) |
 
 ---
 
