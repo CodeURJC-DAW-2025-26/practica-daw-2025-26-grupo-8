@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import { useLoaderData, } from "react-router";
 import { productService } from "../services/product-service";
 import { useCartStore } from "../stores/cart-store";
 import { useUserStore } from "../stores/user-store";
@@ -21,7 +21,6 @@ export async function clientLoader({ params }: any) {
 
 export default function Product() {
     const { product, error } = useLoaderData<typeof clientLoader>();
-    const navigate = useNavigate();
     const addToCart = useCartStore((state) => state.addToCart);
     const { isLogged } = useUserStore();
     const { openAuthModal } = useAuthModal();
